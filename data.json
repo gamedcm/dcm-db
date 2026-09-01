@@ -1,11 +1,11 @@
-[
+	Logging output too large. Truncating output. [
   {
-    "id": null,
-    "series": "series",
-    "name": "name",
+    "id": "A列 (ID)",
+    "series": "B列 (series)",
+    "name": "C列 (name)",
     "drops": [
       {
-        "name": "drops"
+        "name": "D列 (drops)"
       }
     ]
   },
@@ -15,13 +15,7 @@
     "name": "機動戦士ガンダム HARD STAGE 1",
     "drops": [
       {
-        "name": "ビグ・ザム"
-      },
-      {
-        "name": "ギャン・エーオース"
-      },
-      {
-        "name": "物理格闘"
+        "name": "ビグ・ザム, ギャン・エーオース,物理格闘"
       }
     ]
   },
@@ -31,10 +25,7 @@
     "name": "機動戦士ガンダム HARD STAGE 2",
     "drops": [
       {
-        "name": "G-3ガンダム"
-      },
-      {
-        "name": "物理射撃"
+        "name": "G-3ガンダム, 物理射撃"
       }
     ]
   },
@@ -44,10 +35,7 @@
     "name": "機動戦士ガンダム HARD STAGE 3",
     "drops": [
       {
-        "name": "ジオング"
-      },
-      {
-        "name": "ビーム射撃"
+        "name": "ジオング,ビーム射撃"
       }
     ]
   },
@@ -57,13 +45,7 @@
     "name": "機動戦士Zガンダム A New Translation HARD STAGE 1",
     "drops": [
       {
-        "name": "Zガンダム"
-      },
-      {
-        "name": "百式"
-      },
-      {
-        "name": "物理射撃"
+        "name": "Zガンダム,百式,物理射撃"
       }
     ]
   },
@@ -73,10 +55,7 @@
     "name": "機動戦士Zガンダム A New Translation HARD STAGE 2",
     "drops": [
       {
-        "name": "サイコ・ガンダム"
-      },
-      {
-        "name": "ビーム射撃"
+        "name": "サイコ・ガンダム,ビーム射撃"
       }
     ]
   },
@@ -86,13 +65,7 @@
     "name": "機動戦士Zガンダム A New Translation HARD STAGE 3",
     "drops": [
       {
-        "name": "ジ・O"
-      },
-      {
-        "name": "キュベレイ"
-      },
-      {
-        "name": "覚醒"
+        "name": "ジ・O,キュベレイ,覚醒"
       }
     ]
   },
@@ -102,10 +75,7 @@
     "name": "機動戦士ガンダムZZ HARD STAGE 1",
     "drops": [
       {
-        "name": "フルアーマーZZガンダム"
-      },
-      {
-        "name": "ビーム格闘"
+        "name": "フルアーマーZZガンダム,ビーム格闘"
       }
     ]
   },
@@ -115,16 +85,7 @@
     "name": "機動戦士ガンダムZZ HARD STAGE 2",
     "drops": [
       {
-        "name": "ザクIII"
-      },
-      {
-        "name": "ゲーマルク"
-      },
-      {
-        "name": "キュベレイ(ZZ版)"
-      },
-      {
-        "name": "覚醒"
+        "name": "ザクIII,ゲーマルク,キュベレイ(ZZ版),覚醒"
       }
     ]
   },
@@ -134,10 +95,7 @@
     "name": "機動戦士ガンダムZZ HARD STAGE 3",
     "drops": [
       {
-        "name": "クィン・マンサ"
-      },
-      {
-        "name": "ビーム射撃"
+        "name": "クィン・マンサ,ビーム射撃"
       }
     ]
   },
@@ -147,10 +105,7 @@
     "name": "機動戦士ガンダム 逆襲のシャア HARD STAGE 1",
     "drops": [
       {
-        "name": "νガンダム"
-      },
-      {
-        "name": "覚醒"
+        "name": "νガンダム,覚醒"
       }
     ]
   },
@@ -160,13 +115,7 @@
     "name": "機動戦士ガンダム 逆襲のシャア HARD STAGE 2",
     "drops": [
       {
-        "name": "サザビー"
-      },
-      {
-        "name": "α・アジール"
-      },
-      {
-        "name": "特殊格闘"
+        "name": "サザビー,α・アジール,特殊格闘"
       }
     ]
   },
@@ -176,13 +125,7 @@
     "name": "機動戦士ガンダム 逆襲のシャア HARD STAGE 3",
     "drops": [
       {
-        "name": "Hi-νガンダム"
-      },
-      {
-        "name": "ナイチンゲール"
-      },
-      {
-        "name": "特殊射撃"
+        "name": "Hi-νガンダム,ナイチンゲール,特殊射撃"
       }
     ]
   },
@@ -192,13 +135,7 @@
     "name": "機動戦士ガンダムUC HARD STAGE 1",
     "drops": [
       {
-        "name": "ユニコーンガンダム(デストロイモード)"
-      },
-      {
-        "name": "シナンジュ"
-      },
-      {
-        "name": "特殊格闘"
+        "name": "ユニコーンガンダム(デストロイモード),シナンジュ,特殊格闘"
       }
     ]
   },
@@ -208,13 +145,7 @@
     "name": "機動戦士ガンダムUC HARD STAGE 2",
     "drops": [
       {
-        "name": "バンシィ(デストロイモード)"
-      },
-      {
-        "name": "シャンブロ"
-      },
-      {
-        "name": "特殊射撃"
+        "name": "バンシィ(デストロイモード),シャンブロ,特殊射撃"
       }
     ]
   },
@@ -224,13 +155,7 @@
     "name": "機動戦士ガンダムUC HARD STAGE 3",
     "drops": [
       {
-        "name": "バンシィ・ノルン"
-      },
-      {
-        "name": "クシャトリヤ・リペアード"
-      },
-      {
-        "name": "特殊格闘"
+        "name": "バンシィ・ノルン,クシャトリヤ・リペアード,特殊格闘"
       }
     ]
   },
@@ -240,238 +165,280 @@
     "name": "機動戦士ガンダムUC HARD STAGE 4",
     "drops": [
       {
-        "name": ""
+        "name": "ネオ・ジオング,フルアーマー・ユニコーンガンダム(デストロイモード),特殊射撃"
       }
     ]
   },
   {
     "id": 17,
     "series": "機動戦士ガンダムNT",
-    "name": "",
+    "name": "機動戦士ガンダムNT HARD STAGE 1",
     "drops": [
       {
-        "name": ""
+        "name": "ナラティブガンダムA装備,ナラティブガンダムB装備,IIネオ・ジオング,特殊格闘"
       }
     ]
   },
   {
     "id": 18,
     "series": "機動戦士ガンダムNT",
-    "name": "",
+    "name": "機動戦士ガンダムN THARD STAGE 2",
     "drops": [
       {
-        "name": ""
+        "name": "ユニコーンガンダム3号機 フェネクス(ユニコーンモード),ユニコーンガンダム3号機 フェネクス(デストロイモード),シナンジュ・スタイン,特殊射撃"
       }
     ]
   },
   {
     "id": 19,
     "series": "機動戦士ガンダム 閃光のハサウェイ",
-    "name": "",
+    "name": "機動戦士ガンダム 閃光のハサウェイ HARD STAGE 1",
     "drops": [
       {
-        "name": ""
+        "name": "Ξガンダム,ペーネロペー,ビーム射撃"
       }
     ]
   },
   {
     "id": 20,
     "series": "機動戦士ガンダムF91",
-    "name": "",
+    "name": "機動戦士ガンダムF91 HARD STAGE 1",
     "drops": [
       {
-        "name": ""
+        "name": "ガンダムF90(A.D.S.混合装着時),グランザム,ビーム射撃"
       }
     ]
   },
   {
     "id": 21,
     "series": "機動戦士ガンダムF91",
-    "name": "",
-    "drops": [
-      {
-        "name": ""
-      }
-    ]
+    "name": "機動戦士ガンダムF91 HARD STAGE 2",
+    "drops": []
   },
   {
     "id": 22,
     "series": "機動戦士ガンダムF91",
-    "name": "",
-    "drops": [
-      {
-        "name": ""
-      }
-    ]
+    "name": "機動戦士ガンダムF91 HARD STAGE 3",
+    "drops": []
   },
   {
     "id": 23,
     "series": "機動武闘伝Gガンダム",
-    "name": "",
-    "drops": [
-      {
-        "name": ""
-      }
-    ]
+    "name": "機動武闘伝Gガンダム HARD STAGE 1",
+    "drops": []
   },
   {
     "id": 24,
     "series": "機動武闘伝Gガンダム",
-    "name": "",
-    "drops": [
-      {
-        "name": ""
-      }
-    ]
+    "name": "機動武闘伝Gガンダム HARD STAGE 2",
+    "drops": []
   },
   {
     "id": 25,
     "series": "機動武闘伝Gガンダム",
-    "name": "",
-    "drops": [
-      {
-        "name": ""
-      }
-    ]
+    "name": "機動武闘伝Gガンダム HARD STAGE 3",
+    "drops": []
   },
   {
     "id": 26,
     "series": "新機動戦記ガンダムW",
-    "name": "",
-    "drops": [
-      {
-        "name": ""
-      }
-    ]
+    "name": "新機動戦記ガンダムW HARD STAGE 1",
+    "drops": []
   },
   {
     "id": 27,
     "series": "新機動戦記ガンダムW",
-    "name": "",
-    "drops": [
-      {
-        "name": ""
-      }
-    ]
+    "name": "新機動戦記ガンダムW HARD STAGE 2",
+    "drops": []
   },
   {
     "id": 28,
     "series": "新機動戦記ガンダムW",
-    "name": "",
-    "drops": [
-      {
-        "name": ""
-      }
-    ]
+    "name": "新機動戦記ガンダムW HARD STAGE 3",
+    "drops": []
   },
   {
     "id": 29,
     "series": "新機動戦記ガンダムW Endless Waltz",
-    "name": "",
-    "drops": [
-      {
-        "name": ""
-      }
-    ]
+    "name": "新機動戦記ガンダムW Endless Waltz HARD STAGE 1",
+    "drops": []
   },
   {
     "id": 30,
     "series": "新機動戦記ガンダムW Endless Waltz",
-    "name": "",
-    "drops": [
-      {
-        "name": ""
-      }
-    ]
+    "name": "新機動戦記ガンダムW Endless Waltz HARD STAGE 2",
+    "drops": []
   },
   {
     "id": 31,
     "series": "新機動戦記ガンダムW Endless Waltz",
-    "name": "",
-    "drops": [
-      {
-        "name": ""
-      }
-    ]
+    "name": "新機動戦記ガンダムW Endless Waltz HARD STAGE 3",
+    "drops": []
   },
   {
     "id": 32,
     "series": "機動新世紀ガンダムX",
-    "name": "",
-    "drops": [
-      {
-        "name": ""
-      }
-    ]
+    "name": "機動新世紀ガンダムX HARD STAGE 1",
+    "drops": []
   },
   {
     "id": 33,
     "series": "機動新世紀ガンダムX",
-    "name": "",
-    "drops": [
-      {
-        "name": ""
-      }
-    ]
+    "name": "機動新世紀ガンダムX HARD STAGE 2",
+    "drops": []
   },
   {
     "id": 34,
     "series": "機動新世紀ガンダムX",
-    "name": "",
-    "drops": [
-      {
-        "name": ""
-      }
-    ]
+    "name": "機動新世紀ガンダムX HARD STAGE 3",
+    "drops": []
   },
   {
     "id": 35,
     "series": "機動新世紀ガンダムX",
-    "name": "",
-    "drops": [
-      {
-        "name": ""
-      }
-    ]
+    "name": "機動新世紀ガンダムX HARD STAGE 4",
+    "drops": []
   },
   {
     "id": 36,
     "series": "機動戦士ガンダムSEED",
-    "name": "",
-    "drops": [
-      {
-        "name": ""
-      }
-    ]
+    "name": "機動戦士ガンダムSEED HARD STAGE 1",
+    "drops": []
   },
   {
     "id": 37,
     "series": "機動戦士ガンダムSEED",
-    "name": "",
-    "drops": [
-      {
-        "name": ""
-      }
-    ]
+    "name": "機動戦士ガンダムSEED HARD STAGE 2",
+    "drops": []
   },
   {
     "id": 38,
     "series": "機動戦士ガンダムSEED",
-    "name": "",
-    "drops": [
-      {
-        "name": ""
-      }
-    ]
+    "name": "機動戦士ガンダムSEED HARD STAGE 3",
+    "drops": []
   },
   {
     "id": 39,
     "series": "機動戦士ガンダムSEED Recollection",
-    "name": "",
-    "drops": [
-      {
-        "name": ""
-      }
-    ]
-  }
-]
+    "name": "機動戦士ガンダムSEED Recollection HARD STAGE 1",
+    "drops": []
+  },
+  {
+    "id": 40,
+    "series": "機動戦士ガンダムSEED DESTINY",
+    "name": "機動戦士ガンダムSEED DESTINY HARD STAGE 1",
+    "drops": []
+  },
+  {
+    "id": 41,
+    "series": "機動戦士ガンダムSEED DESTINY",
+    "name": "機動戦士ガンダムSEED DESTINY HARD STAGE 2",
+    "drops": []
+  },
+  {
+    "id": 42,
+    "series": "機動戦士ガンダムSEED DESTINY",
+    "name": "機動戦士ガンダムSEED DESTINY HARD STAGE 3",
+    "drops": []
+  },
+  {
+    "id": 43,
+    "series": "機動戦士ガンダム00",
+    "name": "機動戦士ガンダム00 HARD STAGE 1",
+    "drops": []
+  },
+  {
+    "id": 44,
+    "series": "機動戦士ガンダム00",
+    "name": "機動戦士ガンダム00 HARD STAGE 2",
+    "drops": []
+  },
+  {
+    "id": 45,
+    "series": "機動戦士ガンダム00",
+    "name": "機動戦士ガンダム00 HARD STAGE 3",
+    "drops": []
+  },
+  {
+    "id": 46,
+    "series": "機動戦士ガンダム00",
+    "name": "機動戦士ガンダム00 HARD STAGE 4",
+    "drops": []
+  },
+  {
+    "id": 47,
+    "series": "機動戦士ガンダム00",
+    "name": "機動戦士ガンダム00 HARD STAGE 5",
+    "drops": []
+  },
+  {
+    "id": 48,
+    "series": "機動戦士ガンダムAGE",
+    "name": "機動戦士ガンダムAGE",
+    "drops": []
+  },
+  {
+    "id": 52,
+    "series": "機動戦士ガンダム 鉄血のオルフェンズ",
+    "name": "機動戦士ガンダム 鉄血のオルフェンズ",
+    "drops": []
+  },
+  {
+    "id": 57,
+    "series": "機動戦士ガンダム 水星の魔女",
+    "name": "機動戦士ガンダム 水星の魔女",
+    "drops": []
+  },
+  {
+    "id": 60,
+    "series": "機動戦士ガンダム0080 ポケットの中の戦争",
+    "name": "機動戦士ガンダム0080 ポケットの中の戦争 HARD STAGE 1",
+    "drops": []
+  },
+  {
+    "id": 61,
+    "series": "機動戦士ガンダム0080 ポケットの中の戦争",
+    "name": "機動戦士ガンダム0080 ポケットの中の戦争 HARD STAGE 2",
+    "drops": []
+  },
+  {
+    "id": 62,
+    "series": "機動戦士ガンダム0080 ポケットの中の戦争",
+    "name": "機動戦士ガンダム0080 ポケットの中の戦争 HARD STAGE 3",
+    "drops": []
+  },
+  {
+    "id": 63,
+    "series": "機動戦士ガンダム外伝 THE BLUE DESTINY",
+    "name": "機動戦士ガンダム外伝 THE BLUE DESTINY HARD STAGE 1",
+    "drops": []
+  },
+  {
+    "id": 64,
+    "series": "機動戦士ガンダム外伝 THE BLUE DESTINY",
+    "name": "機動戦士ガンダム外伝 THE BLUE DESTINY HARD STAGE 2",
+    "drops": []
+  },
+  {
+    "id": 65,
+    "series": "機動戦士ガンダム外伝 THE BLUE DESTINY",
+    "name": "機動戦士ガンダム外伝 THE BLUE DESTINY HARD STAGE 3",
+    "drops": []
+  },
+  {
+    "id": 66,
+    "series": "機動戦士ガンダム サンダーボルト",
+    "name": "機動戦士ガンダム サンダーボルト HARD STAGE 1",
+    "drops": []
+  },
+  {
+    "id": 67,
+    "series": "機動戦士ガンダム サンダーボルト",
+    "name": "機動戦士ガンダム サンダーボルト HARD STAGE 2",
+    "drops": []
+  },
+  {
+    "id": 68,
+    "series": "機動戦士ガンダム サンダーボルト",
+    "name": "機動戦士ガンダム サンダー
+6:00:48	お知らせ	実行完了
