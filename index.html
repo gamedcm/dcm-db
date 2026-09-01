@@ -44,32 +44,6 @@
       margin: 0;
     }
 
-    /* ビュー切替タブ */
-    .view-tabs {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 15px;
-    }
-
-    .tab-btn {
-      flex: 1;
-      padding: 10px;
-      font-weight: bold;
-      background: var(--card-bg);
-      color: #94a3b8;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      cursor: pointer;
-      text-align: center;
-      font-size: 0.85rem;
-    }
-
-    .tab-btn.active {
-      background: var(--accent-color);
-      color: #0f172a;
-      border-color: var(--accent-color);
-    }
-
     .search-card {
       background: var(--card-bg);
       padding: 15px;
@@ -100,7 +74,7 @@
       font-size: 0.95rem;
     }
 
-    /* 武装強化パーツショートカット（7種対応） */
+    /* 武装強化パーツショートカット（7種） */
     .quick-parts-container {
       background: var(--card-bg);
       padding: 12px 15px;
@@ -243,51 +217,6 @@
       object-fit: cover;
       border-radius: 4px;
     }
-
-    /* 逆引きカード表示用 */
-    .reverse-item {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 12px;
-    }
-
-    .reverse-item-title {
-      font-size: 1.1rem;
-      font-weight: bold;
-      color: #38bdf8;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .reverse-img-lg {
-      width: 36px;
-      height: 36px;
-      object-fit: cover;
-      border-radius: 6px;
-      border: 1px solid var(--accent-color);
-    }
-
-    .reverse-stage-list {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .reverse-stage-badge {
-      background: #0f172a;
-      border: 1px solid #334155;
-      padding: 8px 12px;
-      border-radius: 6px;
-      font-size: 0.9rem;
-      color: #cbd5e1;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
   </style>
 </head>
 <body>
@@ -297,17 +226,11 @@
     <h1>GGENDB</h1>
   </div>
 
-  <!-- 表示モード切替タブ -->
-  <div class="view-tabs">
-    <button class="tab-btn active" id="tabStage" onclick="switchView('stage')">ステージ一覧</button>
-    <button class="tab-btn" id="tabReverse" onclick="switchView('reverse')">素材から探す（逆引き）</button>
-  </div>
-
   <!-- 検索エリア -->
   <div class="search-card" id="searchCard">
     <div class="form-group">
-      <label for="searchInput" id="searchLabel">🔍 検索（作品名・ステージ名・ドロップ素材名）</label>
-      <input type="text" id="searchInput" placeholder="例: ガンダム, 物理格闘, STAGE 3" oninput="renderCurrentView()">
+      <label for="searchInput">🔍 検索（作品名・ステージ名・ドロップ素材名）</label>
+      <input type="text" id="searchInput" placeholder="例: ガンダム, 物理格闘, STAGE 3" oninput="renderStageView()">
     </div>
   </div>
 
@@ -352,7 +275,6 @@
 
 <script>
   let stages = [];
-  let currentView = 'stage';
 
   // GitHub上の data.json を非同期読み込み
   async function loadDataFromGitHub() {
@@ -364,41 +286,18 @@
       if (!response.ok) throw new Error('data.json の読み込みに失敗しました');
       
       stages = await response.json();
-      renderCurrentView();
+      renderStageView();
     } catch (error) {
       console.error(error);
       listElement.innerHTML = '<li style="text-align:center; color:#ef4444; padding:20px;">データの読み込みに失敗しました。<br>data.json が存在するか確認してください。</li>';
     }
   }
 
-  function switchView(view) {
-    currentView = view;
-    document.getElementById('tabStage').classList.toggle('active', view === 'stage');
-    document.getElementById('tabReverse').classList.toggle('active', view === 'reverse');
-
-    const searchLabel = document.getElementById('searchLabel');
-    if (view === 'stage') {
-      searchLabel.textContent = '🔍 検索（作品名・ステージ名・ドロップ素材名）';
-    } else if (view === 'reverse') {
-      searchLabel.textContent = '🔍 素材名で絞り込み';
-    }
-
-    renderCurrentView();
-  }
-
   function filterByTag(tagName) {
     const searchInput = document.getElementById('searchInput');
     searchInput.value = tagName;
-    renderCurrentView();
+    renderStageView();
     searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }
-
-  function renderCurrentView() {
-    if (currentView === 'stage') {
-      renderStageView();
-    } else if (currentView === 'reverse') {
-      renderReverseView();
-    }
   }
 
   // 7種の武装強化パーツに対応するWebP画像のパスを自動判定
@@ -413,7 +312,7 @@
     return null;
   }
 
-  /* --- 1. ステージ一覧表示 --- */
+  /* --- ステージ一覧表示 --- */
   function renderStageView() {
     const listElement = document.getElementById('stageList');
     const searchQuery = document.getElementById('searchInput').value.toLowerCase().trim();
@@ -467,68 +366,6 @@
           <div class="drop-tags">
             ${dropTagsHtml || '<span style="font-size:0.8rem; color:#64748b;">登録なし</span>'}
           </div>
-        </div>
-      `;
-
-      listElement.appendChild(li);
-    });
-  }
-
-  /* --- 2. 素材からの逆引き表示 --- */
-  function renderReverseView() {
-    const listElement = document.getElementById('stageList');
-    const searchQuery = document.getElementById('searchInput').value.toLowerCase().trim();
-    listElement.innerHTML = '';
-
-    const dropMap = {};
-    stages.forEach(stage => {
-      (stage.drops || []).forEach(drop => {
-        const name = typeof drop === 'string' ? drop : drop.name;
-        const autoImg = getMaterialImagePath(name);
-        const img = autoImg || (typeof drop === 'object' ? drop.image : null);
-
-        if (!dropMap[name]) {
-          dropMap[name] = { stages: [], image: img };
-        }
-        if (!dropMap[name].image && img) {
-          dropMap[name].image = img;
-        }
-
-        const displayName = stage.series ? `[${stage.series}] ${stage.name}` : stage.name;
-        dropMap[name].stages.push(displayName);
-      });
-    });
-
-    const allMaterials = Object.keys(dropMap).sort();
-
-    const filteredMaterials = allMaterials.filter(mat => {
-      if (!searchQuery) return true;
-      return mat.toLowerCase().includes(searchQuery);
-    });
-
-    if (filteredMaterials.length === 0) {
-      listElement.innerHTML = '<li style="text-align:center; color:#64748b; padding:20px;">登録されているドロップ素材はありません</li>';
-      return;
-    }
-
-    filteredMaterials.forEach(mat => {
-      const data = dropMap[mat];
-      const li = document.createElement('li');
-      li.className = 'reverse-item';
-
-      const imgHtml = data.image ? `<img src="${data.image}" class="reverse-img-lg" alt="">` : '📦';
-
-      const stageBadgesHtml = data.stages.map(name => `
-        <div class="reverse-stage-badge">
-          <span>📍 ${escapeHtml(name)}</span>
-        </div>
-      `).join('');
-
-      li.innerHTML = `
-        <div class="reverse-item-title">${imgHtml} ${escapeHtml(mat)}</div>
-        <div style="font-size:0.8rem; color:#94a3b8; margin-bottom:6px;">獲得可能なステージ（全${data.stages.length}件）:</div>
-        <div class="reverse-stage-list">
-          ${stageBadgesHtml}
         </div>
       `;
 
