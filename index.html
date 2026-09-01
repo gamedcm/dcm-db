@@ -44,50 +44,38 @@
       margin: 0;
     }
 
-    .search-card {
+    /* 武装強化パーツショートカット（7種） */
+    .quick-parts-container {
       background: var(--card-bg);
       padding: 15px;
       border-radius: 8px;
       margin-bottom: 15px;
+      border: 1px solid var(--border-color);
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
     }
 
-    .form-group {
-      margin-bottom: 0;
-    }
-
-    label {
-      display: block;
-      font-size: 0.85rem;
-      margin-bottom: 5px;
-      color: #94a3b8;
-    }
-
-    input {
-      width: 100%;
-      padding: 10px;
-      border-radius: 6px;
-      border: 1px solid var(--border-color);
-      background: #0f172a;
-      color: var(--text-color);
-      box-sizing: border-box;
-      font-size: 0.95rem;
-    }
-
-    /* 武装強化パーツショートカット（7種） */
-    .quick-parts-container {
-      background: var(--card-bg);
-      padding: 12px 15px;
-      border-radius: 8px;
-      margin-bottom: 15px;
-      border: 1px solid var(--border-color);
-    }
-
     .quick-parts-title {
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       color: #94a3b8;
       font-weight: bold;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .reset-btn {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: #38bdf8;
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .reset-btn:hover {
+      background: rgba(56, 189, 248, 0.1);
     }
 
     .quick-parts-list {
@@ -116,7 +104,7 @@
       transition: background 0.2s, border-color 0.2s;
     }
 
-    .part-btn:hover {
+    .part-btn:hover, .part-btn.active {
       background: #1e3a8a;
       border-color: var(--accent-color);
     }
@@ -226,43 +214,38 @@
     <h1>GGENDB</h1>
   </div>
 
-  <!-- 検索エリア -->
-  <div class="search-card" id="searchCard">
-    <div class="form-group">
-      <label for="searchInput">🔍 検索（作品名・ステージ名・ドロップ素材名）</label>
-      <input type="text" id="searchInput" placeholder="例: ガンダム, 物理格闘, STAGE 3" oninput="renderStageView()">
-    </div>
-  </div>
-
   <!-- 武装強化パーツの画像ショートカット（7種） -->
   <div class="quick-parts-container">
-    <div class="quick-parts-title">武装強化パーツで絞り込み</div>
-    <div class="quick-parts-list">
-      <button class="part-btn" onclick="filterByTag('物理射撃')">
+    <div class="quick-parts-title">
+      <span>🎯 武装強化パーツで絞り込み</span>
+      <button class="reset-btn" onclick="filterByTag('')">すべて表示</button>
+    </div>
+    <div class="quick-parts-list" id="partButtons">
+      <button class="part-btn" data-tag="物理射撃" onclick="filterByTag('物理射撃')">
         <img src="images/shageki.webp" alt="物理射撃">
         <span>物理射撃</span>
       </button>
-      <button class="part-btn" onclick="filterByTag('物理格闘')">
+      <button class="part-btn" data-tag="物理格闘" onclick="filterByTag('物理格闘')">
         <img src="images/kakutou.webp" alt="物理格闘">
         <span>物理格闘</span>
       </button>
-      <button class="part-btn" onclick="filterByTag('ビーム射撃')">
+      <button class="part-btn" data-tag="ビーム射撃" onclick="filterByTag('ビーム射撃')">
         <img src="images/beam_shageki.webp" alt="ビーム射撃">
         <span>ビーム射撃</span>
       </button>
-      <button class="part-btn" onclick="filterByTag('ビーム格闘')">
+      <button class="part-btn" data-tag="ビーム格闘" onclick="filterByTag('ビーム格闘')">
         <img src="images/beam_kakutou.webp" alt="ビーム格闘">
         <span>ビーム格闘</span>
       </button>
-      <button class="part-btn" onclick="filterByTag('特殊射撃')">
+      <button class="part-btn" data-tag="特殊射撃" onclick="filterByTag('特殊射撃')">
         <img src="images/tokushu_shageki.webp" alt="特殊射撃">
         <span>特殊射撃</span>
       </button>
-      <button class="part-btn" onclick="filterByTag('特殊格闘')">
+      <button class="part-btn" data-tag="特殊格闘" onclick="filterByTag('特殊格闘')">
         <img src="images/tokushu_kakutou.webp" alt="特殊格闘">
         <span>特殊格闘</span>
       </button>
-      <button class="part-btn" onclick="filterByTag('覚醒')">
+      <button class="part-btn" data-tag="覚醒" onclick="filterByTag('覚醒')">
         <img src="images/kakusei.webp" alt="覚醒">
         <span>覚醒</span>
       </button>
@@ -275,6 +258,7 @@
 
 <script>
   let stages = [];
+  let currentFilter = '';
 
   // GitHub上の data.json を非同期読み込み
   async function loadDataFromGitHub() {
@@ -294,10 +278,18 @@
   }
 
   function filterByTag(tagName) {
-    const searchInput = document.getElementById('searchInput');
-    searchInput.value = tagName;
+    currentFilter = tagName;
+    
+    // ボタンのアクティブ状態を切り替え
+    document.querySelectorAll('.part-btn').forEach(btn => {
+      if (btn.getAttribute('data-tag') === tagName) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+
     renderStageView();
-    searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
   // 7種の武装強化パーツに対応するWebP画像のパスを自動判定
@@ -315,18 +307,15 @@
   /* --- ステージ一覧表示 --- */
   function renderStageView() {
     const listElement = document.getElementById('stageList');
-    const searchQuery = document.getElementById('searchInput').value.toLowerCase().trim();
     listElement.innerHTML = '';
 
     const filteredStages = stages.filter(stage => {
-      if (!searchQuery) return true;
-      const seriesMatch = (stage.series || '').toLowerCase().includes(searchQuery);
-      const nameMatch = (stage.name || '').toLowerCase().includes(searchQuery);
+      if (!currentFilter) return true;
       const dropsMatch = (stage.drops || []).some(d => {
         const dName = typeof d === 'string' ? d : d.name;
-        return dName.toLowerCase().includes(searchQuery);
+        return dName === currentFilter;
       });
-      return seriesMatch || nameMatch || dropsMatch;
+      return dropsMatch;
     });
 
     if (filteredStages.length === 0) {
@@ -362,7 +351,7 @@
         </div>
         
         <div class="drop-section">
-          <div class="drop-title">🎁 ドロップアイテム・素材（タップで検索）</div>
+          <div class="drop-title">🎁 ドロップアイテム・素材</div>
           <div class="drop-tags">
             ${dropTagsHtml || '<span style="font-size:0.8rem; color:#64748b;">登録なし</span>'}
           </div>
