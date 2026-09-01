@@ -17,4 +17,13 @@
       { "name": "物理射撃", "image": null }
     ]
   }
+  {
+    "id": 3,
+    "series": "作機動戦士ガンダム",
+    "name": "機動戦士ガンダム HARD STAGE 3",
+    "drops": [
+      { "name": "ジオング研究技術書", "image": null },
+      { "name": "ビーム射撃", "image": null }
+    ]
+  }
 ]
