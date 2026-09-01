@@ -52,6 +52,8 @@
       margin-bottom: 15px;
       border: 1px solid var(--border-color);
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+      box-sizing: border-box;
+      width: 100%;
     }
 
     .quick-parts-title {
@@ -77,14 +79,16 @@
       background: #0f172a;
       border: 1px solid var(--border-color);
       color: #e2e8f0;
-      padding: 8px 10px;
+      padding: 10px 12px;
       border-radius: 6px;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       cursor: pointer;
       transition: background 0.2s, border-color 0.2s;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .part-btn:hover, .part-btn.active {
@@ -93,10 +97,11 @@
     }
 
     .part-btn img {
-      width: 24px;
-      height: 24px;
+      width: 40px;  /* 画像サイズを大きく調整 */
+      height: 40px; /* 画像サイズを大きく調整 */
       object-fit: cover;
       border-radius: 4px;
+      flex-shrink: 0;
     }
 
     /* 件数カウンター表示バー */
@@ -226,7 +231,7 @@
     <h1>GGENDB</h1>
   </div>
 
-<!-- 武装強化パーツの画像ショートカット（7種） -->
+  <!-- 武装強化パーツの画像ショートカット（7種） -->
   <div class="quick-parts-container">
     <div class="quick-parts-title">🎯 武装強化パーツで絞り込み</div>
     <div class="quick-parts-list" id="partButtons">
@@ -310,7 +315,7 @@
     renderStageView();
   }
 
-  // 7種の武装強化パーツに対応するWebP画像のパスを自動判定（./ を付与して確実に読み込ませる）
+  // 7種の武装強化パーツに対応するWebP画像のパスを自動判定
   function getMaterialImagePath(name) {
     if (name === '物理射撃') return './images/shageki.webp';
     if (name === '物理格闘') return './images/kakutou.webp';
@@ -355,7 +360,6 @@
       const dropsList = stage.drops || [];
       const dropTagsHtml = dropsList.map(drop => {
         const name = typeof drop === 'string' ? drop : (drop.name || '');
-        // 関数からの判定を最優先し、なければJSON側のimage、それもなければJSONのimageプロパティを見る
         const img = getMaterialImagePath(name) || (typeof drop === 'object' && drop.image ? drop.image : null);
         const imgHtml = img ? `<img src="${img}" class="drop-img-thumb" alt="">` : '📦';
 
