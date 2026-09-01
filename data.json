@@ -25,5 +25,23 @@
       { "name": "ジオング研究技術書", "image": null },
       { "name": "ビーム射撃", "image": null }
     ]
+  },
+  {
+    "id": 4,
+    "series": "機動戦士Ζガンダム A New Translation",
+    "name": "機動戦士Ζガンダム A New Translation HARD STAGE 1",
+    "drops": [
+      { "name": "百式研究技術書", "image": null },
+      { "name": "物理射撃", "image": null }
+    ]
+  },
+  {
+    "id": 5,
+    "series": "機動戦士Ζガンダム A New Translation",
+    "name": "機動戦士Ζガンダム A New Translation HARD STAGE 2",
+    "drops": [
+      { "name": "サイコ・ガンダム研究技術書", "image": null },
+      { "name": "ビーム射撃", "image": null }
+    ]
   }
 ]
