@@ -508,6 +508,17 @@
     <button class="btn-add" onclick="addStage()">ステージを登録する</button>
   </div>
 
+  <!-- 作品管理エリア（管理者のみ） -->
+  <div class="series-mgmt-card admin-only" id="seriesMgmtCard">
+    <label>🎬 作品名の新規登録</label>
+    <div class="drop-input-group" style="margin-bottom:15px;">
+      <input type="text" id="newSeriesName" placeholder="新しい作品名を入力">
+      <button onclick="addCustomSeries()" style="background:#0284c7; color:white;">追加</button>
+    </div>
+    <label>📋 登録済み作品名一覧（編集・削除）</label>
+    <ul id="seriesMgmtList" class="series-list-mgmt"></ul>
+  </div>
+
   <!-- 検索エリア -->
   <div class="search-card" id="searchCard">
     <div class="form-group" style="margin-bottom:0;">
