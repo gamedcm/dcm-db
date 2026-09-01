@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <head><meta name="robots" content="noindex,nofollow">
   <meta charset="UTF-8">
+  <meta name="robots" content="noindex,nofollow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gジェネ エターナル ドロップ一覧データベース</title>
   <style>
@@ -19,7 +19,7 @@
       background-color: var(--bg-color);
       color: var(--text-color);
       margin: 0;
-      padding: 20px;
+      padding: 20px 20px 80px 20px; /* 下部に余白を確保 */
       display: flex;
       justify-content: center;
     }
@@ -64,7 +64,7 @@
       border-color: var(--accent-color);
     }
 
-    .input-card, .search-card, .backup-card, .series-mgmt-card {
+    .input-card, .search-card, .series-mgmt-card {
       background: var(--card-bg);
       padding: 15px;
       border-radius: 8px;
@@ -104,27 +104,6 @@
     }
 
     button.btn-add:hover { background: #0369a1; }
-
-    .backup-buttons {
-      display: flex;
-      gap: 10px;
-    }
-
-    .btn-export, .btn-import {
-      flex: 1;
-      padding: 8px;
-      font-size: 0.85rem;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-      border-radius: 6px;
-      text-align: center;
-    }
-
-    .btn-export { background: #059669; color: white; }
-    .btn-export:hover { background: #047857; }
-    .btn-import { background: #4f46e5; color: white; }
-    .btn-import:hover { background: #4338ca; }
 
     .stage-list {
       list-style: none;
@@ -404,6 +383,66 @@
       display: flex;
       gap: 8px;
     }
+
+    /* 折りたたみバックアップエリア（画面最下部固定） */
+    .backup-accordion {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #0f172a;
+      border-top: 1px solid var(--border-color);
+      box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.5);
+      z-index: 100;
+    }
+
+    .backup-toggle-btn {
+      width: 100%;
+      background: #1e293b;
+      color: #94a3b8;
+      border: none;
+      padding: 8px 15px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-sizing: border-box;
+    }
+
+    .backup-toggle-btn:hover { background: #334155; color: #f8fafc; }
+
+    .backup-content {
+      max-width: 650px;
+      margin: 0 auto;
+      padding: 12px 15px;
+      display: none;
+    }
+
+    .backup-content.open {
+      display: block;
+    }
+
+    .backup-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-export, .btn-import {
+      flex: 1;
+      padding: 8px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    .btn-export { background: #059669; color: white; }
+    .btn-export:hover { background: #047857; }
+    .btn-import { background: #4f46e5; color: white; }
+    .btn-import:hover { background: #4338ca; }
   </style>
 </head>
 <body>
@@ -457,18 +496,23 @@
     </div>
   </div>
 
-  <!-- バックアップ・復元エリア -->
-  <div class="backup-card">
-    <label>💾 データのバックアップ / 復元</label>
+  <!-- リスト表示エリア -->
+  <ul id="stageList" class="stage-list"></ul>
+</div>
+
+<!-- 画面最下部：折りたたみバックアップエリア -->
+<div class="backup-accordion">
+  <button class="backup-toggle-btn" onclick="toggleBackupMenu()">
+    <span>💾 データのバックアップ / 復元</span>
+    <span id="backupArrow">▲</span>
+  </button>
+  <div class="backup-content" id="backupContent">
     <div class="backup-buttons">
       <button class="btn-export" onclick="exportData()">バックアップ保存 (JSON)</button>
       <button class="btn-import" onclick="document.getElementById('importFile').click()">データ復元 (JSON)</button>
     </div>
     <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importData(event)">
   </div>
-
-  <!-- リスト表示エリア -->
-  <ul id="stageList" class="stage-list"></ul>
 </div>
 
 <script>
@@ -504,6 +548,13 @@
   let editingStageId = null;
   let editingSeriesIndex = null;
   let currentView = 'stage';
+
+  function toggleBackupMenu() {
+    const content = document.getElementById('backupContent');
+    const arrow = document.getElementById('backupArrow');
+    content.classList.toggle('open');
+    arrow.textContent = content.classList.contains('open') ? '▼' : '▲';
+  }
 
   function saveStages() {
     localStorage.setItem('ggene_drop_db', JSON.stringify(stages));
@@ -700,7 +751,6 @@
       stages = stages.map(stage => {
         if (stage.id === stageId) {
           const updatedDrops = stage.drops || [];
-          // 既存データの互換性維持（文字列オブジェクトへの統一）
           const normalizedDrops = updatedDrops.map(d => typeof d === 'string' ? { name: d, image: null } : d);
           
           if (!normalizedDrops.some(d => d.name === val)) {
