@@ -19,7 +19,7 @@
       background-color: var(--bg-color);
       color: var(--text-color);
       margin: 0;
-      padding: 20px 20px 80px 20px;
+      padding: 20px;
       display: flex;
       justify-content: center;
     }
@@ -42,23 +42,6 @@
       font-size: 1.3rem;
       color: var(--accent-color);
       margin: 0;
-    }
-
-    .btn-admin-auth {
-      background: #334155;
-      color: #38bdf8;
-      border: 1px solid #38bdf8;
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 0.8rem;
-      font-weight: bold;
-      cursor: pointer;
-      width: auto;
-    }
-
-    .btn-admin-auth.active {
-      background: #0284c7;
-      color: white;
     }
 
     /* ビュー切替タブ */
@@ -87,7 +70,7 @@
       border-color: var(--accent-color);
     }
 
-    .input-card, .search-card {
+    .search-card {
       background: var(--card-bg);
       padding: 15px;
       border-radius: 8px;
@@ -96,7 +79,7 @@
     }
 
     .form-group {
-      margin-bottom: 10px;
+      margin-bottom: 0;
     }
 
     label {
@@ -106,7 +89,7 @@
       color: #94a3b8;
     }
 
-    input, select, button {
+    input {
       width: 100%;
       padding: 10px;
       border-radius: 6px;
@@ -116,17 +99,6 @@
       box-sizing: border-box;
       font-size: 0.95rem;
     }
-
-    button.btn-add {
-      background: #0284c7;
-      color: white;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-      margin-top: 5px;
-    }
-
-    button.btn-add:hover { background: #0369a1; }
 
     .stage-list {
       list-style: none;
@@ -175,37 +147,6 @@
       color: #f8fafc;
     }
 
-    .header-actions {
-      display: flex;
-      gap: 6px;
-    }
-
-    .btn-edit-stage {
-      background: #d97706;
-      color: #fef3c7;
-      border: none;
-      cursor: pointer;
-      padding: 5px 10px;
-      font-size: 0.8rem;
-      border-radius: 4px;
-      width: auto;
-    }
-
-    .btn-edit-stage:hover { background: #b45309; }
-
-    .btn-delete-stage {
-      background: #7f1d1d;
-      color: #fca5a5;
-      border: none;
-      cursor: pointer;
-      padding: 5px 10px;
-      font-size: 0.8rem;
-      border-radius: 4px;
-      width: auto;
-    }
-
-    .btn-delete-stage:hover { background: #991b1b; }
-
     .drop-section {
       background: rgba(15, 23, 42, 0.6);
       padding: 10px;
@@ -224,7 +165,6 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-bottom: 8px;
     }
 
     .drop-tag {
@@ -248,47 +188,6 @@
       height: 24px;
       object-fit: cover;
       border-radius: 4px;
-    }
-
-    .tag-delete {
-      cursor: pointer;
-      color: #ef4444;
-      font-weight: bold;
-      margin-left: 2px;
-    }
-
-    .drop-input-group {
-      display: flex;
-      gap: 5px;
-      align-items: center;
-    }
-
-    .drop-input-group input[type="text"] {
-      flex: 1;
-      padding: 6px 8px;
-      font-size: 0.8rem;
-    }
-
-    .file-btn-label {
-      padding: 6px 10px;
-      font-size: 0.8rem;
-      background: #334155;
-      color: #e2e8f0;
-      border-radius: 6px;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    .file-btn-label:hover { background: #475569; }
-
-    .drop-input-group button {
-      width: auto;
-      padding: 6px 12px;
-      font-size: 0.8rem;
-      background: #0284c7;
-      color: white;
-      border: none;
-      cursor: pointer;
     }
 
     /* 逆引きカード表示用 */
@@ -335,103 +234,6 @@
       justify-content: space-between;
       align-items: center;
     }
-
-    .edit-form {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .btn-save-edit {
-      background: #16a34a;
-      color: white;
-      border: none;
-      cursor: pointer;
-      padding: 6px;
-      font-size: 0.85rem;
-      font-weight: bold;
-      border-radius: 4px;
-    }
-
-    .btn-cancel-edit {
-      background: #475569;
-      color: white;
-      border: none;
-      cursor: pointer;
-      padding: 6px;
-      font-size: 0.85rem;
-      border-radius: 4px;
-    }
-
-    .edit-buttons {
-      display: flex;
-      gap: 8px;
-    }
-
-    /* 折りたたみバックアップエリア */
-    .backup-accordion {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #0f172a;
-      border-top: 1px solid var(--border-color);
-      box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.5);
-      z-index: 100;
-    }
-
-    .backup-toggle-btn {
-      width: 100%;
-      background: #1e293b;
-      color: #94a3b8;
-      border: none;
-      padding: 8px 15px;
-      font-size: 0.8rem;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-sizing: border-box;
-    }
-
-    .backup-toggle-btn:hover { background: #334155; color: #f8fafc; }
-
-    .backup-content {
-      max-width: 650px;
-      margin: 0 auto;
-      padding: 12px 15px;
-      display: none;
-    }
-
-    .backup-content.open {
-      display: block;
-    }
-
-    .backup-buttons {
-      display: flex;
-      gap: 10px;
-    }
-
-    .btn-export, .btn-import {
-      flex: 1;
-      padding: 8px;
-      font-size: 0.85rem;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-      border-radius: 6px;
-      text-align: center;
-    }
-
-    .btn-export { background: #059669; color: white; }
-    .btn-export:hover { background: #047857; }
-    .btn-import { background: #4f46e5; color: white; }
-    .btn-import:hover { background: #4338ca; }
-
-    /* 管理者限定要素の非表示制御用クラス */
-    .admin-only {
-      display: none !important;
-    }
   </style>
 </head>
 <body>
@@ -439,7 +241,6 @@
 <div class="container">
   <div class="header-bar">
     <h1>Gジェネエターナル DB</h1>
-    <button id="adminAuthBtn" class="btn-admin-auth" onclick="handleAdminAuth()">🔑 管理者ログイン</button>
   </div>
 
   <!-- 表示モード切替タブ -->
@@ -448,29 +249,9 @@
     <button class="tab-btn" id="tabReverse" onclick="switchView('reverse')">素材から探す（逆引き）</button>
   </div>
 
-  <!-- ステージ登録エリア（管理者のみ） -->
-  <div class="input-card admin-only" id="stageInputCard">
-    <div class="form-group">
-      <label for="seriesInput">作品名（候補から選択・または直接入力）</label>
-      <input type="text" id="seriesInput" list="seriesList" placeholder="例: 機動戦士ガンダム">
-      <datalist id="seriesList"></datalist>
-    </div>
-
-    <div class="form-group">
-      <label for="stageName">ステージ名 / 場所</label>
-      <input type="text" id="stageName" placeholder="例: STAGE 3 (Hard)">
-    </div>
-
-    <div class="form-group">
-      <label for="stageDrops">ドロップ素材・ユニット（カンマ区切りで複数可）</label>
-      <input type="text" id="stageDrops" placeholder="例: 高機動型ザク素材, 開発データA, キャピタル">
-    </div>
-    <button class="btn-add" onclick="addStage()">ステージを登録する</button>
-  </div>
-
   <!-- 検索エリア -->
   <div class="search-card" id="searchCard">
-    <div class="form-group" style="margin-bottom:0;">
+    <div class="form-group">
       <label for="searchInput" id="searchLabel">🔍 検索（作品名・ステージ名・ドロップ素材名）</label>
       <input type="text" id="searchInput" placeholder="例: ガンダム, ザク, 開発データ, STAGE 3" oninput="renderCurrentView()">
     </div>
@@ -480,125 +261,32 @@
   <ul id="stageList" class="stage-list"></ul>
 </div>
 
-<!-- 画面最下部：折りたたみバックアップエリア（管理者のみ） -->
-<div class="backup-accordion admin-only" id="backupAccordion">
-  <button class="backup-toggle-btn" onclick="toggleBackupMenu()">
-    <span>💾 データのバックアップ / 復元</span>
-    <span id="backupArrow">▲</span>
-  </button>
-  <div class="backup-content" id="backupContent">
-    <div class="backup-buttons">
-      <button class="btn-export" onclick="exportData()">バックアップ保存 (JSON)</button>
-      <button class="btn-import" onclick="document.getElementById('importFile').click()">データ復元 (JSON)</button>
-    </div>
-    <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importData(event)">
-  </div>
-</div>
-
 <script>
-  // ★管理用パスワード
-  const ADMIN_PASSWORD = 'admin123';
-
-  // ★デフォルト作品一覧（GitHub上で直接追加・編集します）
-  const defaultSeries = [
-    "機動戦士ガンダム",
-    "機動戦士Zガンダム A New Translation",
-    "機動戦士ガンダムZZ",
-    "機動戦士ガンダム 逆襲のシャア",
-    "機動戦士ガンダムUC",
-    "機動戦士ガンダムNT",
-    "機動戦士ガンダム 閃光のハサウェイ",
-    "機動戦士ガンダムF91",
-    "機動武闘伝Gガンダム",
-    "新機動戦記ガンダムW",
-    "新機動戦記ガンダムW Endless Waltz",
-    "機動新世紀ガンダムX",
-    "機動戦士ガンダムSEED",
-    "機動戦士ガンダムSEED Recollection",
-    "機動戦士ガンダムSEED DESTINY",
-    "機動戦士ガンダム00",
-    "機動戦士ガンダムAGE",
-    "機動戦士ガンダム 鉄血のオルフェンズ",
-    "機動戦士ガンダム 水星の魔女",
-    "機動戦士ガンダム MS IGLOO",
-    "機動戦士ガンダム 第08MS小隊",
-    "機動戦士ガンダム0080 ポケットの中の戦争",
-    "機動戦士ガンダム CROSS DIMENSION 0079",
-    "機動戦士ガンダム外伝 THE BLUE DESTINY",
-    "機動戦士ガンダム サンダーボルト",
-    "機動戦士ガンダム サンダーボルト BANDIT FLOWER",
-    "機動戦士ガンダム0083 STARDUST MEMORY",
-    "機動戦士ガンダムSEED ASTRAY",
-    "機動戦士ガンダムSEED X ASTRAY",
-    "機動戦士ガンダムSEED C.E.73 -STARGAZER-",
-    "機動戦士ガンダム 鉄血のオルフェンズ 月鋼"
-  ];
-
-  let stages = JSON.parse(localStorage.getItem('ggene_drop_db')) || [];
-  let editingStageId = null;
+  let stages = [];
   let currentView = 'stage';
-  let isAdmin = false;
 
-  function handleAdminAuth() {
-    if (isAdmin) {
-      isAdmin = false;
-      alert('ログアウトしました（閲覧専用モード）');
-    } else {
-      const pwd = prompt('管理者パスワードを入力してください:');
-      if (pwd === ADMIN_PASSWORD) {
-        isAdmin = true;
-        alert('管理者として認証されました');
-      } else if (pwd !== null) {
-        alert('パスワードが違います');
-      }
+  // GitHub上の data.json を非同期読み込み
+  async function loadDataFromGitHub() {
+    const listElement = document.getElementById('stageList');
+    listElement.innerHTML = '<li style="text-align:center; color:#94a3b8; padding:20px;">データを読み込み中...</li>';
+
+    try {
+      // キャッシュを防ぐためタイムスタンプを付与してfetch
+      const response = await fetch('data.json?t=' + new Date().getTime());
+      if (!response.ok) throw new Error('data.json の読み込みに失敗しました');
+      
+      stages = await response.json();
+      renderCurrentView();
+    } catch (error) {
+      console.error(error);
+      listElement.innerHTML = '<li style="text-align:center; color:#ef4444; padding:20px;">データの読み込みに失敗しました。<br>data.json が存在するか確認してください。</li>';
     }
-    updateAdminUI();
-  }
-
-  function updateAdminUI() {
-    const authBtn = document.getElementById('adminAuthBtn');
-    if (isAdmin) {
-      authBtn.textContent = '🔒 ログアウト';
-      authBtn.classList.add('active');
-    } else {
-      authBtn.textContent = '🔑 管理者ログイン';
-      authBtn.classList.remove('active');
-    }
-
-    document.querySelectorAll('.admin-only').forEach(el => {
-      if (isAdmin) {
-        if (el.id === 'stageInputCard' && currentView !== 'stage') return;
-        el.classList.remove('admin-only');
-      } else {
-        el.classList.add('admin-only');
-      }
-    });
-
-    renderCurrentView();
-  }
-
-  function toggleBackupMenu() {
-    const content = document.getElementById('backupContent');
-    const arrow = document.getElementById('backupArrow');
-    content.classList.toggle('open');
-    arrow.textContent = content.classList.contains('open') ? '▼' : '▲';
-  }
-
-  function saveStages() {
-    localStorage.setItem('ggene_drop_db', JSON.stringify(stages));
-  }
-
-  function updateSeriesDatalist() {
-    const datalist = document.getElementById('seriesList');
-    datalist.innerHTML = defaultSeries.map(series => `<option value="${escapeHtml(series)}">`).join('');
   }
 
   function switchView(view) {
     currentView = view;
     document.getElementById('tabStage').classList.toggle('active', view === 'stage');
     document.getElementById('tabReverse').classList.toggle('active', view === 'reverse');
-
-    document.getElementById('stageInputCard').style.display = (view === 'stage' && isAdmin) ? 'block' : 'none';
 
     const searchLabel = document.getElementById('searchLabel');
     if (view === 'stage') {
@@ -615,196 +303,6 @@
     searchInput.value = tagName;
     renderCurrentView();
     searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }
-
-  /* --- ステージ登録機能 --- */
-  function addStage() {
-    if (!isAdmin) return;
-    const seriesInput = document.getElementById('seriesInput');
-    const nameInput = document.getElementById('stageName');
-    const dropsInput = document.getElementById('stageDrops');
-
-    if (!nameInput.value.trim()) {
-      alert('ステージ名を入力してください');
-      return;
-    }
-
-    const seriesVal = seriesInput.value.trim();
-
-    const initialDrops = dropsInput.value
-      .split(/[,、]/)
-      .map(item => item.trim())
-      .filter(item => item.length > 0)
-      .map(name => ({ name: name, image: null }));
-
-    const newStage = {
-      id: Date.now(),
-      series: seriesVal,
-      name: nameInput.value.trim(),
-      drops: initialDrops
-    };
-
-    stages.unshift(newStage);
-    saveStages();
-    renderCurrentView();
-
-    seriesInput.value = '';
-    nameInput.value = '';
-    dropsInput.value = '';
-  }
-
-  function startEdit(stageId) {
-    if (!isAdmin) return;
-    editingStageId = stageId;
-    renderCurrentView();
-  }
-
-  function cancelEdit() {
-    editingStageId = null;
-    renderCurrentView();
-  }
-
-  function saveEdit(stageId) {
-    if (!isAdmin) return;
-    const editSeries = document.getElementById(`edit-series-${stageId}`).value.trim();
-    const editName = document.getElementById(`edit-name-${stageId}`).value.trim();
-
-    if (!editName) {
-      alert('ステージ名を入力してください');
-      return;
-    }
-
-    stages = stages.map(stage => {
-      if (stage.id === stageId) {
-        return {
-          ...stage,
-          series: editSeries,
-          name: editName
-        };
-      }
-      return stage;
-    });
-
-    editingStageId = null;
-    saveStages();
-    renderCurrentView();
-  }
-
-  function addDropItem(stageId) {
-    if (!isAdmin) return;
-    const textInput = document.getElementById(`drop-input-${stageId}`);
-    const fileInput = document.getElementById(`drop-file-${stageId}`);
-    const val = textInput.value.trim();
-
-    if (!val) return;
-
-    const file = fileInput.files[0];
-
-    const processAdd = (imageDataStr) => {
-      stages = stages.map(stage => {
-        if (stage.id === stageId) {
-          const updatedDrops = stage.drops || [];
-          const normalizedDrops = updatedDrops.map(d => typeof d === 'string' ? { name: d, image: null } : d);
-          
-          if (!normalizedDrops.some(d => d.name === val)) {
-            normalizedDrops.push({ name: val, image: imageDataStr });
-          }
-          return { ...stage, drops: normalizedDrops };
-        }
-        return stage;
-      });
-
-      saveStages();
-      renderCurrentView();
-    };
-
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        processAdd(e.target.result);
-      };
-      reader.readAsDataURL(file);
-    } else {
-      processAdd(null);
-    }
-  }
-
-  function removeDropItem(stageId, dropName, event) {
-    if (!isAdmin) return;
-    if (event) event.stopPropagation();
-    stages = stages.map(stage => {
-      if (stage.id === stageId) {
-        return {
-          ...stage,
-          drops: (stage.drops || []).filter(item => {
-            const name = typeof item === 'string' ? item : item.name;
-            return name !== dropName;
-          })
-        };
-      }
-      return stage;
-    });
-
-    saveStages();
-    renderCurrentView();
-  }
-
-  function deleteStage(stageId) {
-    if (!isAdmin) return;
-    if (confirm('このステージ情報を削除しますか？')) {
-      stages = stages.filter(stage => stage.id !== stageId);
-      saveStages();
-      renderCurrentView();
-    }
-  }
-
-  function exportData() {
-    if (!isAdmin) return;
-    if (stages.length === 0) {
-      alert('出力するデータがありません。');
-      return;
-    }
-    const exportPayload = {
-      stages: stages
-    };
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportPayload, null, 2));
-    const downloadAnchor = document.createElement('a');
-    downloadAnchor.setAttribute("href", dataStr);
-    downloadAnchor.setAttribute("download", `ggene_drop_db_backup_${new Date().toISOString().slice(0,10)}.json`);
-    document.body.appendChild(downloadAnchor);
-    downloadAnchor.click();
-    downloadAnchor.remove();
-  }
-
-  function importData(event) {
-    if (!isAdmin) return;
-    const file = event.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      try {
-        const importedData = JSON.parse(e.target.result);
-        
-        let newStages = [];
-        if (Array.isArray(importedData)) {
-          newStages = importedData;
-        } else {
-          newStages = importedData.stages || [];
-        }
-
-        if (confirm('既存のデータを上書きして復元しますか？')) {
-          stages = newStages;
-          saveStages();
-          renderCurrentView();
-          alert('データの復元が完了しました！');
-        }
-      } catch (err) {
-        alert('ファイルの読み込みに失敗しました。正しいJSONファイルか確認してください。');
-      }
-    };
-    reader.readAsText(file);
-    event.target.value = '';
   }
 
   function renderCurrentView() {
@@ -841,90 +339,39 @@
       const li = document.createElement('li');
       li.className = 'stage-item';
 
-      if (editingStageId === stage.id && isAdmin) {
-        li.innerHTML = `
-          <div class="edit-form">
-            <div class="form-group">
-              <label>作品名</label>
-              <input type="text" id="edit-series-${stage.id}" list="seriesList" value="${escapeHtml(stage.series || '')}">
-            </div>
-            <div class="form-group">
-              <label>ステージ名</label>
-              <input type="text" id="edit-name-${stage.id}" value="${escapeHtml(stage.name)}">
-            </div>
-            <div class="edit-buttons">
-              <button class="btn-save-edit" onclick="saveEdit(${stage.id})">保存</button>
-              <button class="btn-cancel-edit" onclick="cancelEdit()">キャンセル</button>
-            </div>
-          </div>
+      const dropsList = stage.drops || [];
+      const dropTagsHtml = dropsList.map(drop => {
+        const name = typeof drop === 'string' ? drop : drop.name;
+        const img = typeof drop === 'object' && drop.image ? drop.image : null;
+        const imgHtml = img ? `<img src="${img}" class="drop-img-thumb" alt="">` : '📦';
+
+        return `
+          <span class="drop-tag" onclick="filterByTag('${escapeHtml(name)}')">
+            ${imgHtml} ${escapeHtml(name)}
+          </span>
         `;
-      } else {
-        const dropsList = stage.drops || [];
-        const dropTagsHtml = dropsList.map(drop => {
-          const name = typeof drop === 'string' ? drop : drop.name;
-          const img = typeof drop === 'object' && drop.image ? drop.image : null;
-          const imgHtml = img ? `<img src="${img}" class="drop-img-thumb" alt="">` : '📦';
-          const deleteBtnHtml = isAdmin ? `<span class="tag-delete" onclick="removeDropItem(${stage.id}, '${escapeHtml(name)}', event)">×</span>` : '';
+      }).join('');
 
-          return `
-            <span class="drop-tag" onclick="filterByTag('${escapeHtml(name)}')">
-              ${imgHtml} ${escapeHtml(name)}
-              ${deleteBtnHtml}
-            </span>
-          `;
-        }).join('');
+      const seriesHtml = stage.series ? `<span class="work-tag">🎬 ${escapeHtml(stage.series)}</span>` : '';
 
-        const seriesHtml = stage.series ? `<span class="work-tag">🎬 ${escapeHtml(stage.series)}</span>` : '';
-        const actionBtnsHtml = isAdmin ? `
-          <div class="header-actions">
-            <button class="btn-edit-stage" onclick="startEdit(${stage.id})">編集</button>
-            <button class="btn-delete-stage" onclick="deleteStage(${stage.id})">削除</button>
+      li.innerHTML = `
+        <div class="stage-header">
+          <div class="stage-title-group">
+            ${seriesHtml}
+            <span class="stage-title">${escapeHtml(stage.name)}</span>
           </div>
-        ` : '';
-
-        const dropInputAreaHtml = isAdmin ? `
-          <div class="drop-input-group">
-            <input type="text" id="drop-input-${stage.id}" placeholder="素材名を入力">
-            <label class="file-btn-label">
-              📷 WebPを選択
-              <input type="file" id="drop-file-${stage.id}" accept="image/webp,image/*" style="display:none;" onchange="updateFileLabel(${stage.id})">
-            </label>
-            <span id="file-name-label-${stage.id}" style="font-size:0.75rem; color:#38bdf8;"></span>
-            <button onclick="addDropItem(${stage.id})">追加</button>
+        </div>
+        
+        <div class="drop-section">
+          <div class="drop-title">🎁 ドロップアイテム・素材（タップで検索）</div>
+          <div class="drop-tags">
+            ${dropTagsHtml || '<span style="font-size:0.8rem; color:#64748b;">登録なし</span>'}
           </div>
-        ` : '';
-
-        li.innerHTML = `
-          <div class="stage-header">
-            <div class="stage-title-group">
-              ${seriesHtml}
-              <span class="stage-title">${escapeHtml(stage.name)}</span>
-            </div>
-            ${actionBtnsHtml}
-          </div>
-          
-          <div class="drop-section">
-            <div class="drop-title">🎁 ドロップアイテム・素材（タップで検索）</div>
-            <div class="drop-tags">
-              ${dropTagsHtml || '<span style="font-size:0.8rem; color:#64748b;">登録なし</span>'}
-            </div>
-            ${dropInputAreaHtml}
-          </div>
-        `;
-      }
+        </div>
+      `;
 
       listElement.appendChild(li);
     });
-  }
-
-  function updateFileLabel(stageId) {
-    const fileInput = document.getElementById(`drop-file-${stageId}`);
-    const label = document.getElementById(`file-name-label-${stageId}`);
-    if (fileInput && fileInput.files.length > 0) {
-      label.textContent = `[選択済]`;
-    } else if (label) {
-      label.textContent = '';
-    }
   }
 
   /* --- 2. 素材からの逆引き表示 --- */
@@ -1000,9 +447,10 @@
     });
   }
 
-  // 初期化
-  updateSeriesDatalist();
-  updateAdminUI();
+  // 初期化（ページ表示時にJSONを取得）
+  window.addEventListener('DOMContentLoaded', () => {
+    loadDataFromGitHub();
+  });
 </script>
 
 </body>
