@@ -2,18 +2,19 @@
   {
     "id": 1,
     "series": "機動戦士ガンダム",
-    "name": "STAGE 1 (Hard)",
+    "name": "機動戦士ガンダム HARD STAGE 1",
     "drops": [
-      { "name": "ガンダム開発データ", "image": null },
-      { "name": "キャピタル", "image": null }
+      { "name": "ビグ・ザム研究技術書", "image": null },
+      { "name": "物理格闘", "image": null }
     ]
   },
   {
     "id": 2,
-    "series": "機動戦士ガンダムSEED",
-    "name": "STAGE 3",
+    "series": "機動戦士ガンダム",
+    "name": "機動戦士ガンダム HARD STAGE 2",
     "drops": [
-      { "name": "ストライク素材", "image": null }
+      { "name": "G-3ガンダム研究技術書", "image": null }
+      { "name": "物理射撃", "image": null }
     ]
   }
 ]
