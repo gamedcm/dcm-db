@@ -231,31 +231,31 @@
     <div class="quick-parts-title">🎯 武装強化パーツで絞り込み</div>
     <div class="quick-parts-list" id="partButtons">
       <button class="part-btn" data-tag="物理射撃" onclick="filterByTag('物理射撃')">
-        <img src="images/shageki.webp" alt="物理射撃">
+        <img src="./images/shageki.webp" alt="物理射撃">
         <span>物理射撃</span>
       </button>
       <button class="part-btn" data-tag="物理格闘" onclick="filterByTag('物理格闘')">
-        <img src="images/kakutou.webp" alt="物理格闘">
+        <img src="./images/kakutou.webp" alt="物理格闘">
         <span>物理格闘</span>
       </button>
       <button class="part-btn" data-tag="ビーム射撃" onclick="filterByTag('ビーム射撃')">
-        <img src="images/beam_shageki.webp" alt="ビーム射撃">
+        <img src="./images/beam_shageki.webp" alt="ビーム射撃">
         <span>ビーム射撃</span>
       </button>
       <button class="part-btn" data-tag="ビーム格闘" onclick="filterByTag('ビーム格闘')">
-        <img src="images/beam_kakutou.webp" alt="ビーム格闘">
+        <img src="./images/beam_kakutou.webp" alt="ビーム格闘">
         <span>ビーム格闘</span>
       </button>
       <button class="part-btn" data-tag="特殊射撃" onclick="filterByTag('特殊射撃')">
-        <img src="images/tokushu_shageki.webp" alt="特殊射撃">
+        <img src="./images/tokushu_shageki.webp" alt="特殊射撃">
         <span>特殊射撃</span>
       </button>
       <button class="part-btn" data-tag="特殊格闘" onclick="filterByTag('特殊格闘')">
-        <img src="images/tokushu_kakutou.webp" alt="特殊格闘">
+        <img src="./images/tokushu_kakutou.webp" alt="特殊格闘">
         <span>特殊格闘</span>
       </button>
       <button class="part-btn" data-tag="覚醒" onclick="filterByTag('覚醒')">
-        <img src="images/kakusei.webp" alt="覚醒">
+        <img src="./images/kakusei.webp" alt="覚醒">
         <span>覚醒</span>
       </button>
     </div>
@@ -293,14 +293,12 @@
   }
 
   function filterByTag(tagName) {
-    // すでに選択されているボタンをもう一度押した場合は解除（すべて表示に戻す）にする挙動も便利です
     if (currentFilter === tagName) {
       currentFilter = '';
     } else {
       currentFilter = tagName;
     }
     
-    // ボタンのアクティブ状態を切り替え
     document.querySelectorAll('.part-btn').forEach(btn => {
       if (btn.getAttribute('data-tag') === currentFilter) {
         btn.classList.add('active');
@@ -312,15 +310,15 @@
     renderStageView();
   }
 
-  // 7種の武装強化パーツに対応するWebP画像のパスを自動判定
+  // 7種の武装強化パーツに対応するWebP画像のパスを自動判定（./ を付与して確実に読み込ませる）
   function getMaterialImagePath(name) {
-    if (name === '物理射撃') return 'images/shageki.webp';
-    if (name === '物理格闘') return 'images/kakutou.webp';
-    if (name === 'ビーム射撃') return 'images/beam_shageki.webp';
-    if (name === 'ビーム格闘') return 'images/beam_kakutou.webp';
-    if (name === '特殊射撃') return 'images/tokushu_shageki.webp';
-    if (name === '特殊格闘') return 'images/tokushu_kakutou.webp';
-    if (name === '覚醒') return 'images/kakusei.webp';
+    if (name === '物理射撃') return './images/shageki.webp';
+    if (name === '物理格闘') return './images/kakutou.webp';
+    if (name === 'ビーム射撃') return './images/beam_shageki.webp';
+    if (name === 'ビーム格闘') return './images/beam_kakutou.webp';
+    if (name === '特殊射撃') return './images/tokushu_shageki.webp';
+    if (name === '特殊格闘') return './images/tokushu_kakutou.webp';
+    if (name === '覚醒') return './images/kakusei.webp';
     return null;
   }
 
@@ -341,7 +339,6 @@
       return dropsMatch;
     });
 
-    // カウンターと絞り込み状態の更新
     resultCountEl.textContent = filteredStages.length;
     filterStatusEl.textContent = currentFilter ? `絞り込み: ${currentFilter}` : '表示中: すべて';
 
@@ -357,7 +354,8 @@
 
       const dropsList = stage.drops || [];
       const dropTagsHtml = dropsList.map(drop => {
-        const name = typeof drop === 'string' ? drop : drop.name;
+        const name = typeof drop === 'string' ? drop : (drop.name || '');
+        // 関数からの判定を最優先し、なければJSON側のimage、それもなければJSONのimageプロパティを見る
         const img = getMaterialImagePath(name) || (typeof drop === 'object' && drop.image ? drop.image : null);
         const imgHtml = img ? `<img src="${img}" class="drop-img-thumb" alt="">` : '📦';
 
@@ -402,7 +400,6 @@
     });
   }
 
-  // 初期化（ページ表示時にJSONを取得）
   window.addEventListener('DOMContentLoaded', () => {
     loadDataFromGitHub();
   });
