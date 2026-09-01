@@ -87,7 +87,7 @@
       border-color: var(--accent-color);
     }
 
-    .input-card, .search-card, .series-mgmt-card {
+    .input-card, .search-card {
       background: var(--card-bg);
       padding: 15px;
       border-radius: 8px;
@@ -336,45 +336,6 @@
       align-items: center;
     }
 
-    /* 作品管理UI */
-    .series-list-mgmt {
-      list-style: none;
-      padding: 0;
-      margin: 10px 0 0 0;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      max-height: 400px;
-      overflow-y: auto;
-    }
-
-    .series-mgmt-item {
-      background: #0f172a;
-      border: 1px solid var(--border-color);
-      padding: 8px 12px;
-      border-radius: 6px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .series-mgmt-item input[type="text"] {
-      padding: 4px 8px;
-      font-size: 0.85rem;
-    }
-
-    .series-mgmt-actions {
-      display: flex;
-      gap: 4px;
-    }
-
-    .series-mgmt-actions button {
-      width: auto;
-      padding: 4px 8px;
-      font-size: 0.75rem;
-    }
-
     .edit-form {
       display: flex;
       flex-direction: column;
@@ -485,7 +446,6 @@
   <div class="view-tabs">
     <button class="tab-btn active" id="tabStage" onclick="switchView('stage')">ステージ一覧</button>
     <button class="tab-btn" id="tabReverse" onclick="switchView('reverse')">素材から探す（逆引き）</button>
-    <button class="tab-btn admin-only" id="tabSeries" onclick="switchView('series')">🎬 作品名一覧の編集</button>
   </div>
 
   <!-- ステージ登録エリア（管理者のみ） -->
@@ -506,17 +466,6 @@
       <input type="text" id="stageDrops" placeholder="例: 高機動型ザク素材, 開発データA, キャピタル">
     </div>
     <button class="btn-add" onclick="addStage()">ステージを登録する</button>
-  </div>
-
-  <!-- 作品管理エリア（管理者のみ） -->
-  <div class="series-mgmt-card admin-only" id="seriesMgmtCard">
-    <label>🎬 作品名の新規登録</label>
-    <div class="drop-input-group" style="margin-bottom:15px;">
-      <input type="text" id="newSeriesName" placeholder="新しい作品名を入力">
-      <button onclick="addCustomSeries()" style="background:#0284c7; color:white;">追加</button>
-    </div>
-    <label>📋 登録済み作品名一覧（編集・削除）</label>
-    <ul id="seriesMgmtList" class="series-list-mgmt"></ul>
   </div>
 
   <!-- 検索エリア -->
@@ -547,10 +496,11 @@
 </div>
 
 <script>
-  // ★管理用パスワード（必要に応じて変更してください）
-  const ADMIN_PASSWORD = 'admin123'; //
+  // ★管理用パスワード
+  const ADMIN_PASSWORD = 'admin123';
 
-const defaultSeries = [
+  // ★デフォルト作品一覧（GitHub上で直接追加・編集します）
+  const defaultSeries = [
     "機動戦士ガンダム",
     "機動戦士Zガンダム A New Translation",
     "機動戦士ガンダムZZ",
@@ -584,10 +534,8 @@ const defaultSeries = [
     "機動戦士ガンダム 鉄血のオルフェンズ 月鋼"
   ];
 
-  let customSeries = JSON.parse(localStorage.getItem('ggene_series_list')) || defaultSeries;
   let stages = JSON.parse(localStorage.getItem('ggene_drop_db')) || [];
   let editingStageId = null;
-  let editingSeriesIndex = null;
   let currentView = 'stage';
   let isAdmin = false;
 
@@ -595,7 +543,6 @@ const defaultSeries = [
     if (isAdmin) {
       isAdmin = false;
       alert('ログアウトしました（閲覧専用モード）');
-      if (currentView === 'series') switchView('stage');
     } else {
       const pwd = prompt('管理者パスワードを入力してください:');
       if (pwd === ADMIN_PASSWORD) {
@@ -621,7 +568,6 @@ const defaultSeries = [
     document.querySelectorAll('.admin-only').forEach(el => {
       if (isAdmin) {
         if (el.id === 'stageInputCard' && currentView !== 'stage') return;
-        if (el.id === 'seriesMgmtCard' && currentView !== 'series') return;
         el.classList.remove('admin-only');
       } else {
         el.classList.add('admin-only');
@@ -642,25 +588,17 @@ const defaultSeries = [
     localStorage.setItem('ggene_drop_db', JSON.stringify(stages));
   }
 
-  function saveSeries() {
-    localStorage.setItem('ggene_series_list', JSON.stringify(customSeries));
-    updateSeriesDatalist();
-  }
-
   function updateSeriesDatalist() {
     const datalist = document.getElementById('seriesList');
-    datalist.innerHTML = customSeries.map(series => `<option value="${escapeHtml(series)}">`).join('');
+    datalist.innerHTML = defaultSeries.map(series => `<option value="${escapeHtml(series)}">`).join('');
   }
 
   function switchView(view) {
     currentView = view;
     document.getElementById('tabStage').classList.toggle('active', view === 'stage');
     document.getElementById('tabReverse').classList.toggle('active', view === 'reverse');
-    document.getElementById('tabSeries').classList.toggle('active', view === 'series');
 
     document.getElementById('stageInputCard').style.display = (view === 'stage' && isAdmin) ? 'block' : 'none';
-    document.getElementById('seriesMgmtCard').style.display = (view === 'series' && isAdmin) ? 'block' : 'none';
-    document.getElementById('searchCard').style.display = (view === 'series') ? 'none' : 'block';
 
     const searchLabel = document.getElementById('searchLabel');
     if (view === 'stage') {
@@ -679,72 +617,6 @@ const defaultSeries = [
     searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
-  /* --- 作品管理機能 --- */
-  function addCustomSeries() {
-    if (!isAdmin) return;
-    const input = document.getElementById('newSeriesName');
-    const val = input.value.trim();
-    if (!val) return;
-
-    if (!customSeries.includes(val)) {
-      customSeries.push(val);
-      saveSeries();
-      input.value = '';
-      renderSeriesMgmtView();
-    } else {
-      alert('すでに登録されている作品名です');
-    }
-  }
-
-  function startEditSeries(index) {
-    if (!isAdmin) return;
-    editingSeriesIndex = index;
-    renderSeriesMgmtView();
-  }
-
-  function cancelEditSeries() {
-    editingSeriesIndex = null;
-    renderSeriesMgmtView();
-  }
-
-  function saveEditSeries(index) {
-    if (!isAdmin) return;
-    const input = document.getElementById(`edit-series-input-${index}`);
-    const oldVal = customSeries[index];
-    const newVal = input.value.trim();
-
-    if (!newVal) {
-      alert('作品名を入力してください');
-      return;
-    }
-
-    if (oldVal !== newVal) {
-      stages = stages.map(stage => {
-        if (stage.series === oldVal) {
-          return { ...stage, series: newVal };
-        }
-        return stage;
-      });
-      saveStages();
-
-      customSeries[index] = newVal;
-      saveSeries();
-    }
-
-    editingSeriesIndex = null;
-    renderSeriesMgmtView();
-  }
-
-  function deleteSeries(index) {
-    if (!isAdmin) return;
-    const targetName = customSeries[index];
-    if (confirm(`作品「${targetName}」を作品リストから削除しますか？`)) {
-      customSeries.splice(index, 1);
-      saveSeries();
-      renderSeriesMgmtView();
-    }
-  }
-
   /* --- ステージ登録機能 --- */
   function addStage() {
     if (!isAdmin) return;
@@ -758,10 +630,6 @@ const defaultSeries = [
     }
 
     const seriesVal = seriesInput.value.trim();
-    if (seriesVal && !customSeries.includes(seriesVal)) {
-      customSeries.push(seriesVal);
-      saveSeries();
-    }
 
     const initialDrops = dropsInput.value
       .split(/[,、]/)
@@ -804,11 +672,6 @@ const defaultSeries = [
     if (!editName) {
       alert('ステージ名を入力してください');
       return;
-    }
-
-    if (editSeries && !customSeries.includes(editSeries)) {
-      customSeries.push(editSeries);
-      saveSeries();
     }
 
     stages = stages.map(stage => {
@@ -897,13 +760,12 @@ const defaultSeries = [
 
   function exportData() {
     if (!isAdmin) return;
-    if (stages.length === 0 && customSeries.length === 0) {
+    if (stages.length === 0) {
       alert('出力するデータがありません。');
       return;
     }
     const exportPayload = {
-      stages: stages,
-      customSeries: customSeries
+      stages: stages
     };
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportPayload, null, 2));
     const downloadAnchor = document.createElement('a');
@@ -925,21 +787,15 @@ const defaultSeries = [
         const importedData = JSON.parse(e.target.result);
         
         let newStages = [];
-        let newSeries = [];
-
         if (Array.isArray(importedData)) {
           newStages = importedData;
-          newSeries = defaultSeries;
         } else {
           newStages = importedData.stages || [];
-          newSeries = importedData.customSeries || defaultSeries;
         }
 
         if (confirm('既存のデータを上書きして復元しますか？')) {
           stages = newStages;
-          customSeries = newSeries;
           saveStages();
-          saveSeries();
           renderCurrentView();
           alert('データの復元が完了しました！');
         }
@@ -956,8 +812,6 @@ const defaultSeries = [
       renderStageView();
     } else if (currentView === 'reverse') {
       renderReverseView();
-    } else if (currentView === 'series' && isAdmin) {
-      renderSeriesMgmtView();
     }
   }
 
@@ -1131,40 +985,6 @@ const defaultSeries = [
       `;
 
       listElement.appendChild(li);
-    });
-  }
-
-  /* --- 3. 作品一覧管理表示 --- */
-  function renderSeriesMgmtView() {
-    if (!isAdmin) return;
-    const mgmtList = document.getElementById('seriesMgmtList');
-    document.getElementById('stageList').innerHTML = '';
-
-    mgmtList.innerHTML = '';
-
-    customSeries.forEach((series, index) => {
-      const li = document.createElement('li');
-      li.className = 'series-mgmt-item';
-
-      if (editingSeriesIndex === index) {
-        li.innerHTML = `
-          <input type="text" id="edit-series-input-${index}" value="${escapeHtml(series)}" style="flex:1;">
-          <div class="series-mgmt-actions">
-            <button class="btn-save-edit" onclick="saveEditSeries(${index})">保存</button>
-            <button class="btn-cancel-edit" onclick="cancelEditSeries()">中断</button>
-          </div>
-        `;
-      } else {
-        li.innerHTML = `
-          <span style="font-size:0.9rem;">🎬 ${escapeHtml(series)}</span>
-          <div class="series-mgmt-actions">
-            <button class="btn-edit-stage" onclick="startEditSeries(${index})">編集</button>
-            <button class="btn-delete-stage" onclick="deleteSeries(${index})">削除</button>
-          </div>
-        `;
-      }
-
-      mgmtList.appendChild(li);
     });
   }
 
