@@ -5,8 +5,7 @@
     "name": "name",
     "drops": [
       {
-        "name": "drops",
-        "image": null
+        "name": "drops"
       }
     ]
   },
@@ -16,16 +15,13 @@
     "name": "機動戦士ガンダム HARD STAGE 1",
     "drops": [
       {
-        "name": "ビグ・ザム",
-        "image": null
+        "name": "ビグ・ザム"
       },
       {
-        "name": "ギャン・エーオース",
-        "image": null
+        "name": "ギャン・エーオース"
       },
       {
-        "name": "物理格闘",
-        "image": "images/kakutou.webp"
+        "name": "物理格闘"
       }
     ]
   },
@@ -35,12 +31,10 @@
     "name": "機動戦士ガンダム HARD STAGE 2",
     "drops": [
       {
-        "name": "G-3ガンダム",
-        "image": null
+        "name": "G-3ガンダム"
       },
       {
-        "name": "物理射撃",
-        "image": "images/shageki.webp"
+        "name": "物理射撃"
       }
     ]
   },
@@ -50,12 +44,10 @@
     "name": "機動戦士ガンダム HARD STAGE 3",
     "drops": [
       {
-        "name": "ジオング",
-        "image": null
+        "name": "ジオング"
       },
       {
-        "name": "ビーム射撃",
-        "image": "images/beam_shageki.webp"
+        "name": "ビーム射撃"
       }
     ]
   },
@@ -65,16 +57,13 @@
     "name": "機動戦士Zガンダム A New Translation HARD STAGE 1",
     "drops": [
       {
-        "name": "Zガンダム",
-        "image": null
+        "name": "Zガンダム"
       },
       {
-        "name": "百式",
-        "image": null
+        "name": "百式"
       },
       {
-        "name": "物理射撃",
-        "image": "images/shageki.webp"
+        "name": "物理射撃"
       }
     ]
   },
@@ -84,12 +73,10 @@
     "name": "機動戦士Zガンダム A New Translation HARD STAGE 2",
     "drops": [
       {
-        "name": "サイコ・ガンダム",
-        "image": null
+        "name": "サイコ・ガンダム"
       },
       {
-        "name": "ビーム射撃",
-        "image": "images/beam_shageki.webp"
+        "name": "ビーム射撃"
       }
     ]
   },
@@ -99,16 +86,13 @@
     "name": "機動戦士Zガンダム A New Translation HARD STAGE 3",
     "drops": [
       {
-        "name": "ジ・O",
-        "image": null
+        "name": "ジ・O"
       },
       {
-        "name": "キュベレイ",
-        "image": null
+        "name": "キュベレイ"
       },
       {
-        "name": "覚醒",
-        "image": "images/kakusei.webp"
+        "name": "覚醒"
       }
     ]
   },
@@ -118,12 +102,10 @@
     "name": "機動戦士ガンダムZZ HARD STAGE 1",
     "drops": [
       {
-        "name": "フルアーマーZZガンダム",
-        "image": null
+        "name": "フルアーマーZZガンダム"
       },
       {
-        "name": "ビーム格闘",
-        "image": "images/beam_kakutou.webp"
+        "name": "ビーム格闘"
       }
     ]
   },
@@ -133,20 +115,16 @@
     "name": "機動戦士ガンダムZZ HARD STAGE 2",
     "drops": [
       {
-        "name": "ザクIII",
-        "image": null
+        "name": "ザクIII"
       },
       {
-        "name": "ゲーマルク",
-        "image": null
+        "name": "ゲーマルク"
       },
       {
-        "name": "キュベレイ(ZZ版)",
-        "image": null
+        "name": "キュベレイ(ZZ版)"
       },
       {
-        "name": "覚醒",
-        "image": "images/kakusei.webp"
+        "name": "覚醒"
       }
     ]
   },
@@ -156,12 +134,10 @@
     "name": "機動戦士ガンダムZZ HARD STAGE 3",
     "drops": [
       {
-        "name": "クィン・マンサ",
-        "image": null
+        "name": "クィン・マンサ"
       },
       {
-        "name": "ビーム射撃",
-        "image": "images/beam_shageki.webp"
+        "name": "ビーム射撃"
       }
     ]
   },
@@ -171,12 +147,10 @@
     "name": "機動戦士ガンダム 逆襲のシャア HARD STAGE 1",
     "drops": [
       {
-        "name": "νガンダム",
-        "image": null
+        "name": "νガンダム"
       },
       {
-        "name": "覚醒",
-        "image": "images/kakusei.webp"
+        "name": "覚醒"
       }
     ]
   },
@@ -186,16 +160,13 @@
     "name": "機動戦士ガンダム 逆襲のシャア HARD STAGE 2",
     "drops": [
       {
-        "name": "サザビー",
-        "image": null
+        "name": "サザビー"
       },
       {
-        "name": "α・アジール",
-        "image": null
+        "name": "α・アジール"
       },
       {
-        "name": "特殊格闘",
-        "image": "images/tokushu_kakutou.webp"
+        "name": "特殊格闘"
       }
     ]
   },
@@ -205,16 +176,13 @@
     "name": "機動戦士ガンダム 逆襲のシャア HARD STAGE 3",
     "drops": [
       {
-        "name": "Hi-νガンダム",
-        "image": null
+        "name": "Hi-νガンダム"
       },
       {
-        "name": "ナイチンゲール",
-        "image": null
+        "name": "ナイチンゲール"
       },
       {
-        "name": "特殊射撃",
-        "image": "images/tokushu_shageki.webp"
+        "name": "特殊射撃"
       }
     ]
   },
@@ -224,16 +192,13 @@
     "name": "機動戦士ガンダムUC HARD STAGE 1",
     "drops": [
       {
-        "name": "ユニコーンガンダム(デストロイモード)",
-        "image": null
+        "name": "ユニコーンガンダム(デストロイモード)"
       },
       {
-        "name": "シナンジュ",
-        "image": null
+        "name": "シナンジュ"
       },
       {
-        "name": "特殊格闘",
-        "image": "images/tokushu_kakutou.webp"
+        "name": "特殊格闘"
       }
     ]
   },
@@ -243,16 +208,13 @@
     "name": "機動戦士ガンダムUC HARD STAGE 2",
     "drops": [
       {
-        "name": "バンシィ(デストロイモード)",
-        "image": null
+        "name": "バンシィ(デストロイモード)"
       },
       {
-        "name": "シャンブロ",
-        "image": null
+        "name": "シャンブロ"
       },
       {
-        "name": "特殊射撃",
-        "image": "images/tokushu_shageki.webp"
+        "name": "特殊射撃"
       }
     ]
   },
@@ -262,16 +224,13 @@
     "name": "機動戦士ガンダムUC HARD STAGE 3",
     "drops": [
       {
-        "name": "バンシィ・ノルン",
-        "image": null
+        "name": "バンシィ・ノルン"
       },
       {
-        "name": "クシャトリヤ・リペアード",
-        "image": null
+        "name": "クシャトリヤ・リペアード"
       },
       {
-        "name": "特殊格闘",
-        "image": "images/tokushu_kakutou.webp"
+        "name": "特殊格闘"
       }
     ]
   },
@@ -281,8 +240,7 @@
     "name": "機動戦士ガンダムUC HARD STAGE 4",
     "drops": [
       {
-        "name": "",
-        "image": null
+        "name": ""
       }
     ]
   },
@@ -292,8 +250,7 @@
     "name": "",
     "drops": [
       {
-        "name": "",
-        "image": null
+        "name": ""
       }
     ]
   },
@@ -303,8 +260,7 @@
     "name": "",
     "drops": [
       {
-        "name": "",
-        "image": null
+        "name": ""
       }
     ]
   },
@@ -314,8 +270,7 @@
     "name": "",
     "drops": [
       {
-        "name": "",
-        "image": null
+        "name": ""
       }
     ]
   },
@@ -325,8 +280,7 @@
     "name": "",
     "drops": [
       {
-        "name": "",
-        "image": null
+        "name": ""
       }
     ]
   },
@@ -336,8 +290,7 @@
     "name": "",
     "drops": [
       {
-        "name": "",
-        "image": null
+        "name": ""
       }
     ]
   },
@@ -347,8 +300,7 @@
     "name": "",
     "drops": [
       {
-        "name": "",
-        "image": null
+        "name": ""
       }
     ]
   },
@@ -358,8 +310,7 @@
     "name": "",
     "drops": [
       {
-        "name": "",
-        "image": null
+        "name": ""
       }
     ]
   },
@@ -369,8 +320,7 @@
     "name": "",
     "drops": [
       {
-        "name": "",
-        "image": null
+        "name": ""
       }
     ]
   },
@@ -380,8 +330,7 @@
     "name": "",
     "drops": [
       {
-        "name": "",
-        "image": null
+        "name": ""
       }
     ]
   },
@@ -391,8 +340,7 @@
     "name": "",
     "drops": [
       {
-        "name": "",
-        "image": null
+        "name": ""
       }
     ]
   },
@@ -402,8 +350,7 @@
     "name": "",
     "drops": [
       {
-        "name": "",
-        "image": null
+        "name": ""
       }
     ]
   },
@@ -413,8 +360,7 @@
     "name": "",
     "drops": [
       {
-        "name": "",
-        "image": null
+        "name": ""
       }
     ]
   },
@@ -424,8 +370,7 @@
     "name": "",
     "drops": [
       {
-        "name": "",
-        "image": null
+        "name": ""
       }
     ]
   },
@@ -435,8 +380,7 @@
     "name": "",
     "drops": [
       {
-        "name": "",
-        "image": null
+        "name": ""
       }
     ]
   },
@@ -446,8 +390,7 @@
     "name": "",
     "drops": [
       {
-        "name": "",
-        "image": null
+        "name": ""
       }
     ]
   },
@@ -457,8 +400,7 @@
     "name": "",
     "drops": [
       {
-        "name": "",
-        "image": null
+        "name": ""
       }
     ]
   },
@@ -468,8 +410,7 @@
     "name": "",
     "drops": [
       {
-        "name": "",
-        "image": null
+        "name": ""
       }
     ]
   },
@@ -479,8 +420,7 @@
     "name": "",
     "drops": [
       {
-        "name": "",
-        "image": null
+        "name": ""
       }
     ]
   },
@@ -490,8 +430,7 @@
     "name": "",
     "drops": [
       {
-        "name": "",
-        "image": null
+        "name": ""
       }
     ]
   },
@@ -501,8 +440,7 @@
     "name": "",
     "drops": [
       {
-        "name": "",
-        "image": null
+        "name": ""
       }
     ]
   },
@@ -512,8 +450,7 @@
     "name": "",
     "drops": [
       {
-        "name": "",
-        "image": null
+        "name": ""
       }
     ]
   },
@@ -523,8 +460,7 @@
     "name": "",
     "drops": [
       {
-        "name": "",
-        "image": null
+        "name": ""
       }
     ]
   },
@@ -534,8 +470,7 @@
     "name": "",
     "drops": [
       {
-        "name": "",
-        "image": null
+        "name": ""
       }
     ]
   }
