@@ -25,7 +25,7 @@
       },
       {
         "name": "物理格闘",
-        "image": null
+        "image": "images/kakutou.webp"
       }
     ]
   },
@@ -40,7 +40,7 @@
       },
       {
         "name": "物理射撃",
-        "image": null
+        "image": "images/shageki.webp"
       }
     ]
   },
@@ -55,7 +55,7 @@
       },
       {
         "name": "ビーム射撃",
-        "image": null
+        "image": "images/beam_shageki.webp"
       }
     ]
   },
@@ -74,7 +74,7 @@
       },
       {
         "name": "物理射撃",
-        "image": null
+        "image": "images/shageki.webp"
       }
     ]
   },
@@ -89,7 +89,7 @@
       },
       {
         "name": "ビーム射撃",
-        "image": null
+        "image": "images/beam_shageki.webp"
       }
     ]
   },
@@ -108,7 +108,7 @@
       },
       {
         "name": "覚醒",
-        "image": null
+        "image": "images/kakusei.webp"
       }
     ]
   },
@@ -123,7 +123,7 @@
       },
       {
         "name": "ビーム格闘",
-        "image": null
+        "image": "images/beam_kakutou.webp"
       }
     ]
   },
@@ -146,7 +146,7 @@
       },
       {
         "name": "覚醒",
-        "image": null
+        "image": "images/kakusei.webp"
       }
     ]
   },
@@ -161,7 +161,7 @@
       },
       {
         "name": "ビーム射撃",
-        "image": null
+        "image": "images/beam_shageki.webp"
       }
     ]
   },
@@ -176,7 +176,7 @@
       },
       {
         "name": "覚醒",
-        "image": null
+        "image": "images/kakusei.webp"
       }
     ]
   },
@@ -195,7 +195,7 @@
       },
       {
         "name": "特殊格闘",
-        "image": null
+        "image": "images/tokushu_kakutou.webp"
       }
     ]
   },
@@ -214,7 +214,7 @@
       },
       {
         "name": "特殊射撃",
-        "image": null
+        "image": "images/tokushu_shageki.webp"
       }
     ]
   },
@@ -233,7 +233,7 @@
       },
       {
         "name": "特殊格闘",
-        "image": null
+        "image": "images/tokushu_kakutou.webp"
       }
     ]
   },
@@ -252,7 +252,7 @@
       },
       {
         "name": "特殊射撃",
-        "image": null
+        "image": "images/tokushu_shageki.webp"
       }
     ]
   },
@@ -271,7 +271,7 @@
       },
       {
         "name": "特殊格闘",
-        "image": null
+        "image": "images/tokushu_kakutou.webp"
       }
     ]
   },
