@@ -100,6 +100,60 @@
       font-size: 0.95rem;
     }
 
+    /* 武装強化パーツショートカット（7種対応） */
+    .quick-parts-container {
+      background: var(--card-bg);
+      padding: 12px 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      border: 1px solid var(--border-color);
+    }
+
+    .quick-parts-title {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .quick-parts-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    @media (min-width: 480px) {
+      .quick-parts-list {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .part-btn {
+      background: #0f172a;
+      border: 1px solid var(--border-color);
+      color: #e2e8f0;
+      padding: 8px 10px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .part-btn:hover {
+      background: #1e3a8a;
+      border-color: var(--accent-color);
+    }
+
+    .part-btn img {
+      width: 24px;
+      height: 24px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
     .stage-list {
       list-style: none;
       padding: 0;
@@ -240,7 +294,7 @@
 
 <div class="container">
   <div class="header-bar">
-    <h1>GGGENDB</h1>
+    <h1>GGENDB</h1>
   </div>
 
   <!-- 表示モード切替タブ -->
@@ -253,41 +307,44 @@
   <div class="search-card" id="searchCard">
     <div class="form-group">
       <label for="searchInput" id="searchLabel">🔍 検索（作品名・ステージ名・ドロップ素材名）</label>
-      <input type="text" id="searchInput" placeholder="例: ガンダム, ザク, 開発データ, STAGE 3" oninput="renderCurrentView()">
+      <input type="text" id="searchInput" placeholder="例: ガンダム, 物理格闘, STAGE 3" oninput="renderCurrentView()">
     </div>
   </div>
 
-  <!-- 武装強化パーツの画像ショートカット -->
-<div class="quick-parts-container">
-  <div class="quick-parts-title">武装強化パーツで絞り込み</div>
-  <div class="quick-parts-list">
-
-    <!-- 画像1 ✕ 武装強化パーツ1 -->
-    <button class="part-btn" onclick="filterByTag('物理格闘')">
-      <img src="images/kakutou.png" alt="物理格闘">
-      <span>物理格闘</span>
-    </button>
-
-    <!-- 画像2 ✕ 武装強化パーツ2 -->
-    <button class="part-btn" onclick="filterByTag('物理射撃')">
-      <img src="images/shageki.png" alt="物理射撃">
-      <span>物理射撃</span>
-    </button>
-
-    <!-- 画像3 ✕ 武装強化パーツ3 -->
-    <button class="part-btn" onclick="filterByTag('ビーム射撃')">
-      <img src="images/beam_shageki.png" alt="ビーム射撃">
-      <span>ビーム射撃</span>
-    </button>
-
-    <!-- 画像4 ✕ 武装強化パーツ4 -->
-    <button class="part-btn" onclick="filterByTag('ビーム格闘')">
-      <img src="images/beam_kakutou.png" alt="ビーム格闘">
-      <span>ビーム格闘</span>
-    </button>
-
+  <!-- 武装強化パーツの画像ショートカット（7種） -->
+  <div class="quick-parts-container">
+    <div class="quick-parts-title">武装強化パーツで絞り込み</div>
+    <div class="quick-parts-list">
+      <button class="part-btn" onclick="filterByTag('物理射撃')">
+        <img src="images/shageki.webp" alt="物理射撃">
+        <span>物理射撃</span>
+      </button>
+      <button class="part-btn" onclick="filterByTag('物理格闘')">
+        <img src="images/kakutou.webp" alt="物理格闘">
+        <span>物理格闘</span>
+      </button>
+      <button class="part-btn" onclick="filterByTag('ビーム射撃')">
+        <img src="images/beam_shageki.webp" alt="ビーム射撃">
+        <span>ビーム射撃</span>
+      </button>
+      <button class="part-btn" onclick="filterByTag('ビーム格闘')">
+        <img src="images/beam_kakutou.webp" alt="ビーム格闘">
+        <span>ビーム格闘</span>
+      </button>
+      <button class="part-btn" onclick="filterByTag('特殊射撃')">
+        <img src="images/tokushu_shageki.webp" alt="特殊射撃">
+        <span>特殊射撃</span>
+      </button>
+      <button class="part-btn" onclick="filterByTag('特殊格闘')">
+        <img src="images/tokushu_kakutou.webp" alt="特殊格闘">
+        <span>特殊格闘</span>
+      </button>
+      <button class="part-btn" onclick="filterByTag('覚醒')">
+        <img src="images/kakusei.webp" alt="覚醒">
+        <span>覚醒</span>
+      </button>
+    </div>
   </div>
-</div>
 
   <!-- リスト表示エリア -->
   <ul id="stageList" class="stage-list"></ul>
@@ -303,7 +360,6 @@
     listElement.innerHTML = '<li style="text-align:center; color:#94a3b8; padding:20px;">データを読み込み中...</li>';
 
     try {
-      // キャッシュを防ぐためタイムスタンプを付与してfetch
       const response = await fetch('data.json?t=' + new Date().getTime());
       if (!response.ok) throw new Error('data.json の読み込みに失敗しました');
       
@@ -345,6 +401,18 @@
     }
   }
 
+  // 7種の武装強化パーツに対応するWebP画像のパスを自動判定
+  function getMaterialImagePath(name) {
+    if (name === '物理射撃') return 'images/shageki.webp';
+    if (name === '物理格闘') return 'images/kakutou.webp';
+    if (name === 'ビーム射撃') return 'images/beam_shageki.webp';
+    if (name === 'ビーム格闘') return 'images/beam_kakutou.webp';
+    if (name === '特殊射撃') return 'images/tokushu_shageki.webp';
+    if (name === '特殊格闘') return 'images/tokushu_kakutou.webp';
+    if (name === '覚醒') return 'images/kakusei.webp';
+    return null;
+  }
+
   /* --- 1. ステージ一覧表示 --- */
   function renderStageView() {
     const listElement = document.getElementById('stageList');
@@ -354,7 +422,7 @@
     const filteredStages = stages.filter(stage => {
       if (!searchQuery) return true;
       const seriesMatch = (stage.series || '').toLowerCase().includes(searchQuery);
-      const nameMatch = stage.name.toLowerCase().includes(searchQuery);
+      const nameMatch = (stage.name || '').toLowerCase().includes(searchQuery);
       const dropsMatch = (stage.drops || []).some(d => {
         const dName = typeof d === 'string' ? d : d.name;
         return dName.toLowerCase().includes(searchQuery);
@@ -374,7 +442,7 @@
       const dropsList = stage.drops || [];
       const dropTagsHtml = dropsList.map(drop => {
         const name = typeof drop === 'string' ? drop : drop.name;
-        const img = typeof drop === 'object' && drop.image ? drop.image : null;
+        const img = getMaterialImagePath(name) || (typeof drop === 'object' && drop.image ? drop.image : null);
         const imgHtml = img ? `<img src="${img}" class="drop-img-thumb" alt="">` : '📦';
 
         return `
@@ -416,7 +484,8 @@
     stages.forEach(stage => {
       (stage.drops || []).forEach(drop => {
         const name = typeof drop === 'string' ? drop : drop.name;
-        const img = typeof drop === 'object' ? drop.image : null;
+        const autoImg = getMaterialImagePath(name);
+        const img = autoImg || (typeof drop === 'object' ? drop.image : null);
 
         if (!dropMap[name]) {
           dropMap[name] = { stages: [], image: img };
