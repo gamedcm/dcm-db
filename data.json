@@ -1,0 +1,19 @@
+[
+  {
+    "id": 1,
+    "series": "機動戦士ガンダム",
+    "name": "STAGE 1 (Hard)",
+    "drops": [
+      { "name": "ガンダム開発データ", "image": null },
+      { "name": "キャピタル", "image": null }
+    ]
+  },
+  {
+    "id": 2,
+    "series": "機動戦士ガンダムSEED",
+    "name": "STAGE 3",
+    "drops": [
+      { "name": "ストライク素材", "image": null }
+    ]
+  }
+]
