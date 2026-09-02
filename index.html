@@ -122,7 +122,7 @@
       }
     }
 
-    /* 1. パーツボタンのデザイン差別化（赤・黄・青） */
+    /* パーツボタンのデザイン差別化（赤・黄・青） */
     .part-btn {
       background: #0f172a;
       border: 1px solid var(--border-color);
@@ -174,7 +174,6 @@
       color: #93c5fd;
     }
 
-    /* アクティブ時の共通強調効果 */
     .part-btn.active {
       font-weight: bold;
       box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
@@ -203,7 +202,6 @@
       margin: 0;
     }
 
-    /* 2. ステージカードのコンパクト化 & 3. パフォーマンス最適化 */
     .stage-item {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
@@ -213,7 +211,6 @@
       display: flex;
       flex-direction: column;
       gap: 6px;
-      /* アニメーションのパフォーマンス改善：GPUアクセラレーションの有効化 */
       will-change: opacity, transform;
       animation: fadeIn 0.15s cubic-bezier(0, 0, 0.2, 1) forwards;
     }
@@ -265,15 +262,6 @@
       border: 1px solid rgba(51, 65, 85, 0.6);
       display: flex;
       align-items: center;
-      gap: 8px;
-    }
-
-    .drop-title {
-      font-size: 0.7rem;
-      color: #64748b;
-      font-weight: bold;
-      white-space: nowrap;
-      flex-shrink: 0;
     }
 
     .drop-tags {
@@ -283,7 +271,7 @@
       flex: 1;
     }
 
-    /* 機体ドロップタグ（コンパクト化） */
+    /* 機体ドロップタグ */
     .drop-tag-unit {
       background: #0f172a;
       border: 1px solid var(--border-color);
@@ -296,7 +284,7 @@
       gap: 4px;
     }
 
-    /* 武装パーツドロップタグ（タイプ別に色分け） */
+    /* 武装パーツドロップタグ */
     .drop-tag-part {
       background: #0f172a;
       padding: 2px 8px;
@@ -420,7 +408,6 @@
   let currentPartFilter = '';
   let currentSeriesFilter = '';
 
-  // パーツ名から属性タイプ（格闘/射撃/覚醒）を判定するヘルパー関数
   function getPartType(partName) {
     if (partName.includes('格闘')) return 'melee';
     if (partName.includes('射撃')) return 'shooting';
@@ -428,7 +415,6 @@
     return '';
   }
 
-  // data.json を非同期読み込み
   async function loadDataFromGitHub() {
     const listElement = document.getElementById('stageList');
     listElement.innerHTML = '<li style="text-align:center; color:#94a3b8; padding:15px; font-size:0.85rem;">データを読み込み中...</li>';
@@ -446,7 +432,6 @@
     }
   }
 
-  // 作品プルダウンの選択肢を動的生成
   function initSeriesDropdown() {
     const seriesSet = new Set();
     stages.forEach(stage => {
@@ -486,16 +471,13 @@
     renderStageView();
   }
 
-  /* --- ステージ一覧表示（最適化版） --- */
   function renderStageView() {
     const listElement = document.getElementById('stageList');
     const resultCountEl = document.getElementById('resultCount');
     const filterStatusEl = document.getElementById('filterStatus');
 
-    // DOM構築用 DocumentFragment（描画パフォーマンスの最適化）
     const fragment = document.createDocumentFragment();
 
-    // フィルタリング処理
     const filteredStages = stages.filter(stage => {
       if (currentSeriesFilter && stage.series !== currentSeriesFilter) {
         return false;
@@ -524,8 +506,6 @@
     filteredStages.forEach((stage, index) => {
       const li = document.createElement('li');
       li.className = 'stage-item';
-
-      // 3. アニメーション遅延の最適化（最大0.15秒に抑えて体感速度を高速化）
       li.style.animationDelay = `${Math.min(index * 0.02, 0.15)}s`;
 
       const dropsList = stage.drops || [];
@@ -561,7 +541,6 @@
         </div>
         
         <div class="drop-section">
-          <div class="drop-title">🎁 ドロップ</div>
           <div class="drop-tags">
             ${dropTagsHtml || '<span style="font-size:0.75rem; color:#64748b;">登録なし</span>'}
           </div>
@@ -571,7 +550,6 @@
       fragment.appendChild(li);
     });
 
-    // 画面の一括更新（リフローを削減）
     listElement.innerHTML = '';
     listElement.appendChild(fragment);
   }
