@@ -225,16 +225,16 @@
       line-height: 1.35;
     }
 
-    /* ドロップ・鹵獲セクションエリア */
+/* ドロップ・鹵獲セクションエリア */
     .info-sections {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 2px; /* ← 4px から 2px に変更 */
     }
 
-    .drop-section, .capture-section {
+.drop-section, .capture-section {
       background: rgba(15, 23, 42, 0.5);
-      padding: 6px 8px;
+      padding: 4px 8px; /* ← 上下パディングを 6px から 4px に縮小 */
       border-radius: 4px;
       border: 1px solid rgba(51, 65, 85, 0.5);
     }
