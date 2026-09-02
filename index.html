@@ -44,6 +44,41 @@
       margin: 0;
     }
 
+    /* フィルタコントロールエリア */
+    .filter-control-container {
+      background: var(--card-bg);
+      padding: 12px 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      border: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .filter-label {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      font-weight: bold;
+    }
+
+    .series-select {
+      background: #0f172a;
+      border: 1px solid var(--border-color);
+      color: #f8fafc;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      width: 100%;
+      box-sizing: border-box;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .series-select:focus {
+      border-color: var(--accent-color);
+    }
+
     /* 武装強化パーツショートカット（7種） */
     .quick-parts-container {
       background: var(--card-bg);
@@ -79,12 +114,12 @@
       background: #0f172a;
       border: 1px solid var(--border-color);
       color: #e2e8f0;
-      padding: 10px 12px;
+      padding: 8px 10px;
       border-radius: 6px;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       cursor: pointer;
       transition: background 0.2s, border-color 0.2s;
       width: 100%;
@@ -97,8 +132,8 @@
     }
 
     .part-btn img {
-      width: 40px;  /* 画像サイズを大きく調整 */
-      height: 40px; /* 画像サイズを大きく調整 */
+      width: 32px;
+      height: 32px;
       object-fit: cover;
       border-radius: 4px;
       flex-shrink: 0;
@@ -200,9 +235,23 @@
       gap: 8px;
     }
 
-    .drop-tag {
+    /* 機体ドロップタグ（区別用） */
+    .drop-tag-unit {
       background: #0f172a;
-      border: 1px solid #38bdf8;
+      border: 1px solid var(--border-color);
+      color: #cbd5e1;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* 武装パーツドロップタグ（区別用） */
+    .drop-tag-part {
+      background: #0f172a;
+      border: 1px solid var(--accent-color);
       color: #e2e8f0;
       padding: 4px 10px;
       border-radius: 12px;
@@ -214,13 +263,15 @@
       transition: background 0.2s;
     }
 
-    .drop-tag:hover { background: #1e3a8a; }
+    .drop-tag-part:hover { 
+      background: #1e3a8a; 
+    }
 
     .drop-img-thumb {
-      width: 24px;
-      height: 24px;
+      width: 20px;
+      height: 20px;
       object-fit: cover;
-      border-radius: 4px;
+      border-radius: 3px;
     }
   </style>
 </head>
@@ -231,36 +282,44 @@
     <h1>GGENDB</h1>
   </div>
 
+  <!-- 作品（シリーズ）ごとフィルター -->
+  <div class="filter-control-container">
+    <label class="filter-label" for="seriesSelect">🎬 作品（シリーズ）で絞り込み</label>
+    <select id="seriesSelect" class="series-select" onchange="handleSeriesChange()">
+      <option value="">すべての作品を表示</option>
+    </select>
+  </div>
+
   <!-- 武装強化パーツの画像ショートカット（7種） -->
   <div class="quick-parts-container">
     <div class="quick-parts-title">🎯 武装強化パーツで絞り込み</div>
     <div class="quick-parts-list" id="partButtons">
       <button class="part-btn" data-tag="物理射撃" onclick="filterByTag('物理射撃')">
-        <img src="./images/shageki.webp" alt="物理射撃">
+        <img src="./images/shageki.webp" alt="物理射撃" onerror="this.style.display='none'">
         <span>物理射撃</span>
       </button>
       <button class="part-btn" data-tag="物理格闘" onclick="filterByTag('物理格闘')">
-        <img src="./images/kakutou.webp" alt="物理格闘">
+        <img src="./images/kakutou.webp" alt="物理格闘" onerror="this.style.display='none'">
         <span>物理格闘</span>
       </button>
       <button class="part-btn" data-tag="ビーム射撃" onclick="filterByTag('ビーム射撃')">
-        <img src="./images/beam_shageki.webp" alt="ビーム射撃">
+        <img src="./images/beam_shageki.webp" alt="ビーム射撃" onerror="this.style.display='none'">
         <span>ビーム射撃</span>
       </button>
       <button class="part-btn" data-tag="ビーム格闘" onclick="filterByTag('ビーム格闘')">
-        <img src="./images/beam_kakutou.webp" alt="ビーム格闘">
+        <img src="./images/beam_kakutou.webp" alt="ビーム格闘" onerror="this.style.display='none'">
         <span>ビーム格闘</span>
       </button>
       <button class="part-btn" data-tag="特殊射撃" onclick="filterByTag('特殊射撃')">
-        <img src="./images/tokushu_shageki.webp" alt="特殊射撃">
+        <img src="./images/tokushu_shageki.webp" alt="特殊射撃" onerror="this.style.display='none'">
         <span>特殊射撃</span>
       </button>
       <button class="part-btn" data-tag="特殊格闘" onclick="filterByTag('特殊格闘')">
-        <img src="./images/tokushu_kakutou.webp" alt="特殊格闘">
+        <img src="./images/tokushu_kakutou.webp" alt="特殊格闘" onerror="this.style.display='none'">
         <span>特殊格闘</span>
       </button>
       <button class="part-btn" data-tag="覚醒" onclick="filterByTag('覚醒')">
-        <img src="./images/kakusei.webp" alt="覚醒">
+        <img src="./images/kakusei.webp" alt="覚醒" onerror="this.style.display='none'">
         <span>覚醒</span>
       </button>
     </div>
@@ -278,7 +337,8 @@
 
 <script>
   let stages = [];
-  let currentFilter = '';
+  let currentPartFilter = '';
+  let currentSeriesFilter = '';
 
   // GitHub上の data.json を非同期読み込み
   async function loadDataFromGitHub() {
@@ -290,6 +350,7 @@
       if (!response.ok) throw new Error('data.json の読み込みに失敗しました');
       
       stages = await response.json();
+      initSeriesDropdown();
       renderStageView();
     } catch (error) {
       console.error(error);
@@ -297,15 +358,37 @@
     }
   }
 
+  // 作品プルダウンの選択肢を動的生成
+  function initSeriesDropdown() {
+    const seriesSet = new Set();
+    stages.forEach(stage => {
+      if (stage.series) seriesSet.add(stage.series);
+    });
+
+    const selectEl = document.getElementById('seriesSelect');
+    seriesSet.forEach(series => {
+      const option = document.createElement('option');
+      option.value = series;
+      option.textContent = series;
+      selectEl.appendChild(option);
+    });
+  }
+
+  function handleSeriesChange() {
+    const selectEl = document.getElementById('seriesSelect');
+    currentSeriesFilter = selectEl.value;
+    renderStageView();
+  }
+
   function filterByTag(tagName) {
-    if (currentFilter === tagName) {
-      currentFilter = '';
+    if (currentPartFilter === tagName) {
+      currentPartFilter = '';
     } else {
-      currentFilter = tagName;
+      currentPartFilter = tagName;
     }
     
     document.querySelectorAll('.part-btn').forEach(btn => {
-      if (btn.getAttribute('data-tag') === currentFilter) {
+      if (btn.getAttribute('data-tag') === currentPartFilter) {
         btn.classList.add('active');
       } else {
         btn.classList.remove('active');
@@ -315,16 +398,18 @@
     renderStageView();
   }
 
-  // 7種の武装強化パーツに対応するWebP画像のパスを自動判定
+  // 武装強化パーツに対応するWebP画像のパスを判定
   function getMaterialImagePath(name) {
-    if (name === '物理射撃') return './images/shageki.webp';
-    if (name === '物理格闘') return './images/kakutou.webp';
-    if (name === 'ビーム射撃') return './images/beam_shageki.webp';
-    if (name === 'ビーム格闘') return './images/beam_kakutou.webp';
-    if (name === '特殊射撃') return './images/tokushu_shageki.webp';
-    if (name === '特殊格闘') return './images/tokushu_kakutou.webp';
-    if (name === '覚醒') return './images/kakusei.webp';
-    return null;
+    const paths = {
+      '物理射撃': './images/shageki.webp',
+      '物理格闘': './images/kakutou.webp',
+      'ビーム射撃': './images/beam_shageki.webp',
+      'ビーム格闘': './images/beam_kakutou.webp',
+      '特殊射撃': './images/tokushu_shageki.webp',
+      '特殊格闘': './images/tokushu_kakutou.webp',
+      '覚醒': './images/kakusei.webp'
+    };
+    return paths[name] || null;
   }
 
   /* --- ステージ一覧表示 --- */
@@ -335,17 +420,28 @@
 
     listElement.innerHTML = '';
 
+    // フィルタリング処理（作品フィルター ＆ パーツフィルター）
     const filteredStages = stages.filter(stage => {
-      if (!currentFilter) return true;
-      const dropsMatch = (stage.drops || []).some(d => {
-        const dName = typeof d === 'string' ? d : d.name;
-        return dName === currentFilter;
-      });
-      return dropsMatch;
+      // 作品マッチ判定
+      if (currentSeriesFilter && stage.series !== currentSeriesFilter) {
+        return false;
+      }
+      // パーツマッチ判定
+      if (currentPartFilter) {
+        const dropsMatch = (stage.drops || []).some(d => {
+          return (d.type === 'part' || !d.type) && d.name === currentPartFilter;
+        });
+        if (!dropsMatch) return false;
+      }
+      return true;
     });
 
     resultCountEl.textContent = filteredStages.length;
-    filterStatusEl.textContent = currentFilter ? `絞り込み: ${currentFilter}` : '表示中: すべて';
+    
+    let statusText = [];
+    if (currentSeriesFilter) statusText.push(`作品: ${currentSeriesFilter}`);
+    if (currentPartFilter) statusText.push(`パーツ: ${currentPartFilter}`);
+    filterStatusEl.textContent = statusText.length > 0 ? `絞り込み [ ${statusText.join(' / ')} ]` : '表示中: すべて';
 
     if (filteredStages.length === 0) {
       listElement.innerHTML = '<li style="text-align:center; color:#64748b; padding:20px;">該当するステージ情報はありません</li>';
@@ -359,15 +455,28 @@
 
       const dropsList = stage.drops || [];
       const dropTagsHtml = dropsList.map(drop => {
-        const name = typeof drop === 'string' ? drop : (drop.name || '');
-        const img = getMaterialImagePath(name) || (typeof drop === 'object' && drop.image ? drop.image : null);
-        const imgHtml = img ? `<img src="${img}" class="drop-img-thumb" alt="">` : '📦';
+        // 型ゆれ対策（string型、あるいは古いデータ形式混入への安全フォールバック）
+        const isString = typeof drop === 'string';
+        const name = isString ? drop : (drop.name || '');
+        const type = isString ? 'unit' : (drop.type || 'unit');
 
-        return `
-          <span class="drop-tag" onclick="filterByTag('${escapeHtml(name)}')">
-            ${imgHtml} ${escapeHtml(name)}
-          </span>
-        `;
+        if (type === 'part') {
+          // 武装パーツタグ（クリックで絞り込み可能・アイコン付き）
+          const img = getMaterialImagePath(name);
+          const imgHtml = img ? `<img src="${img}" class="drop-img-thumb" alt="" onerror="this.style.display='none'">` : '🎯';
+          return `
+            <span class="drop-tag-part" onclick="filterByTag('${escapeHtml(name)}')">
+              ${imgHtml} 強化パーツ: ${escapeHtml(name)}
+            </span>
+          `;
+        } else {
+          // 機体ドロップタグ（区別してシンプルに表示）
+          return `
+            <span class="drop-tag-unit">
+              🤖 ${escapeHtml(name)}
+            </span>
+          `;
+        }
       }).join('');
 
       const seriesHtml = stage.series ? `<span class="work-tag">🎬 ${escapeHtml(stage.series)}</span>` : '';
