@@ -107,16 +107,11 @@
       margin-bottom: 6px;
     }
 
+    /* 3列固定のグリッドレイアウト */
     .quick-parts-list {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 6px;
-    }
-
-    @media (min-width: 480px) {
-      .quick-parts-list {
-        grid-template-columns: repeat(4, 1fr);
-      }
     }
 
     /* パーツボタンデザイン */
@@ -124,7 +119,7 @@
       background: #0f172a;
       border: 1px solid var(--border-color);
       color: #e2e8f0;
-      padding: 5px 8px;
+      padding: 6px 4px;
       border-radius: 4px;
       font-size: 0.8rem;
       display: flex;
@@ -323,28 +318,33 @@
     </select>
   </div>
 
-  <!-- 武装強化パーツショートカット -->
+  <!-- 武装強化パーツショートカット（3段構造） -->
   <div class="quick-parts-container">
     <div class="quick-parts-title">🎯 武装強化パーツで絞り込み</div>
     <div class="quick-parts-list" id="partButtons">
-      <button class="part-btn" data-tag="物理射撃" data-type="射撃" onclick="filterByTag('物理射撃')">
-        <span>物理射撃</span>
-      </button>
+      <!-- 1段目 -->
       <button class="part-btn" data-tag="物理格闘" data-type="格闘" onclick="filterByTag('物理格闘')">
         <span>物理格闘</span>
-      </button>
-      <button class="part-btn" data-tag="ビーム射撃" data-type="射撃" onclick="filterByTag('ビーム射撃')">
-        <span>ビーム射撃</span>
       </button>
       <button class="part-btn" data-tag="ビーム格闘" data-type="格闘" onclick="filterByTag('ビーム格闘')">
         <span>ビーム格闘</span>
       </button>
-      <button class="part-btn" data-tag="特殊射撃" data-type="射撃" onclick="filterByTag('特殊射撃')">
-        <span>特殊射撃</span>
-      </button>
       <button class="part-btn" data-tag="特殊格闘" data-type="格闘" onclick="filterByTag('特殊格闘')">
         <span>特殊格闘</span>
       </button>
+
+      <!-- 2段目 -->
+      <button class="part-btn" data-tag="物理射撃" data-type="射撃" onclick="filterByTag('物理射撃')">
+        <span>物理射撃</span>
+      </button>
+      <button class="part-btn" data-tag="ビーム射撃" data-type="射撃" onclick="filterByTag('ビーム射撃')">
+        <span>ビーム射撃</span>
+      </button>
+      <button class="part-btn" data-tag="特殊射撃" data-type="射撃" onclick="filterByTag('特殊射撃')">
+        <span>特殊射撃</span>
+      </button>
+
+      <!-- 3段目 -->
       <button class="part-btn" data-tag="覚醒" data-type="覚醒" onclick="filterByTag('覚醒')">
         <span>覚醒</span>
       </button>
