@@ -239,7 +239,6 @@
       border: 1px solid rgba(51, 65, 85, 0.5);
     }
 
-    /* 鹵獲セクションのほんのり強調背景 */
     .capture-section {
       background: rgba(15, 23, 42, 0.8);
       border-color: rgba(56, 189, 248, 0.2);
@@ -388,7 +387,7 @@
 
   function cleanName(name) {
     if (!name) return '';
-    return name.replace(/^【[^】]+】\s*/, '');
+    return name.replace(/^【[^】]+】\s*/, '').trim();
   }
 
   function getPartType(name) {
@@ -396,6 +395,16 @@
     if (name.includes("射撃")) return "射撃";
     if (name.includes("覚醒")) return "覚醒";
     return "";
+  }
+
+  // カンマ区切りの文字列または配列を配列フォーマットに正規化する関数
+  function normalizeList(data) {
+    if (!data) return [];
+    if (Array.isArray(data)) return data;
+    if (typeof data === 'string') {
+      return data.split(',').map(item => item.trim()).filter(Boolean);
+    }
+    return [];
   }
 
   async function loadDataFromGitHub() {
@@ -467,7 +476,8 @@
         return false;
       }
       if (currentPartFilter) {
-        const dropsMatch = (stage.drops || []).some(d => {
+        const rawDrops = normalizeList(stage.drops);
+        const dropsMatch = rawDrops.some(d => {
           const rawName = typeof d === 'string' ? d : (d.name || '');
           const cleaned = cleanName(rawName);
           const isPart = (typeof d === 'object' && d.type === 'part') || knownPartKeywords.includes(cleaned);
@@ -498,7 +508,7 @@
       li.style.animationDelay = `${Math.min(index * 0.02, 0.15)}s`;
 
       /* --- ドロップ要素のレンダリング --- */
-      const dropsList = stage.drops || [];
+      const dropsList = normalizeList(stage.drops);
       const dropTagsHtml = dropsList.map(drop => {
         const isString = typeof drop === 'string';
         const rawName = isString ? drop : (drop.name || '');
@@ -523,7 +533,7 @@
       }).join('');
 
       /* --- 鹵獲可能機体のレンダリング --- */
-      const captureList = stage.captures || [];
+      const captureList = normalizeList(stage.captures);
       const captureTagsHtml = captureList.map(capture => {
         const rawName = typeof capture === 'string' ? capture : (capture.name || '');
         const name = cleanName(rawName);
