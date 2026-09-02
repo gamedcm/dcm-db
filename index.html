@@ -532,14 +532,14 @@
         }
       }).join('');
 
-      /* --- 鹵獲可能機体のレンダリング --- */
+/* --- 鹵獲可能機体のレンダリング --- */
       const captureList = normalizeList(stage.captures);
       const captureTagsHtml = captureList.map(capture => {
         const rawName = typeof capture === 'string' ? capture : (capture.name || '');
         const name = cleanName(rawName);
         return `
           <span class="drop-tag-capture">
-            🧲 ${escapeHtml(name)}
+            🤖 ${escapeHtml(name)}
           </span>
         `;
       }).join('');
