@@ -225,11 +225,24 @@
       line-height: 1.35;
     }
 
-    .drop-section {
+    /* ドロップ・鹵獲セクションエリア */
+    .info-sections {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .drop-section, .capture-section {
       background: rgba(15, 23, 42, 0.5);
       padding: 6px 8px;
       border-radius: 4px;
       border: 1px solid rgba(51, 65, 85, 0.5);
+    }
+
+    /* 鹵獲セクションのほんのり強調背景 */
+    .capture-section {
+      background: rgba(15, 23, 42, 0.8);
+      border-color: rgba(56, 189, 248, 0.2);
     }
 
     .drop-tags {
@@ -238,11 +251,23 @@
       gap: 4px;
     }
 
-    /* ドロップタグデザイン */
+    /* 各種タグデザイン */
     .drop-tag-unit {
       background: #0f172a;
       border: 1px solid var(--border-color);
       color: #cbd5e1;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .drop-tag-capture {
+      background: #0f172a;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: #7dd3fc;
       padding: 2px 6px;
       border-radius: 4px;
       font-size: 0.75rem;
@@ -472,6 +497,7 @@
       li.className = 'stage-item';
       li.style.animationDelay = `${Math.min(index * 0.02, 0.15)}s`;
 
+      /* --- ドロップ要素のレンダリング --- */
       const dropsList = stage.drops || [];
       const dropTagsHtml = dropsList.map(drop => {
         const isString = typeof drop === 'string';
@@ -496,6 +522,27 @@
         }
       }).join('');
 
+      /* --- 鹵獲可能機体のレンダリング --- */
+      const captureList = stage.captures || [];
+      const captureTagsHtml = captureList.map(capture => {
+        const rawName = typeof capture === 'string' ? capture : (capture.name || '');
+        const name = cleanName(rawName);
+        return `
+          <span class="drop-tag-capture">
+            🧲 ${escapeHtml(name)}
+          </span>
+        `;
+      }).join('');
+
+      // 鹵獲データが存在する場合のみ2段目を表示
+      const captureSectionHtml = captureList.length > 0 ? `
+        <div class="capture-section">
+          <div class="drop-tags">
+            ${captureTagsHtml}
+          </div>
+        </div>
+      ` : '';
+
       li.innerHTML = `
         <div class="stage-header">
           <div class="stage-title-group">
@@ -503,10 +550,13 @@
           </div>
         </div>
         
-        <div class="drop-section">
-          <div class="drop-tags">
-            ${dropTagsHtml || '<span style="font-size:0.75rem; color:#64748b;">登録なし</span>'}
+        <div class="info-sections">
+          <div class="drop-section">
+            <div class="drop-tags">
+              ${dropTagsHtml || '<span style="font-size:0.75rem; color:#64748b;">登録なし</span>'}
+            </div>
           </div>
+          ${captureSectionHtml}
         </div>
       `;
 
