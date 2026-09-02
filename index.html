@@ -235,7 +235,7 @@
       gap: 8px;
     }
 
-    /* 機体ドロップタグ（区別用） */
+    /* 機体ドロップタグ */
     .drop-tag-unit {
       background: #0f172a;
       border: 1px solid var(--border-color);
@@ -248,7 +248,7 @@
       gap: 6px;
     }
 
-    /* 武装パーツドロップタグ（区別用） */
+    /* 武装パーツドロップタグ */
     .drop-tag-part {
       background: #0f172a;
       border: 1px solid var(--accent-color);
@@ -340,7 +340,7 @@
   let currentPartFilter = '';
   let currentSeriesFilter = '';
 
-  // GitHub上の data.json を非同期読み込み
+  // data.json を非同期読み込み
   async function loadDataFromGitHub() {
     const listElement = document.getElementById('stageList');
     listElement.innerHTML = '<li style="text-align:center; color:#94a3b8; padding:20px;">データを読み込み中...</li>';
@@ -422,11 +422,9 @@
 
     // フィルタリング処理（作品フィルター ＆ パーツフィルター）
     const filteredStages = stages.filter(stage => {
-      // 作品マッチ判定
       if (currentSeriesFilter && stage.series !== currentSeriesFilter) {
         return false;
       }
-      // パーツマッチ判定
       if (currentPartFilter) {
         const dropsMatch = (stage.drops || []).some(d => {
           return (d.type === 'part' || !d.type) && d.name === currentPartFilter;
@@ -455,13 +453,12 @@
 
       const dropsList = stage.drops || [];
       const dropTagsHtml = dropsList.map(drop => {
-        // 型ゆれ対策（string型、あるいは古いデータ形式混入への安全フォールバック）
         const isString = typeof drop === 'string';
         const name = isString ? drop : (drop.name || '');
         const type = isString ? 'unit' : (drop.type || 'unit');
 
-if (type === 'part') {
-          // 武装パーツタグ（クリックで絞り込み可能・アイコン付き）
+        if (type === 'part') {
+          // アイコンとパーツ名のみを表示
           const img = getMaterialImagePath(name);
           const imgHtml = img ? `<img src="${img}" class="drop-img-thumb" alt="" onerror="this.style.display='none'">` : '🎯';
           return `
@@ -470,7 +467,7 @@ if (type === 'part') {
             </span>
           `;
         } else {
-          // 機体ドロップタグ（区別してシンプルに表示）
+          // 機体ドロップタグ
           return `
             <span class="drop-tag-unit">
               🤖 ${escapeHtml(name)}
