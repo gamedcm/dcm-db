@@ -2,386 +2,547 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
+  <meta name="robots" content="noindex,nofollow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GUNDAM HARD STAGE DB</title>
+  <title>GGENDB</title>
   <style>
     :root {
       --bg-color: #0f172a;
       --card-bg: #1e293b;
-      --text-main: #f8fafc;
-      --text-sub: #94a3b8;
+      --text-color: #f8fafc;
+      --accent-color: #38bdf8;
       --border-color: #334155;
 
       /* パーツ属性カラー */
       --color-格闘: #ef4444; /* 赤 */
       --color-射撃: #eab308; /* 黄 */
       --color-覚醒: #3b82f6; /* 青 */
-      --color-機体: #64748b; /* デフォルト/機体等 */
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background-color: var(--bg-color);
-      color: var(--text-main);
-      padding: 16px;
-      line-height: 1.4;
+      color: var(--text-color);
+      margin: 0;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      box-sizing: border-box;
     }
 
     .container {
-      max-width: 1000px;
-      margin: 0 auto;
+      width: 100%;
+      max-width: 650px;
+      flex: 1;
+    }
+
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--accent-color);
+      padding-bottom: 6px;
+      margin-bottom: 10px;
     }
 
     h1 {
-      font-size: 1.5rem;
-      margin-bottom: 16px;
-      text-align: center;
-      color: #38bdf8;
+      font-size: 1.2rem;
+      color: var(--accent-color);
+      margin: 0;
     }
 
-    /* フィルターエリア */
-    .filter-section {
-      background-color: var(--card-bg);
-      border-radius: 8px;
-      padding: 12px;
-      margin-bottom: 16px;
-      border: 1px solid var(--border-color);
-    }
-
-    .filter-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .filter-title {
-      font-size: 0.85rem;
-      color: var(--text-sub);
-      width: 100%;
-      margin-bottom: 4px;
-    }
-
-    /* 1. UI/デザイン面の改善（パーツボタンの視認性向上） */
-    .btn-filter {
-      background: #0f172a;
-      border: 1px solid var(--border-color);
-      color: var(--text-main);
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: background-color 0.15s ease, border-color 0.15s ease;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .btn-filter::before {
-      content: '';
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background-color: var(--btn-color, var(--color-機体));
-    }
-
-    .btn-filter[data-type="格闘"] { --btn-color: var(--color-格闘); }
-    .btn-filter[data-type="射撃"] { --btn-color: var(--color-射撃); }
-    .btn-filter[data-type="覚醒"] { --btn-color: var(--color-覚醒); }
-
-    .btn-filter.active[data-type="格闘"] {
-      background-color: rgba(239, 68, 68, 0.2);
-      border-color: var(--color-格闘);
-      color: #fca5a5;
-    }
-    .btn-filter.active[data-type="射撃"] {
-      background-color: rgba(234, 179, 8, 0.2);
-      border-color: var(--color-射撃);
-      color: #fde047;
-    }
-    .btn-filter.active[data-type="覚醒"] {
-      background-color: rgba(59, 130, 246, 0.2);
-      border-color: var(--color-覚醒);
-      color: #93c5fd;
-    }
-    .btn-filter.active[data-type="all"] {
-      background-color: #334155;
-      border-color: #94a3b8;
-    }
-
-    /* 2. ステージカードのレイアウト最適化（コンパクト化） */
-    .stage-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 12px;
-    }
-
-    .stage-card {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border-color);
+    /* フィルタコントロールエリア（コンパクト化） */
+    .filter-control-container {
+      background: var(--card-bg);
+      padding: 8px 12px;
       border-radius: 6px;
-      padding: 10px 12px;
+      margin-bottom: 10px;
+      border: 1px solid var(--border-color);
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      /* 3. パフォーマンス最適化（GPUアクセラレーションとレイアウトシフト防止） */
-      will-change: transform, opacity;
-      contain: content;
+      gap: 4px;
     }
 
-    .stage-header {
+    .filter-label {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      font-weight: bold;
+    }
+
+    .series-select {
+      background: #0f172a;
+      border: 1px solid var(--border-color);
+      color: #f8fafc;
+      padding: 6px 10px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      width: 100%;
+      box-sizing: border-box;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .series-select:focus {
+      border-color: var(--accent-color);
+    }
+
+    /* 武装強化パーツショートカット（デザイン差別化） */
+    .quick-parts-container {
+      background: var(--card-bg);
+      padding: 10px 12px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      box-sizing: border-box;
+      width: 100%;
+    }
+
+    .quick-parts-title {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      font-weight: bold;
       margin-bottom: 6px;
     }
 
-    .series-name {
-      font-size: 0.75rem;
-      color: var(--text-sub);
+    .quick-parts-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+    }
+
+    @media (min-width: 480px) {
+      .quick-parts-list {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    /* 1. UI/デザイン改善：ボタンデザインの差別化（赤・黄・青） */
+    .part-btn {
+      background: #0f172a;
+      border: 1px solid var(--border-color);
+      color: #e2e8f0;
+      padding: 5px 8px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: border-color 0.15s ease, background-color 0.15s ease;
+      width: 100%;
+      box-sizing: border-box;
+      font-weight: bold;
+    }
+
+    /* ボタン種別ごとのカラー割り当て */
+    .part-btn[data-type="格闘"] { border-color: rgba(239, 68, 68, 0.4); color: #fca5a5; }
+    .part-btn[data-type="射撃"] { border-color: rgba(234, 179, 8, 0.4); color: #fde047; }
+    .part-btn[data-type="覚醒"] { border-color: rgba(59, 130, 246, 0.4); color: #93c5fd; }
+
+    .part-btn[data-type="格闘"]:hover, .part-btn[data-type="格闘"].active {
+      background: rgba(239, 68, 68, 0.25);
+      border-color: var(--color-格闘);
+      box-shadow: 0 0 6px rgba(239, 68, 68, 0.3);
+    }
+    .part-btn[data-type="射撃"]:hover, .part-btn[data-type="射撃"].active {
+      background: rgba(234, 179, 8, 0.25);
+      border-color: var(--color-射撃);
+      box-shadow: 0 0 6px rgba(234, 179, 8, 0.3);
+    }
+    .part-btn[data-type="覚醒"]:hover, .part-btn[data-type="覚醒"].active {
+      background: rgba(59, 130, 246, 0.25);
+      border-color: var(--color-覚醒);
+      box-shadow: 0 0 6px rgba(59, 130, 246, 0.3);
+    }
+
+    /* 件数カウンター表示バー */
+    .result-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: #94a3b8;
+      margin-bottom: 8px;
+      padding: 0 2px;
+    }
+
+    .result-count {
+      color: #38bdf8;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .stage-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    /* 2. ステージカードのレイアウト最適化（コンパクト化） & 3. パフォーマンス最適化 */
+    .stage-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 8px 10px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      /* パフォーマンス処理（描画境界の指定とアニメーション軽量化） */
+      contain: content;
+      will-change: transform, opacity;
+      animation: fadeIn 0.15s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(3px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .stage-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stage-title-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .work-tag {
+      font-size: 0.7rem;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.1);
+      padding: 1px 5px;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+
+    .stage-title {
+      font-weight: bold;
+      font-size: 0.9rem;
+      color: #f8fafc;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    .stage-name {
-      font-size: 0.9rem;
-      font-weight: bold;
-      color: #38bdf8;
+    .drop-section {
+      background: rgba(15, 23, 42, 0.5);
+      padding: 6px 8px;
+      border-radius: 4px;
+      border: 1px solid rgba(51, 65, 85, 0.5);
     }
 
-    .drop-list {
+    .drop-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 4px;
-      list-style: none;
     }
 
-    /* バッジデザイン */
-    .drop-badge {
-      font-size: 0.75rem;
+    /* タグデザインのコンパクト化と属性配色 */
+    .drop-tag-unit {
+      background: #0f172a;
+      border: 1px solid var(--border-color);
+      color: #cbd5e1;
       padding: 2px 6px;
       border-radius: 4px;
-      background-color: #0f172a;
-      border: 1px solid var(--border-color);
-      display: inline-flex;
+      font-size: 0.75rem;
+      display: flex;
       align-items: center;
+      gap: 4px;
     }
 
-    .drop-badge[data-category="格闘"] {
-      border-color: rgba(239, 68, 68, 0.5);
-      color: #fca5a5;
-      background-color: rgba(239, 68, 68, 0.1);
-    }
-    .drop-badge[data-category="射撃"] {
-      border-color: rgba(234, 179, 8, 0.5);
-      color: #fde047;
-      background-color: rgba(234, 179, 8, 0.1);
-    }
-    .drop-badge[data-category="覚醒"] {
-      border-color: rgba(59, 130, 246, 0.5);
-      color: #93c5fd;
-      background-color: rgba(59, 130, 246, 0.1);
+    .drop-tag-part {
+      background: #0f172a;
+      border: 1px solid var(--border-color);
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.15s ease;
     }
 
-    /* 非表示アニメーションの高速化 */
-    .is-hidden {
-      display: none !important;
+    .drop-tag-part[data-type="格闘"] { border-color: rgba(239, 68, 68, 0.6); color: #fca5a5; background: rgba(239, 68, 68, 0.1); }
+    .drop-tag-part[data-type="射撃"] { border-color: rgba(234, 179, 8, 0.6); color: #fde047; background: rgba(234, 179, 8, 0.1); }
+    .drop-tag-part[data-type="覚醒"] { border-color: rgba(59, 130, 246, 0.6); color: #93c5fd; background: rgba(59, 130, 246, 0.1); }
+
+    .drop-tag-part:hover {
+      filter: brightness(1.2);
+    }
+
+    /* フッターエリア */
+    .footer {
+      width: 100%;
+      max-width: 650px;
+      margin-top: 24px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+    }
+
+    .footer-disclaimer {
+      font-size: 0.7rem;
+      color: #64748b;
+      line-height: 1.4;
+      margin: 0;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
     }
   </style>
 </head>
 <body>
 
 <div class="container">
-  <h1>GUNDAM HARD STAGE DB</h1>
+  <div class="header-bar">
+    <h1>GGENDB</h1>
+  </div>
 
-  <div class="filter-section">
-    <div class="filter-title">ドロップタイプで絞り込み</div>
-    <div class="filter-group" id="filter-buttons">
-      <button class="btn-filter active" data-type="all">すべて</button>
-      <button class="btn-filter" data-type="格闘">格闘</button>
-      <button class="btn-filter" data-type="射撃">射撃</button>
-      <button class="btn-filter" data-type="覚醒">覚醒</button>
+  <!-- 作品（シリーズ）ごとフィルター -->
+  <div class="filter-control-container">
+    <label class="filter-label" for="seriesSelect">🎬 作品（シリーズ）で絞り込み</label>
+    <select id="seriesSelect" class="series-select" onchange="handleSeriesChange()">
+      <option value="">すべての作品を表示</option>
+    </select>
+  </div>
+
+  <!-- 武装強化パーツショートカット（色属性付き） -->
+  <div class="quick-parts-container">
+    <div class="quick-parts-title">🎯 武装強化パーツで絞り込み</div>
+    <div class="quick-parts-list" id="partButtons">
+      <button class="part-btn" data-tag="物理射撃" data-type="射撃" onclick="filterByTag('物理射撃')">
+        <span>物理射撃</span>
+      </button>
+      <button class="part-btn" data-tag="物理格闘" data-type="格闘" onclick="filterByTag('物理格闘')">
+        <span>物理格闘</span>
+      </button>
+      <button class="part-btn" data-tag="ビーム射撃" data-type="射撃" onclick="filterByTag('ビーム射撃')">
+        <span>ビーム射撃</span>
+      </button>
+      <button class="part-btn" data-tag="ビーム格闘" data-type="格闘" onclick="filterByTag('ビーム格闘')">
+        <span>ビーム格闘</span>
+      </button>
+      <button class="part-btn" data-tag="特殊射撃" data-type="射撃" onclick="filterByTag('特殊射撃')">
+        <span>特殊射撃</span>
+      </button>
+      <button class="part-btn" data-tag="特殊格闘" data-type="格闘" onclick="filterByTag('特殊格闘')">
+        <span>特殊格闘</span>
+      </button>
+      <button class="part-btn" data-tag="覚醒" data-type="覚醒" onclick="filterByTag('覚醒')">
+        <span>覚醒</span>
+      </button>
     </div>
   </div>
 
-  <div class="stage-grid" id="stage-list"></div>
+  <!-- 件数カウンターバー -->
+  <div class="result-bar">
+    <span id="filterStatus">表示中: すべて</span>
+    <span>該当: <span id="resultCount" class="result-count">0</span> 件</span>
+  </div>
+
+  <!-- リスト表示エリア -->
+  <ul id="stageList" class="stage-list"></ul>
 </div>
 
-<script>
-  const stageData = [
-    { "id": 1, "series": "機動戦士ガンダム", "name": "機動戦士ガンダム HARD STAGE 1", "drops": [{ "name": "【黒】ビグ・ザム" }, { "name": "【赤】ギャン・エーオース" }, { "name": "【青】物理格闘" }] },
-    { "id": 2, "series": "機動戦士ガンダム", "name": "機動戦士ガンダム HARD STAGE 2", "drops": [{ "name": "【赤】G-3ガンダム" }, { "name": "【青】物理射撃" }] },
-    { "id": 3, "series": "機動戦士ガンダム", "name": "機動戦士ガンダム HARD STAGE 3", "drops": [{ "name": "【赤】ジオング" }, { "name": "【青】ビーム射撃" }] },
-    { "id": 4, "series": "機動戦士Zガンダム A New Translation", "name": "機動戦士Zガンダム A New Translation HARD STAGE 1", "drops": [{ "name": "【赤】Zガンダム" }, { "name": "【青】百式" }, { "name": "【青】物理射撃" }] },
-    { "id": 5, "series": "機動戦士Zガンダム A New Translation", "name": "機動戦士Zガンダム A New Translation HARD STAGE 2", "drops": [{ "name": "【赤】サイコ・ガンダム" }, { "name": "【青】ビーム射撃" }] },
-    { "id": 6, "series": "機動戦士Zガンダム A New Translation", "name": "機動戦士Zガンダム A New Translation HARD STAGE 3", "drops": [{ "name": "【赤】ジ・O" }, { "name": "【黄】キュベレイ" }, { "name": "【青】覚醒" }] },
-    { "id": 7, "series": "機動戦士ガンダムZZ", "name": "機動戦士ガンダムZZ HARD STAGE 1", "drops": [{ "name": "【赤】フルアーマーZZガンダム" }, { "name": "【青】ビーム格闘" }] },
-    { "id": 8, "series": "機動戦士ガンダムZZ", "name": "機動戦士ガンダムZZ HARD STAGE 2", "drops": [{ "name": "【赤】ザクIII" }, { "name": "【白】ゲーマルク" }, { "name": "【黄】キュベレイ(ZZ版)" }, { "name": "【青】覚醒" }] },
-    { "id": 9, "series": "機動戦士ガンダムZZ", "name": "機動戦士ガンダムZZ HARD STAGE 3", "drops": [{ "name": "【赤】クィン・マンサ" }, { "name": "【青】ビーム射撃" }] },
-    { "id": 10, "series": "機動戦士ガンダム 逆襲のシャア", "name": "機動戦士ガンダム 逆襲のシャア HARD STAGE 1", "drops": [{ "name": "【赤】νガンダム" }, { "name": "【青】覚醒" }] },
-    { "id": 11, "series": "機動戦士ガンダム 逆襲のシャア", "name": "機動戦士ガンダム 逆襲のシャア HARD STAGE 2", "drops": [{ "name": "【赤】サザビー" }, { "name": "【黒】α・アジール" }, { "name": "【青】特殊格闘" }] },
-    { "id": 12, "series": "機動戦士ガンダム 逆襲のシャア", "name": "機動戦士ガンダム 逆襲のシャア HARD STAGE 3", "drops": [{ "name": "【赤】Hi-νガンダム" }, { "name": "【白】ナイチンゲール" }, { "name": "【青】特殊射撃" }] },
-    { "id": 13, "series": "機動戦士ガンダムUC", "name": "機動戦士ガンダムUC HARD STAGE 1", "drops": [{ "name": "【青】ユニコーンガンダム(デストロイモード)" }, { "name": "【赤】シナンジュ" }, { "name": "【青】特殊格闘" }] },
-    { "id": 14, "series": "機動戦士ガンダムUC", "name": "機動戦士ガンダムUC HARD STAGE 2", "drops": [{ "name": "【青】バンシィ(デストロイモード)" }, { "name": "【黒】シャンブロ" }, { "name": "【青】特殊射撃" }] },
-    { "id": 15, "series": "機動戦士ガンダムUC", "name": "機動戦士ガンダムUC HARD STAGE 3", "drops": [{ "name": "【赤】バンシィ・ノルン" }, { "name": "【緑】クシャトリヤ・リペアード" }, { "name": "【青】特殊格闘" }] },
-    { "id": 16, "series": "機動戦士ガンダムUC", "name": "機動戦士ガンダムUC HARD STAGE 4", "drops": [{ "name": "【黒】ネオ・ジオング" }, { "name": "【赤】フルアーマー・ユニコーンガンダム(デストロイモード)" }, { "name": "【青】特殊射撃" }] },
-    { "id": 17, "series": "機動戦士ガンダムNT", "name": "機動戦士ガンダムNT HARD STAGE 1", "drops": [{ "name": "【青】ナラティブガンダムA装備" }, { "name": "【白】ナラティブガンダムB装備" }, { "name": "【黒】IIネオ・ジオング" }, { "name": "【青】特殊格闘" }] },
-    { "id": 18, "series": "機動戦士ガンダムNT", "name": "機動戦士ガンダムNT HARD STAGE 2", "drops": [{ "name": "【青】ユニコーンガンダム3号機 フェネクス(ユニコーンモード)" }, { "name": "【赤】ユニコーンガンダム3号機 フェネクス(デストロイモード)" }, { "name": "【黄】シナンジュ・スタイン" }, { "name": "【青】特殊射撃" }] },
-    { "id": 19, "series": "機動戦士ガンダム 閃光のハサウェイ", "name": "機動戦士ガンダム 閃光のハサウェイ HARD STAGE 1", "drops": [{ "name": "【赤】Ξガンダム" }, { "name": "【赤】ペーネロペー" }, { "name": "【青】ビーム射撃" }] },
-    { "id": 20, "series": "機動戦士ガンダムF91", "name": "機動戦士ガンダムF91 HARD STAGE 1", "drops": [{ "name": "【赤】ガンダムF90(A.D.S.混合装着時)" }, { "name": "【黒】グランザム" }, { "name": "【青】ビーム射撃" }] },
-    { "id": 21, "series": "機動戦士ガンダムF91", "name": "機動戦士ガンダムF91 HARD STAGE 2", "drops": [{ "name": "【黒】ラフレシア" }, { "name": "【白】ベルガ・ギロス 武装強化型" }, { "name": "【青】物理格闘" }] },
-    { "id": 22, "series": "機動戦士ガンダムF91", "name": "機動戦士ガンダムF91 HARD STAGE 3", "drops": [{ "name": "【赤】ガンダムFF90II Iタイプ" }, { "name": "【赤】ガンダムF91" }, { "name": "【青】ビーム射撃" }] },
-    { "id": 23, "series": "機動武闘伝Gガンダム", "name": "機動武闘伝Gガンダム HARD STAGE 1", "drops": [{ "name": "【青】ガンダムシュピーゲル" }, { "name": "【赤】マスターガンダム" }, { "name": "【黒】デビルガンダム(第1形態)" }, { "name": "【青】特殊格闘" }] },
-    { "id": 24, "series": "機動武闘伝Gガンダム", "name": "機動武闘伝Gガンダム HARD STAGE 2", "drops": [{ "name": "【黒】グランドマスターガンダム" }, { "name": "【黒】デビルガンダム(最終形態)" }, { "name": "【青】ビーム格闘" }] },
-    { "id": 25, "series": "機動武闘伝Gガンダム", "name": "機動武闘伝Gガンダム HARD STAGE 3", "drops": [{ "name": "【赤】ゴッドガンダム" }, { "name": "【青】覚醒" }] },
-    { "id": 26, "series": "新機動戦記ガンダムW", "name": "新機動戦記ガンダムW HARD STAGE 1", "drops": [{ "name": "【赤】トールギスII" }, { "name": "【青】物理射撃" }] },
-    { "id": 27, "series": "新機動戦記ガンダムW", "name": "新機動戦記ガンダムW HARD STAGE 2", "drops": [{ "name": "【赤】ガンダムエピオン" }, { "name": "【青】物理格闘" }] },
-    { "id": 28, "series": "新機動戦記ガンダムW", "name": "新機動戦記ガンダムW HARD STAGE 3", "drops": [{ "name": "【赤】ウイングガンダムゼロ" }, { "name": "【赤】ガンダムデスサイズヘル" }, { "name": "【緑】アルトロンガンダム" }, { "name": "【青】ビーム格闘" }] },
-    { "id": 29, "series": "新機動戦記ガンダムW Endless Waltz", "name": "新機動戦記ガンダムW Endless Waltz HARD STAGE 1", "drops": [{ "name": "【紫】ガンダムデスサイズヘル(EW版)" }, { "name": "【緑】アルトロンガンダム(EW版)" }, { "name": "【青】物理射撃" }] },
-    { "id": 30, "series": "新機動戦記ガンダムW Endless Waltz", "name": "新機動戦記ガンダムW Endless Waltz HARD STAGE 2", "drops": [{ "name": "【青】ガンダムヘビーアームズ改(EW版)" }, { "name": "【赤】ガンダムサンドロック改(EW版)" }, { "name": "【青】ビーム格闘" }] },
-    { "id": 31, "series": "新機動戦記ガンダムW Endless Waltz", "name": "新機動戦記ガンダムW Endless Waltz HARD STAGE 3", "drops": [{ "name": "【赤】ウイングガンダムゼロ(EW版)" }, { "name": "【青】トールギスIII" }, { "name": "【青】物理射撃" }] },
-    { "id": 32, "series": "機動新世紀ガンダムX", "name": "機動新世紀ガンダムX HARD STAGE 1", "drops": [{ "name": "【赤】ガンダムXディバイダー" }, { "name": "【赤】ベルティゴ" }, { "name": "【黒】パトゥーリア" }, { "name": "【青】特殊射撃" }] },
-    { "id": 33, "series": "機動新世紀ガンダムX", "name": "機動新世紀ガンダムX HARD STAGE 2", "drops": [{ "name": "【青】ガンダムエアマスターバースト" }, { "name": "【赤】ガンダムレオパルドデストロイ" }, { "name": "【青】特殊射撃" }] },
-    { "id": 34, "series": "機動新世紀ガンダムX", "name": "機動新世紀ガンダムX HARD STAGE 3", "drops": [{ "name": "【赤】ガンダムDX" }, { "name": "【赤】ガンダムアシュタロンハーミットクラブ" }, { "name": "【青】覚醒" }] },
-    { "id": 35, "series": "機動新世紀ガンダムX", "name": "機動新世紀ガンダムX HARD STAGE 4", "drops": [{ "name": "【赤】ガンダムヴァサーゴチェストブレイク" }, { "name": "【赤】GファルコンDX" }, { "name": "【青】特殊射撃" }] },
-    { "id": 36, "series": "機動戦士ガンダムSEED", "name": "機動戦士ガンダムSEED HARD STAGE 1", "drops": [{ "name": "【赤】パーフェクトストライクガンダム" }, { "name": "【青】特殊格闘" }] },
-    { "id": 37, "series": "機動戦士ガンダムSEED", "name": "機動戦士ガンダムSEED HARD STAGE 2", "drops": [{ "name": "【赤】フリーダムガンダム(ミーティア)" }, { "name": "【赤】ジャスティスガンダム(ミーティア)" }, { "name": "【青】特殊射撃" }] },
-    { "id": 38, "series": "機動戦士ガンダムSEED", "name": "機動戦士ガンダムSEED HARD STAGE 3", "drops": [{ "name": "【赤】プロヴィデンスガンダム" }, { "name": "【青】ビーム射撃" }] },
-    { "id": 39, "series": "機動戦士ガンダムSEED Recollection", "name": "機動戦士ガンダムSEED Recollection HARD STAGE 1", "drops": [{ "name": "【赤】ドラグーンストライク" }, { "name": "【黄】ムラサメ 飛行能力試験型" }, { "name": "【青】ビーム格闘" }] },
-    { "id": 40, "series": "機動戦士ガンダムSEED DESTINY", "name": "機動戦士ガンダムSEED DESTINY HARD STAGE 1", "drops": [{ "name": "【赤】デスティニーガンダム" }, { "name": "【黒】デストロイガンダム" }, { "name": "【赤】レジェンドガンダム" }, { "name": "【青】ビーム格闘" }] },
-    { "id": 41, "series": "機動戦士ガンダムSEED DESTINY", "name": "機動戦士ガンダムSEED DESTINY HARD STAGE 2", "drops": [{ "name": "【赤】ストライクフリーダムガンダム" }, { "name": "【赤】アカツキ(シラヌイ)" }, { "name": "【赤】インフィニットジャスティスガンダム" }, { "name": "【青】ビーム射撃" }] },
-    { "id": 42, "series": "機動戦士ガンダムSEED DESTINY", "name": "機動戦士ガンダムSEED DESTINY HARD STAGE 3", "drops": [{ "name": "【赤】ストライクフリーダムガンダム(ミーティア)" }, { "name": "【赤】インフィニットジャスティスガンダム(ミーティア)" }, { "name": "【青】ビーム格闘" }] },
-    { "id": 43, "series": "機動戦士ガンダム00", "name": "機動戦士ガンダム00 HARD STAGE 1", "drops": [{ "name": "【赤】GNアーマー TYPE-E" }, { "name": "【赤】GNアーマー TYPE‐D" }, { "name": "【黒】アルヴァトーレ" }, { "name": "【青】物理射撃" }] },
-    { "id": 44, "series": "機動戦士ガンダム00", "name": "機動戦士ガンダム00 HARD STAGE 2", "drops": [{ "name": "【赤】ダブルオーライザー" }, { "name": "【赤】スサノオ" }, { "name": "【青】ビーム格闘" }] },
-    { "id": 45, "series": "機動戦士ガンダム00", "name": "機動戦士ガンダム00 HARD STAGE 3", "drops": [{ "name": "【黄】アリオスガンダム GNHW/M" }, { "name": "【赤】セラヴィー" }, { "name": "【赤】フルアーマーOガンダム" }, { "name": "【青】ビーム射撃" }] },
-    { "id": 46, "series": "機動戦士ガンダム00", "name": "機動戦士ガンダム00 HARD STAGE 4", "drops": [{ "name": "【青】ケルディムガンダム GNHW/R" }, { "name": "【赤】アルケーガンダム" }, { "name": "【青】物理格闘" }] },
-    { "id": 47, "series": "機動戦士ガンダム00", "name": "機動戦士ガンダム00 HARD STAGE 5", "drops": [{ "name": "【赤】ダブルオーライザー(最終決戦仕様)" }, { "name": "【黒】レグナント" }, { "name": "【赤】リボーンズガンダム" }, { "name": "【青】覚醒" }] },
-    { "id": 48, "series": "機動戦士ガンダムAGE", "name": "機動戦士ガンダムAGE HARD STAGE 1", "drops": [{ "name": "【青】ガンダムAGE‐1 タイタス" }, { "name": "【青】ガンダムAGE‐1 スパロー" }, { "name": "【青】物理射撃" }] },
-    { "id": 49, "series": "機動戦士ガンダムAGE", "name": "機動戦士ガンダムAGE HARD STAGE 2", "drops": [{ "name": "【黒】デファース" }, { "name": "【赤】ガンダムAGE‐1 2号機 アサルトジャケット" }, { "name": "【青】ビーム射撃" }] },
-    { "id": 50, "series": "機動戦士ガンダムAGE", "name": "機動戦士ガンダムAGE HARD STAGE 3", "drops": [{ "name": "【赤】ガンダムAGE‐2 ノーマル" }, { "name": "【赤】クロノス" }, { "name": "【青】特殊射撃" }] },
-    { "id": 51, "series": "機動戦士ガンダムAGE", "name": "機動戦士ガンダムAGE HARD STAGE 4", "drops": [{ "name": "【赤】ゼイドラ" }, { "name": "【赤】ガンダムAGE‐2 ダブルバレット" }, { "name": "【青】ガンダムAGE‐2 アルティメス" }, { "name": "【青】ビーム射撃" }] },
-    { "id": 52, "series": "機動戦士ガンダム 鉄血のオルフェンズ", "name": "機動戦士ガンダム 鉄血のオルフェンズ HARD STAGE 1", "drops": [{ "name": "【青】ガンダム・バルバトス(第6形態)" }, { "name": "【青】ガンダム・グシオンリベイク" }, { "name": "【赤】グレイズ・アイン" }, { "name": "【青】物理格闘" }] },
-    { "id": 53, "series": "機動戦士ガンダム 鉄血のオルフェンズ", "name": "機動戦士ガンダム 鉄血のオルフェンズ HARD STAGE 2", "drops": [{ "name": "【青】ガンダム・フラウロス(流星号)" }, { "name": "【黒】ハシュマル" }, { "name": "【青】物理射撃" }] },
-    { "id": 54, "series": "機動戦士ガンダム 鉄血のオルフェンズ", "name": "機動戦士ガンダム 鉄血のオルフェンズ HARD STAGE 3", "drops": [{ "name": "【青】ガンダム・バルバトスルプス" }, { "name": "【青】ガンダム・グシオンリベイクフルシティ" }, { "name": "【青】物理格闘" }] },
-    { "id": 55, "series": "機動戦士ガンダム 鉄血のオルフェンズ", "name": "機動戦士ガンダム 鉄血のオルフェンズ HARD STAGE 4", "drops": [{ "name": "【青】ガンダム・キマリスヴィダール" }, { "name": "【赤】ガンダム・バエル" }, { "name": "【青】物理射撃" }] },
-    { "id": 56, "series": "機動戦士ガンダム 鉄血のオルフェンズ", "name": "機動戦士ガンダム 鉄血のオルフェンズ HARD STAGE 5", "drops": [{ "name": "【赤】ガンダム・バルバトスルプスレクス" }, { "name": "【赤】レギンレイズ・ジュリア(地上戦仕様)" }, { "name": "【青】物理格闘" }] },
-    { "id": 57, "series": "機動戦士ガンダム 水星の魔女", "name": "機動戦士ガンダム 水星の魔女 HARD STAGE 1", "drops": [{ "name": "【青】ガンダム・ルブリス・ウル" }, { "name": "【青】ガンダム・ルブリス・ソーン" }, { "name": "【赤】ガンダム・エアリアル改修型" }, { "name": "【青】ビーム射撃" }] },
-    { "id": 58, "series": "機動戦士ガンダム 水星の魔女", "name": "機動戦士ガンダム 水星の魔女 HARD STAGE 2", "drops": [{ "name": "【青】ガンダム・ファラクト(Season2仕様)" }, { "name": "【青】ミカエリス(Season2仕様)" }, { "name": "【赤】ダリルバルデ(Season2仕様)" }, { "name": "【青】物理射撃" }] },
-    { "id": 59, "series": "機動戦士ガンダム 水星の魔女", "name": "機動戦士ガンダム 水星の魔女 HARD STAGE 3", "drops": [{ "name": "【赤】ガンダム・シュバルゼッテ" }, { "name": "【赤】ガンダム・キャリバーン" }, { "name": "【青】物理格闘" }] },
-    { "id": 60, "series": "機動戦士ガンダム0080 ポケットの中の戦争", "name": "機動戦士ガンダム0080 ポケットの中の戦争 HARD STAGE 1", "drops": [{ "name": "【赤】ガンダムNT-1(チョバム・アーマー装備型)" }, { "name": "【青】特殊射撃" }] },
-    { "id": 61, "series": "機動戦士ガンダム0080 ポケットの中の戦争", "name": "機動戦士ガンダム0080 ポケットの中の戦争 HARD STAGE 2", "drops": [{ "name": "【青】ケンプファー" }, { "name": "【青】物理射撃" }] },
-    { "id": 62, "series": "機動戦士ガンダム0080 ポケットの中の戦争", "name": "機動戦士ガンダム0080 ポケットの中の戦争 HARD STAGE 3", "drops": [{ "name": "【赤】ガンダムNT-1(チョバム・アーマー装備型)" }, { "name": "【青】ケンプファー" }, { "name": "【青】ビーム格闘" }] },
-    { "id": 63, "series": "機動戦士ガンダム外伝 THE BLUE DESTINY", "name": "機動戦士ガンダム外伝 THE BLUE DESTINY HARD STAGE 1", "drops": [{ "name": "【赤】ブルーディスティニー2号機【EXAM】" }, { "name": "【青】物理射撃" }] },
-    { "id": 64, "series": "機動戦士ガンダム外伝 THE BLUE DESTINY", "name": "機動戦士ガンダム外伝 THE BLUE DESTINY HARD STAGE 2", "drops": [{ "name": "【赤】ブルーディスティニー3号機【EXAM】" }, { "name": "【青】特殊射撃" }] },
-    { "id": 65, "series": "機動戦士ガンダム外伝 THE BLUE DESTINY", "name": "機動戦士ガンダム外伝 THE BLUE DESTINY HARD STAGE 3", "drops": [{ "name": "【赤】ブルーディスティニー2号機【EXAM】" }, { "name": "【赤】ブルーディスティニー3号機【EXAM】" }, { "name": "【青】覚醒" }] },
-    { "id": 66, "series": "機動戦士ガンダム 第08MS小隊", "name": "機動戦士ガンダム 第08MS小隊 HARD STAGE 1", "drops": [{ "name": "???" }] },
-    { "id": 67, "series": "機動戦士ガンダム 第08MS小隊", "name": "機動戦士ガンダム 第08MS小隊 HARD STAGE 2", "drops": [{ "name": "???" }] },
-    { "id": 68, "series": "機動戦士ガンダム 第08MS小隊", "name": "機動戦士ガンダム 第08MS小隊 HARD STAGE 3", "drops": [{ "name": "???" }] },
-    { "id": 69, "series": "機動戦士ガンダム サンダーボルト", "name": "機動戦士ガンダム サンダーボルト HARD STAGE 1", "drops": [{ "name": "【赤】サイコ・ザク" }, { "name": "【青】ビーム射撃" }] },
-    { "id": 70, "series": "機動戦士ガンダム サンダーボルト", "name": "機動戦士ガンダム サンダーボルト HARD STAGE 2", "drops": [{ "name": "【赤】フルアーマー・ガンダム(サンダーボルト版)" }, { "name": "【青】物理射撃" }] },
-    { "id": 71, "series": "機動戦士ガンダム サンダーボルト", "name": "機動戦士ガンダム サンダーボルト HARD STAGE 3", "drops": [{ "name": "【赤】フルアーマーガンダム(サンダーボルト版)" }, { "name": "【赤】サイコ・ザク" }, { "name": "【青】特殊射撃" }] },
-    { "id": 72, "series": "機動戦士ガンダム サンダーボルト BANDIT FLOWER", "name": "機動戦士ガンダム サンダーボルト BANDIT FLOWER HARD STAGE 1", "drops": [{ "name": "???" }] },
-    { "id": 73, "series": "機動戦士ガンダム サンダーボルト BANDIT FLOWER", "name": "機動戦士ガンダム サンダーボルト BANDIT FLOWER HARD STAGE 2", "drops": [{ "name": "???" }] },
-    { "id": 74, "series": "機動戦士ガンダム サンダーボルト BANDIT FLOWER", "name": "機動戦士ガンダム サンダーボルト BANDIT FLOWER HARD STAGE 3", "drops": [{ "name": "???" }] },
-    { "id": 75, "series": "機動戦士ガンダム0083 STARDUST MEMORY", "name": "機動戦士ガンダム0083 STARDUST MEMORY HARD STAGE 1", "drops": [{ "name": "【赤】ガンダム試作1号機フルバーニアン" }, { "name": "【赤】ヴァル・ヴァロ" }, { "name": "【青】ビーム射撃" }] },
-    { "id": 76, "series": "機動戦士ガンダム0083 STARDUST MEMORY", "name": "機動戦士ガンダム0083 STARDUST MEMORY HARD STAGE 2", "drops": [{ "name": "【赤】ガンダム試作3号機" }, { "name": "【赤】ノイエ・ジール" }, { "name": "【青】ビーム格闘" }] },
-    { "id": 77, "series": "機動戦士ガンダム0083 STARDUST MEMORY", "name": "機動戦士ガンダム0083 STARDUST MEMORY HARD STAGE 3", "drops": [{ "name": "【赤】ガンダム試作4号機" }, { "name": "【青】ビーム射撃" }] },
-    { "id": 78, "series": "機動戦士ガンダムSEED ASTRAY", "name": "機動戦士ガンダムSEED ASTRAY HARD STAGE 1", "drops": [{ "name": "【赤】ガンダムアストレイ ゴールドフレーム天" }, { "name": "【青】物理格闘" }] },
-    { "id": 79, "series": "機動戦士ガンダムSEED ASTRAY", "name": "機動戦士ガンダムSEED ASTRAY HARD STAGE 2", "drops": [{ "name": "【赤】ガンダムアストレイ ブルーフレーム セカンドL" }, { "name": "【青】ビーム格闘" }] },
-    { "id": 80, "series": "機動戦士ガンダムSEED ASTRAY", "name": "機動戦士ガンダムSEED ASTRAY HARD STAGE 3", "drops": [{ "name": "【赤】ガンダムアストレイ ブルーフレーム セカンドL" }, { "name": "【赤】ガンダムアストレイ ゴールドフレーム天" }, { "name": "【青】特殊格闘" }] },
-    { "id": 81, "series": "機動戦士ガンダムSEED X ASTRAY", "name": "機動戦士ガンダムSEED X ASTRAY HARD STAGE 1", "drops": [{ "name": "【赤】Xアストレイ" }, { "name": "【青】覚醒" }] },
-    { "id": 82, "series": "機動戦士ガンダムSEED X ASTRAY", "name": "機動戦士ガンダムSEED X ASTRAY HARD STAGE 2", "drops": [{ "name": "【赤】ハイペリオンガンダム" }, { "name": "【青】ビーム射撃" }] },
-    { "id": 83, "series": "機動戦士ガンダムSEED X ASTRAY", "name": "機動戦士ガンダムSEED X ASTRAY HARD STAGE 3", "drops": [{ "name": "【赤】ハイペリオンガンダム" }, { "name": "【赤】Xアストレイ" }, { "name": "【青】物理格闘" }] },
-    { "id": 84, "series": "機動戦士ガンダム 鉄血のオルフェンズ 月鋼", "name": "機動戦士ガンダム 鉄血のオルフェンズ 月鋼 HARD STAGE 1", "drops": [{ "name": "【青】ガンダム・アスタロトリナシメント" }, { "name": "【青】物理格闘" }] },
-    { "id": 85, "series": "機動戦士ガンダム 鉄血のオルフェンズ 月鋼", "name": "機動戦士ガンダム 鉄血のオルフェンズ 月鋼 HARD STAGE 2", "drops": [{ "name": "【青】ガンダム・ウヴァルユハナ" }, { "name": "【青】ビーム格闘" }] },
-    { "id": 86, "series": "機動戦士ガンダム 鉄血のオルフェンズ 月鋼", "name": "機動戦士ガンダム 鉄血のオルフェンズ 月鋼 HARD STAGE 3", "drops": [{ "name": "【青】ガンダム・ダンタリオン(TYPEブースター装備)" }, { "name": "【青】特殊格闘" }] }
-  ];
+<!-- フッター権利表記 -->
+<footer class="footer">
+  <p class="footer-disclaimer">
+    当サイトは個人が運営する非公式サイトであり、株式会社バンダイナムコエンターテインメントとは一切関係ありません。
+    掲載しているゲームコンテンツの著作権・商標権その他の知的財産権は、株式会社バンダイナムコエンターテインメントおよび各権利者に帰属します。
+  </p>
+</footer>
 
-  // ドロップアイテムの属性判別用関数
-  function getDropCategory(name) {
+<script>
+  let stages = [];
+  let currentPartFilter = '';
+  let currentSeriesFilter = '';
+
+  // ドロップパーツの属性タイプを割り出すヘルパー
+  function getPartType(name) {
     if (name.includes("格闘")) return "格闘";
     if (name.includes("射撃")) return "射撃";
     if (name.includes("覚醒")) return "覚醒";
-    return "other";
+    return "";
   }
 
-  // 3. パフォーマンス最適化（DocumentFragmentの活用によるDOM操作削減）
-  function renderCards() {
-    const listContainer = document.getElementById("stage-list");
+  // data.json を非同期読み込み
+  async function loadDataFromGitHub() {
+    const listElement = document.getElementById('stageList');
+    listElement.innerHTML = '<li style="text-align:center; color:#94a3b8; padding:15px; font-size:0.85rem;">データを読み込み中...</li>';
+
+    try {
+      const response = await fetch('data.json?t=' + new Date().getTime());
+      if (!response.ok) throw new Error('data.json の読み込みに失敗しました');
+      
+      stages = await response.json();
+      initSeriesDropdown();
+      renderStageView();
+    } catch (error) {
+      console.error(error);
+      listElement.innerHTML = '<li style="text-align:center; color:#ef4444; padding:15px; font-size:0.85rem;">データの読み込みに失敗しました。<br>data.json が存在するか確認してください。</li>';
+    }
+  }
+
+  // 作品プルダウンの選択肢を動的生成
+  function initSeriesDropdown() {
+    const seriesSet = new Set();
+    stages.forEach(stage => {
+      if (stage.series) seriesSet.add(stage.series);
+    });
+
+    const selectEl = document.getElementById('seriesSelect');
+    seriesSet.forEach(series => {
+      const option = document.createElement('option');
+      option.value = series;
+      option.textContent = series;
+      selectEl.appendChild(option);
+    });
+  }
+
+  function handleSeriesChange() {
+    const selectEl = document.getElementById('seriesSelect');
+    currentSeriesFilter = selectEl.value;
+    renderStageView();
+  }
+
+  function filterByTag(tagName) {
+    if (currentPartFilter === tagName) {
+      currentPartFilter = '';
+    } else {
+      currentPartFilter = tagName;
+    }
+    
+    document.querySelectorAll('.part-btn').forEach(btn => {
+      if (btn.getAttribute('data-tag') === currentPartFilter) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+
+    renderStageView();
+  }
+
+  /* --- 3. パフォーマンス最適化されたステージ一覧表示 --- */
+  function renderStageView() {
+    const listElement = document.getElementById('stageList');
+    const resultCountEl = document.getElementById('resultCount');
+    const filterStatusEl = document.getElementById('filterStatus');
+
+    listElement.innerHTML = '';
+
+    // フィルタリング処理
+    const filteredStages = stages.filter(stage => {
+      if (currentSeriesFilter && stage.series !== currentSeriesFilter) {
+        return false;
+      }
+      if (currentPartFilter) {
+        const dropsMatch = (stage.drops || []).some(d => {
+          return (d.type === 'part' || !d.type) && d.name === currentPartFilter;
+        });
+        if (!dropsMatch) return false;
+      }
+      return true;
+    });
+
+    resultCountEl.textContent = filteredStages.length;
+    
+    let statusText = [];
+    if (currentSeriesFilter) statusText.push(`作品: ${currentSeriesFilter}`);
+    if (currentPartFilter) statusText.push(`パーツ: ${currentPartFilter}`);
+    filterStatusEl.textContent = statusText.length > 0 ? `絞り込み [ ${statusText.join(' / ')} ]` : '表示中: すべて';
+
+    if (filteredStages.length === 0) {
+      listElement.innerHTML = '<li style="text-align:center; color:#64748b; padding:15px; font-size:0.85rem;">該当するステージ情報はありません</li>';
+      return;
+    }
+
+    // DocumentFragmentを使って一括挿入（描画速度の最適化）
     const fragment = document.createDocumentFragment();
 
-    stageData.forEach(stage => {
-      const card = document.createElement("div");
-      card.className = "stage-card";
-      card.dataset.id = stage.id;
-      
-      // カード内のドロップ種別判定用データ属性
-      const dropCategories = stage.drops.map(d => getDropCategory(d.name));
-      card.dataset.categories = dropCategories.join(",");
+    filteredStages.forEach((stage, index) => {
+      const li = document.createElement('li');
+      li.className = 'stage-item';
+      li.style.animationDelay = `${Math.min(index * 0.02, 0.15)}s`;
 
-      const dropBadgesHTML = stage.drops.map(drop => {
-        const category = getDropCategory(drop.name);
-        return `<li class="drop-badge" data-category="${category}">${drop.name}</li>`;
-      }).join("");
+      const dropsList = stage.drops || [];
+      const dropTagsHtml = dropsList.map(drop => {
+        const isString = typeof drop === 'string';
+        const name = isString ? drop : (drop.name || '');
+        const type = isString ? 'unit' : (drop.type || 'unit');
 
-      card.innerHTML = `
+        if (type === 'part') {
+          const partType = getPartType(name);
+          return `
+            <span class="drop-tag-part" data-type="${partType}" onclick="filterByTag('${escapeHtml(name)}')">
+              🎯 ${escapeHtml(name)}
+            </span>
+          `;
+        } else {
+          return `
+            <span class="drop-tag-unit">
+              🤖 ${escapeHtml(name)}
+            </span>
+          `;
+        }
+      }).join('');
+
+      const seriesHtml = stage.series ? `<span class="work-tag">${escapeHtml(stage.series)}</span>` : '';
+
+      li.innerHTML = `
         <div class="stage-header">
-          <div class="series-name">${stage.series}</div>
-          <div class="stage-name">${stage.name}</div>
+          <div class="stage-title-group">
+            ${seriesHtml}
+            <span class="stage-title">${escapeHtml(stage.name)}</span>
+          </div>
         </div>
-        <ul class="drop-list">
-          ${dropBadgesHTML}
-        </ul>
+        
+        <div class="drop-section">
+          <div class="drop-tags">
+            ${dropTagsHtml || '<span style="font-size:0.75rem; color:#64748b;">登録なし</span>'}
+          </div>
+        </div>
       `;
 
-      fragment.appendChild(card);
+      fragment.appendChild(li);
     });
 
-    listContainer.appendChild(fragment);
+    listElement.appendChild(fragment);
   }
 
-  // フィルターイベントハンドラー（高速リフロー処理）
-  function setupFilters() {
-    const buttons = document.querySelectorAll(".btn-filter");
-    const cards = document.querySelectorAll(".stage-card");
-
-    document.getElementById("filter-buttons").addEventListener("click", (e) => {
-      const btn = e.target.closest(".btn-filter");
-      if (!btn) return;
-
-      const filterType = btn.dataset.type;
-
-      // ボタンのスタイル切り替え
-      buttons.forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-
-      // 描画フレームを合わせてチラつきを抑制（requestAnimationFrame）
-      requestAnimationFrame(() => {
-        cards.forEach(card => {
-          if (filterType === "all") {
-            card.classList.remove("is-hidden");
-          } else {
-            const categories = card.dataset.categories.split(",");
-            if (categories.includes(filterType)) {
-              card.classList.remove("is-hidden");
-            } else {
-              card.classList.add("is-hidden");
-            }
-          }
-        });
-      });
+  function escapeHtml(str) {
+    return str.replace(/[&<>"']/g, function(m) {
+      return {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+      }[m];
     });
   }
 
-  // 初期化実行
-  document.addEventListener("DOMContentLoaded", () => {
-    renderCards();
-    setupFilters();
+  window.addEventListener('DOMContentLoaded', () => {
+    loadDataFromGitHub();
   });
 </script>
 
