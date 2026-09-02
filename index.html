@@ -288,12 +288,14 @@
       text-align: center;
     }
 
-    .footer-disclaimer {
-      font-size: 0.75rem;
-      color: #64748b;
-      line-height: 1.6;
-      margin: 0;
-    }
+.footer-disclaimer {
+  font-size: 0.75rem;
+  color: #64748b;
+  line-height: 1.6;
+  margin: 0;
+  word-break: keep-all;     /* 単語の途中での改行を防ぐ */
+  overflow-wrap: anywhere; /* 長い単語が溢れる場合のみ折り返す */
+}
   </style>
 </head>
 <body>
@@ -359,7 +361,7 @@
 <!-- フッター権利表記 -->
 <footer class="footer">
   <p class="footer-disclaimer">
-    当サイトは個人が運営する非公式サイトであり、株式会社バンダイナムコエンターテインメントとは一切関係ありません。<br>
+    当サイトは個人が運営する非公式サイトであり、株式会社バンダイナムコエンターテインメントとは一切関係ありません。
     掲載しているゲーム画像やコンテンツの著作権・商標権その他の知的財産権は、株式会社バンダイナムコエンターテインメントおよび各権利者に帰属します。
   </p>
 </footer>
