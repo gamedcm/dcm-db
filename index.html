@@ -460,13 +460,13 @@
         const name = isString ? drop : (drop.name || '');
         const type = isString ? 'unit' : (drop.type || 'unit');
 
-        if (type === 'part') {
+if (type === 'part') {
           // 武装パーツタグ（クリックで絞り込み可能・アイコン付き）
           const img = getMaterialImagePath(name);
           const imgHtml = img ? `<img src="${img}" class="drop-img-thumb" alt="" onerror="this.style.display='none'">` : '🎯';
           return `
             <span class="drop-tag-part" onclick="filterByTag('${escapeHtml(name)}')">
-              ${imgHtml} 強化パーツ: ${escapeHtml(name)}
+              ${imgHtml} ${escapeHtml(name)}
             </span>
           `;
         } else {
