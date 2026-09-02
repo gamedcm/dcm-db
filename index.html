@@ -138,7 +138,6 @@
       font-weight: bold;
     }
 
-    /* 属性ごとの配色定義 */
     .part-btn[data-type="格闘"] { border-color: rgba(239, 68, 68, 0.4); color: #fca5a5; }
     .part-btn[data-type="射撃"] { border-color: rgba(234, 179, 8, 0.4); color: #fde047; }
     .part-btn[data-type="覚醒"] { border-color: rgba(59, 130, 246, 0.4); color: #93c5fd; }
@@ -375,6 +374,12 @@
   let currentPartFilter = '';
   let currentSeriesFilter = '';
 
+  // 【黒】【赤】【青】などのカッコと文字を除去する関数
+  function cleanName(name) {
+    if (!name) return '';
+    return name.replace(/^【[^】]+】\s*/, '');
+  }
+
   function getPartType(name) {
     if (name.includes("格闘")) return "格闘";
     if (name.includes("射撃")) return "射撃";
@@ -455,7 +460,9 @@
       }
       if (currentPartFilter) {
         const dropsMatch = (stage.drops || []).some(d => {
-          return (d.type === 'part' || !d.type) && d.name === currentPartFilter;
+          const rawName = typeof d === 'string' ? d : (d.name || '');
+          const cleaned = cleanName(rawName);
+          return (d.type === 'part' || !d.type) && cleaned === currentPartFilter;
         });
         if (!dropsMatch) return false;
       }
@@ -484,7 +491,8 @@
       const dropsList = stage.drops || [];
       const dropTagsHtml = dropsList.map(drop => {
         const isString = typeof drop === 'string';
-        const name = isString ? drop : (drop.name || '');
+        const rawName = isString ? drop : (drop.name || '');
+        const name = cleanName(rawName); // 【黒】などの文字列を自動除去
         const type = isString ? 'unit' : (drop.type || 'unit');
 
         if (type === 'part') {
