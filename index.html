@@ -13,10 +13,10 @@
       --accent-color: #38bdf8;
       --border-color: #334155;
 
-      /* パーツ属性カラー */
-      --color-格闘: #ef4444; /* 赤 */
-      --color-射撃: #eab308; /* 黄 */
-      --color-覚醒: #3b82f6; /* 青 */
+      /* 武装属性カラー */
+      --color-格闘: #ef4444;
+      --color-射撃: #eab308;
+      --color-覚醒: #3b82f6;
     }
 
     body {
@@ -53,7 +53,7 @@
       margin: 0;
     }
 
-    /* フィルタコントロールエリア（コンパクト化） */
+    /* フィルタコントロールエリア */
     .filter-control-container {
       background: var(--card-bg);
       padding: 8px 12px;
@@ -88,7 +88,7 @@
       border-color: var(--accent-color);
     }
 
-    /* 武装強化パーツショートカット（デザイン差別化） */
+    /* 武装強化パーツショートカット */
     .quick-parts-container {
       background: var(--card-bg);
       padding: 10px 12px;
@@ -119,7 +119,7 @@
       }
     }
 
-    /* 1. UI/デザイン改善：ボタンデザインの差別化（赤・黄・青） */
+    /* パーツボタンデザイン */
     .part-btn {
       background: #0f172a;
       border: 1px solid var(--border-color);
@@ -138,7 +138,7 @@
       font-weight: bold;
     }
 
-    /* ボタン種別ごとのカラー割り当て */
+    /* 属性ごとの配色定義 */
     .part-btn[data-type="格闘"] { border-color: rgba(239, 68, 68, 0.4); color: #fca5a5; }
     .part-btn[data-type="射撃"] { border-color: rgba(234, 179, 8, 0.4); color: #fde047; }
     .part-btn[data-type="覚醒"] { border-color: rgba(59, 130, 246, 0.4); color: #93c5fd; }
@@ -182,7 +182,7 @@
       margin: 0;
     }
 
-    /* 2. ステージカードのレイアウト最適化（コンパクト化） & 3. パフォーマンス最適化 */
+    /* ステージカードレイアウト */
     .stage-item {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
@@ -192,7 +192,6 @@
       display: flex;
       flex-direction: column;
       gap: 6px;
-      /* パフォーマンス処理（描画境界の指定とアニメーション軽量化） */
       contain: content;
       will-change: transform, opacity;
       animation: fadeIn 0.15s ease-out forwards;
@@ -255,7 +254,7 @@
       gap: 4px;
     }
 
-    /* タグデザインのコンパクト化と属性配色 */
+    /* ドロップタグデザイン */
     .drop-tag-unit {
       background: #0f172a;
       border: 1px solid var(--border-color);
@@ -325,7 +324,7 @@
     </select>
   </div>
 
-  <!-- 武装強化パーツショートカット（色属性付き） -->
+  <!-- 武装強化パーツショートカット -->
   <div class="quick-parts-container">
     <div class="quick-parts-title">🎯 武装強化パーツで絞り込み</div>
     <div class="quick-parts-list" id="partButtons">
@@ -376,7 +375,6 @@
   let currentPartFilter = '';
   let currentSeriesFilter = '';
 
-  // ドロップパーツの属性タイプを割り出すヘルパー
   function getPartType(name) {
     if (name.includes("格闘")) return "格闘";
     if (name.includes("射撃")) return "射撃";
@@ -442,7 +440,7 @@
     renderStageView();
   }
 
-  /* --- 3. パフォーマンス最適化されたステージ一覧表示 --- */
+  /* --- ステージ一覧表示 --- */
   function renderStageView() {
     const listElement = document.getElementById('stageList');
     const resultCountEl = document.getElementById('resultCount');
@@ -476,7 +474,6 @@
       return;
     }
 
-    // DocumentFragmentを使って一括挿入（描画速度の最適化）
     const fragment = document.createDocumentFragment();
 
     filteredStages.forEach((stage, index) => {
