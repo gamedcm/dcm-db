@@ -4,15 +4,9 @@
     "series": "機動戦士ガンダム",
     "name": "機動戦士ガンダム HARD STAGE 1",
     "drops": [
-      {
-        "name": "ビグ・ザム"
-      },
-      {
-        "name": "ギャン・エーオース"
-      },
-      {
-        "name": "物理格闘"
-      }
+      { "type": "unit", "name": "ビグ・ザム" },
+      { "type": "unit", "name": "ギャン・エーオース" },
+      { "type": "part", "name": "物理格闘" }
     ]
   },
   {
@@ -20,12 +14,8 @@
     "series": "機動戦士ガンダム",
     "name": "機動戦士ガンダム HARD STAGE 2",
     "drops": [
-      {
-        "name": "G-3ガンダム"
-      },
-      {
-        "name": "物理射撃"
-      }
+      { "type": "unit", "name": "G-3ガンダム" },
+      { "type": "part", "name": "物理射撃" }
     ]
   },
   {
@@ -33,12 +23,8 @@
     "series": "機動戦士ガンダム",
     "name": "機動戦士ガンダム HARD STAGE 3",
     "drops": [
-      {
-        "name": "ジオング"
-      },
-      {
-        "name": "ビーム射撃"
-      }
+      { "type": "unit", "name": "ジオング" },
+      { "type": "part", "name": "ビーム射撃" }
     ]
   },
   {
@@ -46,15 +32,9 @@
     "series": "機動戦士Zガンダム A New Translation",
     "name": "機動戦士Zガンダム A New Translation HARD STAGE 1",
     "drops": [
-      {
-        "name": "Zガンダム"
-      },
-      {
-        "name": "百式"
-      },
-      {
-        "name": "物理射撃"
-      }
+      { "type": "unit", "name": "Zガンダム" },
+      { "type": "unit", "name": "百式" },
+      { "type": "part", "name": "物理射撃" }
     ]
   },
   {
@@ -62,12 +42,8 @@
     "series": "機動戦士Zガンダム A New Translation",
     "name": "機動戦士Zガンダム A New Translation HARD STAGE 2",
     "drops": [
-      {
-        "name": "サイコ・ガンダム"
-      },
-      {
-        "name": "ビーム射撃"
-      }
+      { "type": "unit", "name": "サイコ・ガンダム" },
+      { "type": "part", "name": "ビーム射撃" }
     ]
   },
   {
@@ -75,15 +51,9 @@
     "series": "機動戦士Zガンダム A New Translation",
     "name": "機動戦士Zガンダム A New Translation HARD STAGE 3",
     "drops": [
-      {
-        "name": "ジ・O"
-      },
-      {
-        "name": "キュベレイ"
-      },
-      {
-        "name": "覚醒"
-      }
+      { "type": "unit", "name": "ジ・O" },
+      { "type": "unit", "name": "キュベレイ" },
+      { "type": "part", "name": "覚醒" }
     ]
   },
   {
@@ -91,12 +61,8 @@
     "series": "機動戦士ガンダムZZ",
     "name": "機動戦士ガンダムZZ HARD STAGE 1",
     "drops": [
-      {
-        "name": "フルアーマーZZガンダム"
-      },
-      {
-        "name": "ビーム格闘"
-      }
+      { "type": "unit", "name": "フルアーマーZZガンダム" },
+      { "type": "part", "name": "ビーム格闘" }
     ]
   },
   {
@@ -104,18 +70,10 @@
     "series": "機動戦士ガンダムZZ",
     "name": "機動戦士ガンダムZZ HARD STAGE 2",
     "drops": [
-      {
-        "name": "ザクIII"
-      },
-      {
-        "name": "ゲーマルク"
-      },
-      {
-        "name": "キュベレイ(ZZ版)"
-      },
-      {
-        "name": "覚醒"
-      }
+      { "type": "unit", "name": "ザクIII" },
+      { "type": "unit", "name": "ゲーマルク" },
+      { "type": "unit", "name": "キュベレイ(ZZ版)" },
+      { "type": "part", "name": "覚醒" }
     ]
   },
   {
@@ -123,12 +81,8 @@
     "series": "機動戦士ガンダムZZ",
     "name": "機動戦士ガンダムZZ HARD STAGE 3",
     "drops": [
-      {
-        "name": "クィン・マンサ"
-      },
-      {
-        "name": "ビーム射撃"
-      }
+      { "type": "unit", "name": "クィン・マンサ" },
+      { "type": "part", "name": "ビーム射撃" }
     ]
   },
   {
@@ -136,12 +90,8 @@
     "series": "機動戦士ガンダム 逆襲のシャア",
     "name": "機動戦士ガンダム 逆襲のシャア HARD STAGE 1",
     "drops": [
-      {
-        "name": "νガンダム"
-      },
-      {
-        "name": "覚醒"
-      }
+      { "type": "unit", "name": "νガンダム" },
+      { "type": "part", "name": "覚醒" }
     ]
   },
   {
@@ -149,15 +99,9 @@
     "series": "機動戦士ガンダム 逆襲のシャア",
     "name": "機動戦士ガンダム 逆襲のシャア HARD STAGE 2",
     "drops": [
-      {
-        "name": "サザビー"
-      },
-      {
-        "name": "α・アジール"
-      },
-      {
-        "name": "特殊格闘"
-      }
+      { "type": "unit", "name": "サザビー" },
+      { "type": "unit", "name": "α・アジール" },
+      { "type": "part", "name": "特殊格闘" }
     ]
   },
   {
@@ -165,15 +109,9 @@
     "series": "機動戦士ガンダム 逆襲のシャア",
     "name": "機動戦士ガンダム 逆襲のシャア HARD STAGE 3",
     "drops": [
-      {
-        "name": "Hi-νガンダム"
-      },
-      {
-        "name": "ナイチンゲール"
-      },
-      {
-        "name": "特殊射撃"
-      }
+      { "type": "unit", "name": "Hi-νガンダム" },
+      { "type": "unit", "name": "ナイチンゲール" },
+      { "type": "part", "name": "特殊射撃" }
     ]
   },
   {
@@ -181,15 +119,9 @@
     "series": "機動戦士ガンダムUC",
     "name": "機動戦士ガンダムUC HARD STAGE 1",
     "drops": [
-      {
-        "name": "ユニコーンガンダム(デストロイモード)"
-      },
-      {
-        "name": "シナンジュ"
-      },
-      {
-        "name": "特殊格闘"
-      }
+      { "type": "unit", "name": "ユニコーンガンダム(デストロイモード)" },
+      { "type": "unit", "name": "シナンジュ" },
+      { "type": "part", "name": "特殊格闘" }
     ]
   },
   {
@@ -197,15 +129,9 @@
     "series": "機動戦士ガンダムUC",
     "name": "機動戦士ガンダムUC HARD STAGE 2",
     "drops": [
-      {
-        "name": "バンシィ(デストロイモード)"
-      },
-      {
-        "name": "シャンブロ"
-      },
-      {
-        "name": "特殊射撃"
-      }
+      { "type": "unit", "name": "バンシィ(デストロイモード)" },
+      { "type": "unit", "name": "シャンブロ" },
+      { "type": "part", "name": "特殊射撃" }
     ]
   },
   {
@@ -213,15 +139,9 @@
     "series": "機動戦士ガンダムUC",
     "name": "機動戦士ガンダムUC HARD STAGE 3",
     "drops": [
-      {
-        "name": "バンシィ・ノルン"
-      },
-      {
-        "name": "クシャトリヤ・リペアード"
-      },
-      {
-        "name": "特殊格闘"
-      }
+      { "type": "unit", "name": "バンシィ・ノルン" },
+      { "type": "unit", "name": "クシャトリヤ・リペアード" },
+      { "type": "part", "name": "特殊格闘" }
     ]
   },
   {
@@ -229,15 +149,9 @@
     "series": "機動戦士ガンダムUC",
     "name": "機動戦士ガンダムUC HARD STAGE 4",
     "drops": [
-      {
-        "name": "ネオ・ジオング"
-      },
-      {
-        "name": "フルアーマー・ユニコーンガンダム(デストロイモード)"
-      },
-      {
-        "name": "特殊射撃"
-      }
+      { "type": "unit", "name": "ネオ・ジオング" },
+      { "type": "unit", "name": "フルアーマー・ユニコーンガンダム(デストロイモード)" },
+      { "type": "part", "name": "特殊射撃" }
     ]
   },
   {
@@ -245,18 +159,10 @@
     "series": "機動戦士ガンダムNT",
     "name": "機動戦士ガンダムNT HARD STAGE 1",
     "drops": [
-      {
-        "name": "ナラティブガンダムA装備"
-      },
-      {
-        "name": "ナラティブガンダムB装備"
-      },
-      {
-        "name": "IIネオ・ジオング"
-      },
-      {
-        "name": "特殊格闘"
-      }
+      { "type": "unit", "name": "ナラティブガンダムA装備" },
+      { "type": "unit", "name": "ナラティブガンダムB装備" },
+      { "type": "unit", "name": "IIネオ・ジオング" },
+      { "type": "part", "name": "特殊格闘" }
     ]
   },
   {
@@ -264,18 +170,10 @@
     "series": "機動戦士ガンダムNT",
     "name": "機動戦士ガンダムNT HARD STAGE 2",
     "drops": [
-      {
-        "name": "ユニコーンガンダム3号機 フェネクス(ユニコーンモード)"
-      },
-      {
-        "name": "ユニコーンガンダム3号機 フェネクス(デストロイモード)"
-      },
-      {
-        "name": "シナンジュ・スタイン"
-      },
-      {
-        "name": "特殊射撃"
-      }
+      { "type": "unit", "name": "ユニコーンガンダム3号機 フェネクス(ユニコーンモード)" },
+      { "type": "unit", "name": "ユニコーンガンダム3号機 フェネクス(デストロイモード)" },
+      { "type": "unit", "name": "シナンジュ・スタイン" },
+      { "type": "part", "name": "特殊射撃" }
     ]
   },
   {
@@ -283,15 +181,9 @@
     "series": "機動戦士ガンダム 閃光のハサウェイ",
     "name": "機動戦士ガンダム 閃光のハサウェイ HARD STAGE 1",
     "drops": [
-      {
-        "name": "Ξガンダム"
-      },
-      {
-        "name": "ペーネロペー"
-      },
-      {
-        "name": "ビーム射撃"
-      }
+      { "type": "unit", "name": "Ξガンダム" },
+      { "type": "unit", "name": "ペーネロペー" },
+      { "type": "part", "name": "ビーム射撃" }
     ]
   },
   {
@@ -299,15 +191,9 @@
     "series": "機動戦士ガンダムF91",
     "name": "機動戦士ガンダムF91 HARD STAGE 1",
     "drops": [
-      {
-        "name": "ガンダムF90(A.D.S.混合装着時)"
-      },
-      {
-        "name": "グランザム"
-      },
-      {
-        "name": "ビーム射撃"
-      }
+      { "type": "unit", "name": "ガンダムF90(A.D.S.混合装着時)" },
+      { "type": "unit", "name": "グランザム" },
+      { "type": "part", "name": "ビーム射撃" }
     ]
   },
   {
@@ -315,15 +201,9 @@
     "series": "機動戦士ガンダムF91",
     "name": "機動戦士ガンダムF91 HARD STAGE 2",
     "drops": [
-      {
-        "name": "ラフレシア"
-      },
-      {
-        "name": "ベルガ・ギロス 武装強化型"
-      },
-      {
-        "name": "物理格闘"
-      }
+      { "type": "unit", "name": "ラフレシア" },
+      { "type": "unit", "name": "ベルガ・ギロス 武装強化型" },
+      { "type": "part", "name": "物理格闘" }
     ]
   },
   {
@@ -331,15 +211,9 @@
     "series": "機動戦士ガンダムF91",
     "name": "機動戦士ガンダムF91 HARD STAGE 3",
     "drops": [
-      {
-        "name": "ガンダムFF90II Iタイプ"
-      },
-      {
-        "name": "ガンダムF91"
-      },
-      {
-        "name": "ビーム射撃"
-      }
+      { "type": "unit", "name": "ガンダムFF90II Iタイプ" },
+      { "type": "unit", "name": "ガンダムF91" },
+      { "type": "part", "name": "ビーム射撃" }
     ]
   },
   {
@@ -347,18 +221,10 @@
     "series": "機動武闘伝Gガンダム",
     "name": "機動武闘伝Gガンダム HARD STAGE 1",
     "drops": [
-      {
-        "name": "ガンダムシュピーゲル"
-      },
-      {
-        "name": "マスターガンダム"
-      },
-      {
-        "name": "デビルガンダム(第1形態)"
-      },
-      {
-        "name": "特殊格闘"
-      }
+      { "type": "unit", "name": "ガンダムシュピーゲル" },
+      { "type": "unit", "name": "マスターガンダム" },
+      { "type": "unit", "name": "デビルガンダム(第1形態)" },
+      { "type": "part", "name": "特殊格闘" }
     ]
   },
   {
@@ -366,15 +232,9 @@
     "series": "機動武闘伝Gガンダム",
     "name": "機動武闘伝Gガンダム HARD STAGE 2",
     "drops": [
-      {
-        "name": "グランドマスターガンダム"
-      },
-      {
-        "name": "デビルガンダム(最終形態)"
-      },
-      {
-        "name": "ビーム格闘"
-      }
+      { "type": "unit", "name": "グランドマスターガンダム" },
+      { "type": "unit", "name": "デビルガンダム(最終形態)" },
+      { "type": "part", "name": "ビーム格闘" }
     ]
   },
   {
@@ -382,12 +242,8 @@
     "series": "機動武闘伝Gガンダム",
     "name": "機動武闘伝Gガンダム HARD STAGE 3",
     "drops": [
-      {
-        "name": "ゴッドガンダム"
-      },
-      {
-        "name": "覚醒"
-      }
+      { "type": "unit", "name": "ゴッドガンダム" },
+      { "type": "part", "name": "覚醒" }
     ]
   },
   {
@@ -395,12 +251,8 @@
     "series": "新機動戦記ガンダムW",
     "name": "新機動戦記ガンダムW HARD STAGE 1",
     "drops": [
-      {
-        "name": "トールギスII"
-      },
-      {
-        "name": "物理射撃"
-      }
+      { "type": "unit", "name": "トールギスII" },
+      { "type": "part", "name": "物理射撃" }
     ]
   },
   {
@@ -408,12 +260,8 @@
     "series": "新機動戦記ガンダムW",
     "name": "新機動戦記ガンダムW HARD STAGE 2",
     "drops": [
-      {
-        "name": "ガンダムエピオン"
-      },
-      {
-        "name": "物理格闘"
-      }
+      { "type": "unit", "name": "ガンダムエピオン" },
+      { "type": "part", "name": "物理格闘" }
     ]
   },
   {
@@ -421,18 +269,10 @@
     "series": "新機動戦記ガンダムW",
     "name": "新機動戦記ガンダムW HARD STAGE 3",
     "drops": [
-      {
-        "name": "ウイングガンダムゼロ"
-      },
-      {
-        "name": "ガンダムデスサイズヘル"
-      },
-      {
-        "name": "アルトロンガンダム"
-      },
-      {
-        "name": "ビーム格闘"
-      }
+      { "type": "unit", "name": "ウイングガンダムゼロ" },
+      { "type": "unit", "name": "ガンダムデスサイズヘル" },
+      { "type": "unit", "name": "アルトロンガンダム" },
+      { "type": "part", "name": "ビーム格闘" }
     ]
   },
   {
@@ -440,15 +280,9 @@
     "series": "新機動戦記ガンダムW Endless Waltz",
     "name": "新機動戦記ガンダムW Endless Waltz HARD STAGE 1",
     "drops": [
-      {
-        "name": "ガンダムデスサイズヘル(EW版)"
-      },
-      {
-        "name": "アルトロンガンダム(EW版)"
-      },
-      {
-        "name": "物理射撃"
-      }
+      { "type": "unit", "name": "ガンダムデスサイズヘル(EW版)" },
+      { "type": "unit", "name": "アルトロンガンダム(EW版)" },
+      { "type": "part", "name": "物理射撃" }
     ]
   },
   {
@@ -456,15 +290,9 @@
     "series": "新機動戦記ガンダムW Endless Waltz",
     "name": "新機動戦記ガンダムW Endless Waltz HARD STAGE 2",
     "drops": [
-      {
-        "name": "ガンダムヘビーアームズ改(EW版)"
-      },
-      {
-        "name": "ガンダムサンドロック改(EW版)"
-      },
-      {
-        "name": "ビーム格闘"
-      }
+      { "type": "unit", "name": "ガンダムヘビーアームズ改(EW版)" },
+      { "type": "unit", "name": "ガンダムサンドロック改(EW版)" },
+      { "type": "part", "name": "ビーム格闘" }
     ]
   },
   {
@@ -472,15 +300,9 @@
     "series": "新機動戦記ガンダムW Endless Waltz",
     "name": "新機動戦記ガンダムW Endless Waltz HARD STAGE 3",
     "drops": [
-      {
-        "name": "ウイングガンダムゼロ(EW版)"
-      },
-      {
-        "name": "トールギスIII"
-      },
-      {
-        "name": "物理射撃"
-      }
+      { "type": "unit", "name": "ウイングガンダムゼロ(EW版)" },
+      { "type": "unit", "name": "トールギスIII" },
+      { "type": "part", "name": "物理射撃" }
     ]
   },
   {
@@ -488,18 +310,10 @@
     "series": "機動新世紀ガンダムX",
     "name": "機動新世紀ガンダムX HARD STAGE 1",
     "drops": [
-      {
-        "name": "ガンダムXディバイダー"
-      },
-      {
-        "name": "ベルティゴ"
-      },
-      {
-        "name": "パトゥーリア"
-      },
-      {
-        "name": "特殊射撃"
-      }
+      { "type": "unit", "name": "ガンダムXディバイダー" },
+      { "type": "unit", "name": "ベルティゴ" },
+      { "type": "unit", "name": "パトゥーリア" },
+      { "type": "part", "name": "特殊射撃" }
     ]
   },
   {
@@ -507,15 +321,9 @@
     "series": "機動新世紀ガンダムX",
     "name": "機動新世紀ガンダムX HARD STAGE 2",
     "drops": [
-      {
-        "name": "ガンダムエアマスターバースト"
-      },
-      {
-        "name": "ガンダムレオパルドデストロイ"
-      },
-      {
-        "name": "特殊射撃"
-      }
+      { "type": "unit", "name": "ガンダムエアマスターバースト" },
+      { "type": "unit", "name": "ガンダムレオパルドデストロイ" },
+      { "type": "part", "name": "特殊射撃" }
     ]
   },
   {
@@ -523,15 +331,9 @@
     "series": "機動新世紀ガンダムX",
     "name": "機動新世紀ガンダムX HARD STAGE 3",
     "drops": [
-      {
-        "name": "ガンダムDX"
-      },
-      {
-        "name": "ガンダムアシュタロンハーミットクラブ"
-      },
-      {
-        "name": "覚醒"
-      }
+      { "type": "unit", "name": "ガンダムDX" },
+      { "type": "unit", "name": "ガンダムアシュタロンハーミットクラブ" },
+      { "type": "part", "name": "覚醒" }
     ]
   },
   {
@@ -539,15 +341,9 @@
     "series": "機動新世紀ガンダムX",
     "name": "機動新世紀ガンダムX HARD STAGE 4",
     "drops": [
-      {
-        "name": "ガンダムヴァサーゴチェストブレイク"
-      },
-      {
-        "name": "GファルコンDX"
-      },
-      {
-        "name": "特殊射撃"
-      }
+      { "type": "unit", "name": "ガンダムヴァサーゴチェストブレイク" },
+      { "type": "unit", "name": "GファルコンDX" },
+      { "type": "part", "name": "特殊射撃" }
     ]
   },
   {
@@ -555,12 +351,8 @@
     "series": "機動戦士ガンダムSEED",
     "name": "機動戦士ガンダムSEED HARD STAGE 1",
     "drops": [
-      {
-        "name": "パーフェクトストライクガンダム"
-      },
-      {
-        "name": "特殊格闘"
-      }
+      { "type": "unit", "name": "パーフェクトストライクガンダム" },
+      { "type": "part", "name": "特殊格闘" }
     ]
   },
   {
@@ -568,15 +360,9 @@
     "series": "機動戦士ガンダムSEED",
     "name": "機動戦士ガンダムSEED HARD STAGE 2",
     "drops": [
-      {
-        "name": "フリーダムガンダム(ミーティア)"
-      },
-      {
-        "name": "ジャスティスガンダム(ミーティア)"
-      },
-      {
-        "name": "特殊射撃"
-      }
+      { "type": "unit", "name": "フリーダムガンダム(ミーティア)" },
+      { "type": "unit", "name": "ジャスティスガンダム(ミーティア)" },
+      { "type": "part", "name": "特殊射撃" }
     ]
   },
   {
@@ -584,12 +370,8 @@
     "series": "機動戦士ガンダムSEED",
     "name": "機動戦士ガンダムSEED HARD STAGE 3",
     "drops": [
-      {
-        "name": "プロヴィデンスガンダム"
-      },
-      {
-        "name": "ビーム射撃"
-      }
+      { "type": "unit", "name": "プロヴィデンスガンダム" },
+      { "type": "part", "name": "ビーム射撃" }
     ]
   },
   {
@@ -597,15 +379,9 @@
     "series": "機動戦士ガンダムSEED Recollection",
     "name": "機動戦士ガンダムSEED Recollection HARD STAGE 1",
     "drops": [
-      {
-        "name": "ドラグーンストライク"
-      },
-      {
-        "name": "ムラサメ 飛行能力試験型"
-      },
-      {
-        "name": "ビーム格闘"
-      }
+      { "type": "unit", "name": "ドラグーンストライク" },
+      { "type": "unit", "name": "ムラサメ 飛行能力試験型" },
+      { "type": "part", "name": "ビーム格闘" }
     ]
   },
   {
@@ -613,18 +389,10 @@
     "series": "機動戦士ガンダムSEED DESTINY",
     "name": "機動戦士ガンダムSEED DESTINY HARD STAGE 1",
     "drops": [
-      {
-        "name": "デスティニーガンダム"
-      },
-      {
-        "name": "デストロイガンダム"
-      },
-      {
-        "name": "レジェンドガンダム"
-      },
-      {
-        "name": "ビーム格闘"
-      }
+      { "type": "unit", "name": "デスティニーガンダム" },
+      { "type": "unit", "name": "デストロイガンダム" },
+      { "type": "unit", "name": "レジェンドガンダム" },
+      { "type": "part", "name": "ビーム格闘" }
     ]
   },
   {
@@ -632,18 +400,10 @@
     "series": "機動戦士ガンダムSEED DESTINY",
     "name": "機動戦士ガンダムSEED DESTINY HARD STAGE 2",
     "drops": [
-      {
-        "name": "ストライクフリーダムガンダム"
-      },
-      {
-        "name": "アカツキ(シラヌイ)"
-      },
-      {
-        "name": "インフィニットジャスティスガンダム"
-      },
-      {
-        "name": "ビーム射撃"
-      }
+      { "type": "unit", "name": "ストライクフリーダムガンダム" },
+      { "type": "unit", "name": "アカツキ(シラヌイ)" },
+      { "type": "unit", "name": "インフィニットジャスティスガンダム" },
+      { "type": "part", "name": "ビーム射撃" }
     ]
   },
   {
@@ -651,15 +411,9 @@
     "series": "機動戦士ガンダムSEED DESTINY",
     "name": "機動戦士ガンダムSEED DESTINY HARD STAGE 3",
     "drops": [
-      {
-        "name": "ストライクフリーダムガンダム(ミーティア)"
-      },
-      {
-        "name": "インフィニットジャスティスガンダム(ミーティア)"
-      },
-      {
-        "name": "ビーム格闘"
-      }
+      { "type": "unit", "name": "ストライクフリーダムガンダム(ミーティア)" },
+      { "type": "unit", "name": "インフィニットジャスティスガンダム(ミーティア)" },
+      { "type": "part", "name": "ビーム格闘" }
     ]
   },
   {
@@ -667,18 +421,10 @@
     "series": "機動戦士ガンダム00",
     "name": "機動戦士ガンダム00 HARD STAGE 1",
     "drops": [
-      {
-        "name": "GNアーマー TYPE-E"
-      },
-      {
-        "name": "GNアーマー TYPE‐D"
-      },
-      {
-        "name": "アルヴァトーレ"
-      },
-      {
-        "name": "物理射撃"
-      }
+      { "type": "unit", "name": "GNアーマー TYPE-E" },
+      { "type": "unit", "name": "GNアーマー TYPE‐D" },
+      { "type": "unit", "name": "アルヴァトーレ" },
+      { "type": "part", "name": "物理射撃" }
     ]
   },
   {
@@ -686,15 +432,9 @@
     "series": "機動戦士ガンダム00",
     "name": "機動戦士ガンダム00 HARD STAGE 2",
     "drops": [
-      {
-        "name": "ダブルオーライザー"
-      },
-      {
-        "name": "スサノオ"
-      },
-      {
-        "name": "ビーム格闘"
-      }
+      { "type": "unit", "name": "ダブルオーライザー" },
+      { "type": "unit", "name": "スサノオ" },
+      { "type": "part", "name": "ビーム格闘" }
     ]
   },
   {
@@ -702,18 +442,10 @@
     "series": "機動戦士ガンダム00",
     "name": "機動戦士ガンダム00 HARD STAGE 3",
     "drops": [
-      {
-        "name": "アリオスガンダム GNHW/M"
-      },
-      {
-        "name": "セラヴィー"
-      },
-      {
-        "name": "フルアーマーOガンダム"
-      },
-      {
-        "name": "ビーム射撃"
-      }
+      { "type": "unit", "name": "アリオスガンダム GNHW/M" },
+      { "type": "unit", "name": "セラヴィー" },
+      { "type": "unit", "name": "フルアーマーOガンダム" },
+      { "type": "part", "name": "ビーム射撃" }
     ]
   },
   {
@@ -721,15 +453,9 @@
     "series": "機動戦士ガンダム00",
     "name": "機動戦士ガンダム00 HARD STAGE 4",
     "drops": [
-      {
-        "name": "ケルディムガンダム GNHW/R"
-      },
-      {
-        "name": "アルケーガンダム"
-      },
-      {
-        "name": "物理格闘"
-      }
+      { "type": "unit", "name": "ケルディムガンダム GNHW/R" },
+      { "type": "unit", "name": "アルケーガンダム" },
+      { "type": "part", "name": "物理格闘" }
     ]
   },
   {
@@ -737,18 +463,10 @@
     "series": "機動戦士ガンダム00",
     "name": "機動戦士ガンダム00 HARD STAGE 5",
     "drops": [
-      {
-        "name": "ダブルオーライザー(最終決戦仕様)"
-      },
-      {
-        "name": "レグナント"
-      },
-      {
-        "name": "リボーンズガンダム"
-      },
-      {
-        "name": "覚醒"
-      }
+      { "type": "unit", "name": "ダブルオーライザー(最終決戦仕様)" },
+      { "type": "unit", "name": "レグナント" },
+      { "type": "unit", "name": "リボーンズガンダム" },
+      { "type": "part", "name": "覚醒" }
     ]
   },
   {
@@ -756,15 +474,9 @@
     "series": "機動戦士ガンダムAGE",
     "name": "機動戦士ガンダムAGE HARD STAGE 1",
     "drops": [
-      {
-        "name": "ガンダムAGE‐1 タイタス"
-      },
-      {
-        "name": "ガンダムAGE‐1 スパロー"
-      },
-      {
-        "name": "物理射撃"
-      }
+      { "type": "unit", "name": "ガンダムAGE‐1 タイタス" },
+      { "type": "unit", "name": "ガンダムAGE‐1 スパロー" },
+      { "type": "part", "name": "物理射撃" }
     ]
   },
   {
@@ -772,15 +484,9 @@
     "series": "機動戦士ガンダムAGE",
     "name": "機動戦士ガンダムAGE HARD STAGE 2",
     "drops": [
-      {
-        "name": "デファース"
-      },
-      {
-        "name": "ガンダムAGE‐1 2号機 アサルトジャケット"
-      },
-      {
-        "name": "ビーム射撃"
-      }
+      { "type": "unit", "name": "デファース" },
+      { "type": "unit", "name": "ガンダムAGE‐1 2号機 アサルトジャケット" },
+      { "type": "part", "name": "ビーム射撃" }
     ]
   },
   {
@@ -788,15 +494,9 @@
     "series": "機動戦士ガンダムAGE",
     "name": "機動戦士ガンダムAGE HARD STAGE 3",
     "drops": [
-      {
-        "name": "ガンダムAGE‐2 ノーマル"
-      },
-      {
-        "name": "クロノス"
-      },
-      {
-        "name": "特殊射撃"
-      }
+      { "type": "unit", "name": "ガンダムAGE‐2 ノーマル" },
+      { "type": "unit", "name": "クロノス" },
+      { "type": "part", "name": "特殊射撃" }
     ]
   },
   {
@@ -804,18 +504,10 @@
     "series": "機動戦士ガンダムAGE",
     "name": "機動戦士ガンダムAGE HARD STAGE 4",
     "drops": [
-      {
-        "name": "ゼイドラ"
-      },
-      {
-        "name": "ガンダムAGE‐2 ダブルバレット"
-      },
-      {
-        "name": "ガンダムAGE‐2 アルティメス"
-      },
-      {
-        "name": "ビーム射撃"
-      }
+      { "type": "unit", "name": "ゼイドラ" },
+      { "type": "unit", "name": "ガンダムAGE‐2 ダブルバレット" },
+      { "type": "unit", "name": "ガンダムAGE‐2 アルティメス" },
+      { "type": "part", "name": "ビーム射撃" }
     ]
   },
   {
@@ -823,18 +515,10 @@
     "series": "機動戦士ガンダム 鉄血のオルフェンズ",
     "name": "機動戦士ガンダム 鉄血のオルフェンズ HARD STAGE 1",
     "drops": [
-      {
-        "name": "ガンダム・バルバトス(第6形態)"
-      },
-      {
-        "name": "ガンダム・グシオンリベイク"
-      },
-      {
-        "name": "グレイズ・アイン"
-      },
-      {
-        "name": "物理格闘"
-      }
+      { "type": "unit", "name": "ガンダム・バルバトス(第6形態)" },
+      { "type": "unit", "name": "ガンダム・グシオンリベイク" },
+      { "type": "unit", "name": "グレイズ・アイン" },
+      { "type": "part", "name": "物理格闘" }
     ]
   },
   {
@@ -842,15 +526,9 @@
     "series": "機動戦士ガンダム 鉄血のオルフェンズ",
     "name": "機動戦士ガンダム 鉄血のオルフェンズ HARD STAGE 2",
     "drops": [
-      {
-        "name": "ガンダム・フラウロス(流星号)"
-      },
-      {
-        "name": "ハシュマル"
-      },
-      {
-        "name": "物理射撃"
-      }
+      { "type": "unit", "name": "ガンダム・フラウロス(流星号)" },
+      { "type": "unit", "name": "ハシュマル" },
+      { "type": "part", "name": "物理射撃" }
     ]
   },
   {
@@ -858,15 +536,9 @@
     "series": "機動戦士ガンダム 鉄血のオルフェンズ",
     "name": "機動戦士ガンダム 鉄血のオルフェンズ HARD STAGE 3",
     "drops": [
-      {
-        "name": "ガンダム・バルバトスルプス"
-      },
-      {
-        "name": "ガンダム・グシオンリベイクフルシティ"
-      },
-      {
-        "name": "物理格闘"
-      }
+      { "type": "unit", "name": "ガンダム・バルバトスルプス" },
+      { "type": "unit", "name": "ガンダム・グシオンリベイクフルシティ" },
+      { "type": "part", "name": "物理格闘" }
     ]
   },
   {
@@ -874,15 +546,9 @@
     "series": "機動戦士ガンダム 鉄血のオルフェンズ",
     "name": "機動戦士ガンダム 鉄血のオルフェンズ HARD STAGE 4",
     "drops": [
-      {
-        "name": "ガンダム・キマリスヴィダール"
-      },
-      {
-        "name": "ガンダム・バエル"
-      },
-      {
-        "name": "物理射撃"
-      }
+      { "type": "unit", "name": "ガンダム・キマリスヴィダール" },
+      { "type": "unit", "name": "ガンダム・バエル" },
+      { "type": "part", "name": "物理射撃" }
     ]
   },
   {
@@ -890,15 +556,9 @@
     "series": "機動戦士ガンダム 鉄血のオルフェンズ",
     "name": "機動戦士ガンダム 鉄血のオルフェンズ HARD STAGE 5",
     "drops": [
-      {
-        "name": "ガンダム・バルバトスルプスレクス"
-      },
-      {
-        "name": "レギンレイズ・ジュリア(地上戦仕様)"
-      },
-      {
-        "name": "物理格闘"
-      }
+      { "type": "unit", "name": "ガンダム・バルバトスルプスレクス" },
+      { "type": "unit", "name": "レギンレイズ・ジュリア(地上戦仕様)" },
+      { "type": "part", "name": "物理格闘" }
     ]
   },
   {
@@ -906,18 +566,10 @@
     "series": "機動戦士ガンダム 水星の魔女",
     "name": "機動戦士ガンダム 水星の魔女 HARD STAGE 1",
     "drops": [
-      {
-        "name": "ガンダム・ルブリス・ウル"
-      },
-      {
-        "name": "ガンダム・ルブリス・ソーン"
-      },
-      {
-        "name": "ガンダム・エアリアル改修型"
-      },
-      {
-        "name": "ビーム射撃"
-      }
+      { "type": "unit", "name": "ガンダム・ルブリス・ウル" },
+      { "type": "unit", "name": "ガンダム・ルブリス・ソーン" },
+      { "type": "unit", "name": "ガンダム・エアリアル改修型" },
+      { "type": "part", "name": "ビーム射撃" }
     ]
   },
   {
@@ -925,18 +577,10 @@
     "series": "機動戦士ガンダム 水星の魔女",
     "name": "機動戦士ガンダム 水星の魔女 HARD STAGE 2",
     "drops": [
-      {
-        "name": "ガンダム・ファラクト(Season2仕様)"
-      },
-      {
-        "name": "ミカエリス(Season2仕様)"
-      },
-      {
-        "name": "ダリルバルデ(Season2仕様)"
-      },
-      {
-        "name": "物理射撃"
-      }
+      { "type": "unit", "name": "ガンダム・ファラクト(Season2仕様)" },
+      { "type": "unit", "name": "ミカエリス(Season2仕様)" },
+      { "type": "unit", "name": "ダリルバルデ(Season2仕様)" },
+      { "type": "part", "name": "物理射撃" }
     ]
   },
   {
@@ -944,15 +588,9 @@
     "series": "機動戦士ガンダム 水星の魔女",
     "name": "機動戦士ガンダム 水星の魔女 HARD STAGE 3",
     "drops": [
-      {
-        "name": "ガンダム・シュバルゼッテ"
-      },
-      {
-        "name": "ガンダム・キャリバーン"
-      },
-      {
-        "name": "物理格闘"
-      }
+      { "type": "unit", "name": "ガンダム・シュバルゼッテ" },
+      { "type": "unit", "name": "ガンダム・キャリバーン" },
+      { "type": "part", "name": "物理格闘" }
     ]
   },
   {
@@ -960,12 +598,8 @@
     "series": "機動戦士ガンダム0080 ポケットの中の戦争",
     "name": "機動戦士ガンダム0080 ポケットの中の戦争 HARD STAGE 1",
     "drops": [
-      {
-        "name": "ガンダムNT-1(チョバム・アーマー装備型)"
-      },
-      {
-        "name": "特殊射撃"
-      }
+      { "type": "unit", "name": "ガンダムNT-1(チョバム・アーマー装備型)" },
+      { "type": "part", "name": "特殊射撃" }
     ]
   },
   {
@@ -973,12 +607,8 @@
     "series": "機動戦士ガンダム0080 ポケットの中の戦争",
     "name": "機動戦士ガンダム0080 ポケットの中の戦争 HARD STAGE 2",
     "drops": [
-      {
-        "name": "ケンプファー"
-      },
-      {
-        "name": "物理射撃"
-      }
+      { "type": "unit", "name": "ケンプファー" },
+      { "type": "part", "name": "物理射撃" }
     ]
   },
   {
@@ -986,15 +616,9 @@
     "series": "機動戦士ガンダム0080 ポケットの中の戦争",
     "name": "機動戦士ガンダム0080 ポケットの中の戦争 HARD STAGE 3",
     "drops": [
-      {
-        "name": "ガンダムNT-1(チョバム・アーマー装備型)"
-      },
-      {
-        "name": "ケンプファー"
-      },
-      {
-        "name": "ビーム格闘"
-      }
+      { "type": "unit", "name": "ガンダムNT-1(チョバム・アーマー装備型)" },
+      { "type": "unit", "name": "ケンプファー" },
+      { "type": "part", "name": "ビーム格闘" }
     ]
   },
   {
@@ -1002,12 +626,8 @@
     "series": "機動戦士ガンダム外伝 THE BLUE DESTINY",
     "name": "機動戦士ガンダム外伝 THE BLUE DESTINY HARD STAGE 1",
     "drops": [
-      {
-        "name": "ブルーディスティニー2号機【EXAM】"
-      },
-      {
-        "name": "物理射撃"
-      }
+      { "type": "unit", "name": "ブルーディスティニー2号機【EXAM】" },
+      { "type": "part", "name": "物理射撃" }
     ]
   },
   {
@@ -1015,12 +635,8 @@
     "series": "機動戦士ガンダム外伝 THE BLUE DESTINY",
     "name": "機動戦士ガンダム外伝 THE BLUE DESTINY HARD STAGE 2",
     "drops": [
-      {
-        "name": "ブルーディスティニー3号機【EXAM】"
-      },
-      {
-        "name": "特殊射撃"
-      }
+      { "type": "unit", "name": "ブルーディスティニー3号機【EXAM】" },
+      { "type": "part", "name": "特殊射撃" }
     ]
   },
   {
@@ -1028,15 +644,9 @@
     "series": "機動戦士ガンダム外伝 THE BLUE DESTINY",
     "name": "機動戦士ガンダム外伝 THE BLUE DESTINY HARD STAGE 3",
     "drops": [
-      {
-        "name": "ブルーディスティニー2号機【EXAM】"
-      },
-      {
-        "name": "ブルーディスティニー3号機【EXAM】"
-      },
-      {
-        "name": "覚醒"
-      }
+      { "type": "unit", "name": "ブルーディスティニー2号機【EXAM】" },
+      { "type": "unit", "name": "ブルーディスティニー3号機【EXAM】" },
+      { "type": "part", "name": "覚醒" }
     ]
   },
   {
@@ -1044,12 +654,8 @@
     "series": "機動戦士ガンダム サンダーボルト",
     "name": "機動戦士ガンダム サンダーボルト HARD STAGE 1",
     "drops": [
-      {
-        "name": "サイコ・ザク"
-      },
-      {
-        "name": "ビーム射撃"
-      }
+      { "type": "unit", "name": "サイコ・ザク" },
+      { "type": "part", "name": "ビーム射撃" }
     ]
   },
   {
@@ -1057,12 +663,8 @@
     "series": "機動戦士ガンダム サンダーボルト",
     "name": "機動戦士ガンダム サンダーボルト HARD STAGE 2",
     "drops": [
-      {
-        "name": "フルアーマー・ガンダム(サンダーボルト版)"
-      },
-      {
-        "name": "物理射撃"
-      }
+      { "type": "unit", "name": "フルアーマー・ガンダム(サンダーボルト版)" },
+      { "type": "part", "name": "物理射撃" }
     ]
   },
   {
@@ -1070,15 +672,9 @@
     "series": "機動戦士ガンダム サンダーボルト",
     "name": "機動戦士ガンダム サンダーボルト HARD STAGE 3",
     "drops": [
-      {
-        "name": "フルアーマーガンダム(サンダーボルト版)"
-      },
-      {
-        "name": "サイコ・ザク"
-      },
-      {
-        "name": "特殊射撃"
-      }
+      { "type": "unit", "name": "フルアーマーガンダム(サンダーボルト版)" },
+      { "type": "unit", "name": "サイコ・ザク" },
+      { "type": "part", "name": "特殊射撃" }
     ]
   },
   {
@@ -1086,15 +682,9 @@
     "series": "機動戦士ガンダム0083 STARDUST MEMORY",
     "name": "機動戦士ガンダム0083 STARDUST MEMORY HARD STAGE 1",
     "drops": [
-      {
-        "name": "ガンダム試作1号機フルバーニアン"
-      },
-      {
-        "name": "ヴァル・ヴァロ"
-      },
-      {
-        "name": "ビーム射撃"
-      }
+      { "type": "unit", "name": "ガンダム試作1号機フルバーニアン" },
+      { "type": "unit", "name": "ヴァル・ヴァロ" },
+      { "type": "part", "name": "ビーム射撃" }
     ]
   },
   {
@@ -1102,15 +692,9 @@
     "series": "機動戦士ガンダム0083 STARDUST MEMORY",
     "name": "機動戦士ガンダム0083 STARDUST MEMORY HARD STAGE 2",
     "drops": [
-      {
-        "name": "ガンダム試作3号機"
-      },
-      {
-        "name": "ノイエ・ジール"
-      },
-      {
-        "name": "ビーム格闘"
-      }
+      { "type": "unit", "name": "ガンダム試作3号機" },
+      { "type": "unit", "name": "ノイエ・ジール" },
+      { "type": "part", "name": "ビーム格闘" }
     ]
   },
   {
@@ -1118,12 +702,8 @@
     "series": "機動戦士ガンダム0083 STARDUST MEMORY",
     "name": "機動戦士ガンダム0083 STARDUST MEMORY HARD STAGE 3",
     "drops": [
-      {
-        "name": "ガンダム試作4号機"
-      },
-      {
-        "name": "ビーム射撃"
-      }
+      { "type": "unit", "name": "ガンダム試作4号機" },
+      { "type": "part", "name": "ビーム射撃" }
     ]
   },
   {
@@ -1131,12 +711,8 @@
     "series": "機動戦士ガンダムSEED ASTRAY",
     "name": "機動戦士ガンダムSEED ASTRAY HARD STAGE 1",
     "drops": [
-      {
-        "name": "ガンダムアストレイ ゴールドフレーム天"
-      },
-      {
-        "name": "物理格闘"
-      }
+      { "type": "unit", "name": "ガンダムアストレイ ゴールドフレーム天" },
+      { "type": "part", "name": "物理格闘" }
     ]
   },
   {
@@ -1144,12 +720,8 @@
     "series": "機動戦士ガンダムSEED ASTRAY",
     "name": "機動戦士ガンダムSEED ASTRAY HARD STAGE 2",
     "drops": [
-      {
-        "name": "ガンダムアストレイ ブルーフレーム セカンドL"
-      },
-      {
-        "name": "ビーム格闘"
-      }
+      { "type": "unit", "name": "ガンダムアストレイ ブルーフレーム セカンドL" },
+      { "type": "part", "name": "ビーム格闘" }
     ]
   },
   {
@@ -1157,15 +729,9 @@
     "series": "機動戦士ガンダムSEED ASTRAY",
     "name": "機動戦士ガンダムSEED ASTRAY HARD STAGE 3",
     "drops": [
-      {
-        "name": "ガンダムアストレイ ブルーフレーム セカンドL"
-      },
-      {
-        "name": "ガンダムアストレイ ゴールドフレーム天"
-      },
-      {
-        "name": "特殊格闘"
-      }
+      { "type": "unit", "name": "ガンダムアストレイ ブルーフレーム セカンドL" },
+      { "type": "unit", "name": "ガンダムアストレイ ゴールドフレーム天" },
+      { "type": "part", "name": "特殊格闘" }
     ]
   },
   {
@@ -1173,12 +739,8 @@
     "series": "機動戦士ガンダムSEED X ASTRAY",
     "name": "機動戦士ガンダムSEED X ASTRAY HARD STAGE 1",
     "drops": [
-      {
-        "name": "Xアストレイ"
-      },
-      {
-        "name": "覚醒"
-      }
+      { "type": "unit", "name": "Xアストレイ" },
+      { "type": "part", "name": "覚醒" }
     ]
   },
   {
@@ -1186,12 +748,8 @@
     "series": "機動戦士ガンダムSEED X ASTRAY",
     "name": "機動戦士ガンダムSEED X ASTRAY HARD STAGE 2",
     "drops": [
-      {
-        "name": "ハイペリオンガンダム"
-      },
-      {
-        "name": "ビーム射撃"
-      }
+      { "type": "unit", "name": "ハイペリオンガンダム" },
+      { "type": "part", "name": "ビーム射撃" }
     ]
   },
   {
@@ -1199,15 +757,9 @@
     "series": "機動戦士ガンダムSEED X ASTRAY",
     "name": "機動戦士ガンダムSEED X ASTRAY HARD STAGE 3",
     "drops": [
-      {
-        "name": "ハイペリオンガンダム"
-      },
-      {
-        "name": "Xアストレイ"
-      },
-      {
-        "name": "物理格闘"
-      }
+      { "type": "unit", "name": "ハイペリオンガンダム" },
+      { "type": "unit", "name": "Xアストレイ" },
+      { "type": "part", "name": "物理格闘" }
     ]
   },
   {
@@ -1215,12 +767,8 @@
     "series": "機動戦士ガンダム 鉄血のオルフェンズ 月鋼",
     "name": "機動戦士ガンダム 鉄血のオルフェンズ 月鋼 HARD STAGE 1",
     "drops": [
-      {
-        "name": "ガンダム・アスタロトリナシメント"
-      },
-      {
-        "name": "物理格闘"
-      }
+      { "type": "unit", "name": "ガンダム・アスタロトリナシメント" },
+      { "type": "part", "name": "物理格闘" }
     ]
   },
   {
@@ -1228,12 +776,8 @@
     "series": "機動戦士ガンダム 鉄血のオルフェンズ 月鋼",
     "name": "機動戦士ガンダム 鉄血のオルフェンズ 月鋼 HARD STAGE 2",
     "drops": [
-      {
-        "name": "ガンダム・ウヴァルユハナ"
-      },
-      {
-        "name": "ビーム格闘"
-      }
+      { "type": "unit", "name": "ガンダム・ウヴァルユハナ" },
+      { "type": "part", "name": "ビーム格闘" }
     ]
   },
   {
@@ -1241,12 +785,8 @@
     "series": "機動戦士ガンダム 鉄血のオルフェンズ 月鋼",
     "name": "機動戦士ガンダム 鉄血のオルフェンズ 月鋼 HARD STAGE 3",
     "drops": [
-      {
-        "name": "ガンダム・ダンタリオン(TYPEブースター装備)"
-      },
-      {
-        "name": "特殊格闘"
-      }
+      { "type": "unit", "name": "ガンダム・ダンタリオン(TYPEブースター装備)" },
+      { "type": "part", "name": "特殊格闘" }
     ]
   }
 ]
