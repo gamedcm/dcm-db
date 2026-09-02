@@ -12,6 +12,14 @@
       --text-color: #f8fafc;
       --accent-color: #38bdf8;
       --border-color: #334155;
+
+      /* パーツ用カラー定義 */
+      --color-melee: #ef4444;      /* 赤：格闘 */
+      --color-melee-bg: rgba(239, 68, 68, 0.15);
+      --color-shooting: #eab308;   /* 黄：射撃 */
+      --color-shooting-bg: rgba(234, 179, 8, 0.15);
+      --color-awakening: #3b82f6;  /* 青：覚醒 */
+      --color-awakening-bg: rgba(59, 130, 246, 0.15);
     }
 
     body {
@@ -19,7 +27,7 @@
       background-color: var(--bg-color);
       color: var(--text-color);
       margin: 0;
-      padding: 20px;
+      padding: 12px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -38,12 +46,12 @@
       justify-content: space-between;
       align-items: center;
       border-bottom: 2px solid var(--accent-color);
-      padding-bottom: 10px;
-      margin-bottom: 15px;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
     }
 
     h1 {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       color: var(--accent-color);
       margin: 0;
     }
@@ -51,17 +59,17 @@
     /* フィルタコントロールエリア */
     .filter-control-container {
       background: var(--card-bg);
-      padding: 12px 15px;
+      padding: 10px 12px;
       border-radius: 8px;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
       border: 1px solid var(--border-color);
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
     }
 
     .filter-label {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       color: #94a3b8;
       font-weight: bold;
     }
@@ -70,9 +78,9 @@
       background: #0f172a;
       border: 1px solid var(--border-color);
       color: #f8fafc;
-      padding: 8px 12px;
+      padding: 6px 10px;
       border-radius: 6px;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       width: 100%;
       box-sizing: border-box;
       outline: none;
@@ -86,26 +94,26 @@
     /* 武装強化パーツショートカット（7種） */
     .quick-parts-container {
       background: var(--card-bg);
-      padding: 15px;
+      padding: 10px 12px;
       border-radius: 8px;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
       border: 1px solid var(--border-color);
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2);
       box-sizing: border-box;
       width: 100%;
     }
 
     .quick-parts-title {
-      font-size: 0.85rem;
+      font-size: 0.75rem;
       color: #94a3b8;
       font-weight: bold;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .quick-parts-list {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
+      gap: 6px;
     }
 
     @media (min-width: 480px) {
@@ -114,26 +122,62 @@
       }
     }
 
+    /* 1. パーツボタンのデザイン差別化（赤・黄・青） */
     .part-btn {
       background: #0f172a;
       border: 1px solid var(--border-color);
-      color: #e2e8f0;
-      padding: 8px 10px;
+      color: #cbd5e1;
+      padding: 6px 8px;
       border-radius: 6px;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
+      font-weight: 500;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 6px;
       cursor: pointer;
-      transition: background 0.2s, border-color 0.2s;
+      transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
       width: 100%;
       box-sizing: border-box;
     }
 
-    .part-btn:hover, .part-btn.active {
-      background: #1e3a8a;
-      border-color: var(--accent-color);
+    /* 格闘（赤系） */
+    .part-btn[data-type="melee"] {
+      border-color: rgba(239, 68, 68, 0.4);
+    }
+    .part-btn[data-type="melee"]:hover,
+    .part-btn[data-type="melee"].active {
+      background: var(--color-melee-bg);
+      border-color: var(--color-melee);
+      color: #fca5a5;
+    }
+
+    /* 射撃（黄系） */
+    .part-btn[data-type="shooting"] {
+      border-color: rgba(234, 179, 8, 0.4);
+    }
+    .part-btn[data-type="shooting"]:hover,
+    .part-btn[data-type="shooting"].active {
+      background: var(--color-shooting-bg);
+      border-color: var(--color-shooting);
+      color: #fde047;
+    }
+
+    /* 覚醒（青系） */
+    .part-btn[data-type="awakening"] {
+      border-color: rgba(59, 130, 246, 0.4);
+    }
+    .part-btn[data-type="awakening"]:hover,
+    .part-btn[data-type="awakening"].active {
+      background: var(--color-awakening-bg);
+      border-color: var(--color-awakening);
+      color: #93c5fd;
+    }
+
+    /* アクティブ時の共通強調効果 */
+    .part-btn.active {
+      font-weight: bold;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
     }
 
     /* 件数カウンター表示バー */
@@ -141,16 +185,16 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       color: #94a3b8;
-      margin-bottom: 12px;
-      padding: 0 4px;
+      margin-bottom: 8px;
+      padding: 0 2px;
     }
 
     .result-count {
       color: #38bdf8;
       font-weight: bold;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
     }
 
     .stage-list {
@@ -159,22 +203,25 @@
       margin: 0;
     }
 
+    /* 2. ステージカードのコンパクト化 & 3. パフォーマンス最適化 */
     .stage-item {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
-      padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 12px;
+      padding: 8px 10px;
+      border-radius: 6px;
+      margin-bottom: 8px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      animation: fadeIn 0.25s ease-out forwards;
+      gap: 6px;
+      /* アニメーションのパフォーマンス改善：GPUアクセラレーションの有効化 */
+      will-change: opacity, transform;
+      animation: fadeIn 0.15s cubic-bezier(0, 0, 0.2, 1) forwards;
     }
 
     @keyframes fadeIn {
       from {
         opacity: 0;
-        transform: translateY(6px);
+        transform: translateY(4px);
       }
       to {
         opacity: 1;
@@ -185,99 +232,122 @@
     .stage-header {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      gap: 10px;
+      align-items: center;
     }
 
     .stage-title-group {
       display: flex;
-      flex-direction: column;
-      gap: 2px;
-      flex: 1;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
     }
 
     .work-tag {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       color: #38bdf8;
       background: rgba(56, 189, 248, 0.1);
-      padding: 2px 6px;
+      padding: 1px 5px;
       border-radius: 4px;
       display: inline-block;
-      width: fit-content;
+      white-space: nowrap;
     }
 
     .stage-title {
       font-weight: bold;
-      font-size: 1.1rem;
+      font-size: 0.9rem;
       color: #f8fafc;
     }
 
     .drop-section {
-      background: rgba(15, 23, 42, 0.6);
-      padding: 10px;
-      border-radius: 6px;
-      border: 1px solid var(--border-color);
+      background: rgba(15, 23, 42, 0.5);
+      padding: 6px 8px;
+      border-radius: 4px;
+      border: 1px solid rgba(51, 65, 85, 0.6);
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .drop-title {
-      font-size: 0.8rem;
-      color: #94a3b8;
+      font-size: 0.7rem;
+      color: #64748b;
       font-weight: bold;
-      margin-bottom: 8px;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .drop-tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 4px;
+      flex: 1;
     }
 
-    /* 機体ドロップタグ */
+    /* 機体ドロップタグ（コンパクト化） */
     .drop-tag-unit {
       background: #0f172a;
       border: 1px solid var(--border-color);
       color: #cbd5e1;
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-size: 0.85rem;
-      display: flex;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
     }
 
-    /* 武装パーツドロップタグ */
+    /* 武装パーツドロップタグ（タイプ別に色分け） */
     .drop-tag-part {
       background: #0f172a;
-      border: 1px solid var(--accent-color);
-      color: #e2e8f0;
-      padding: 4px 10px;
-      border-radius: 12px;
-      font-size: 0.85rem;
-      display: flex;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: background-color 0.15s ease;
     }
 
-    .drop-tag-part:hover { 
-      background: #1e3a8a; 
+    .drop-tag-part[data-type="melee"] {
+      border: 1px solid var(--color-melee);
+      color: #fca5a5;
+    }
+    .drop-tag-part[data-type="melee"]:hover {
+      background: var(--color-melee-bg);
+    }
+
+    .drop-tag-part[data-type="shooting"] {
+      border: 1px solid var(--color-shooting);
+      color: #fde047;
+    }
+    .drop-tag-part[data-type="shooting"]:hover {
+      background: var(--color-shooting-bg);
+    }
+
+    .drop-tag-part[data-type="awakening"] {
+      border: 1px solid var(--color-awakening);
+      color: #93c5fd;
+    }
+    .drop-tag-part[data-type="awakening"]:hover {
+      background: var(--color-awakening-bg);
     }
 
     /* フッターエリア */
     .footer {
       width: 100%;
       max-width: 650px;
-      margin-top: 40px;
-      padding-top: 15px;
+      margin-top: 24px;
+      padding-top: 12px;
       border-top: 1px solid var(--border-color);
       text-align: center;
     }
 
     .footer-disclaimer {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       color: #64748b;
-      line-height: 1.6;
+      line-height: 1.5;
       margin: 0;
       word-break: keep-all;
       overflow-wrap: anywhere;
@@ -303,25 +373,25 @@
   <div class="quick-parts-container">
     <div class="quick-parts-title">🎯 武装強化パーツで絞り込み</div>
     <div class="quick-parts-list" id="partButtons">
-      <button class="part-btn" data-tag="物理射撃" onclick="filterByTag('物理射撃')">
-        <span>物理射撃</span>
-      </button>
-      <button class="part-btn" data-tag="物理格闘" onclick="filterByTag('物理格闘')">
+      <button class="part-btn" data-tag="物理格闘" data-type="melee" onclick="filterByTag('物理格闘')">
         <span>物理格闘</span>
       </button>
-      <button class="part-btn" data-tag="ビーム射撃" onclick="filterByTag('ビーム射撃')">
-        <span>ビーム射撃</span>
-      </button>
-      <button class="part-btn" data-tag="ビーム格闘" onclick="filterByTag('ビーム格闘')">
+      <button class="part-btn" data-tag="ビーム格闘" data-type="melee" onclick="filterByTag('ビーム格闘')">
         <span>ビーム格闘</span>
       </button>
-      <button class="part-btn" data-tag="特殊射撃" onclick="filterByTag('特殊射撃')">
-        <span>特殊射撃</span>
-      </button>
-      <button class="part-btn" data-tag="特殊格闘" onclick="filterByTag('特殊格闘')">
+      <button class="part-btn" data-tag="特殊格闘" data-type="melee" onclick="filterByTag('特殊格闘')">
         <span>特殊格闘</span>
       </button>
-      <button class="part-btn" data-tag="覚醒" onclick="filterByTag('覚醒')">
+      <button class="part-btn" data-tag="物理射撃" data-type="shooting" onclick="filterByTag('物理射撃')">
+        <span>物理射撃</span>
+      </button>
+      <button class="part-btn" data-tag="ビーム射撃" data-type="shooting" onclick="filterByTag('ビーム射撃')">
+        <span>ビーム射撃</span>
+      </button>
+      <button class="part-btn" data-tag="特殊射撃" data-type="shooting" onclick="filterByTag('特殊射撃')">
+        <span>特殊射撃</span>
+      </button>
+      <button class="part-btn" data-tag="覚醒" data-type="awakening" onclick="filterByTag('覚醒')">
         <span>覚醒</span>
       </button>
     </div>
@@ -350,10 +420,18 @@
   let currentPartFilter = '';
   let currentSeriesFilter = '';
 
+  // パーツ名から属性タイプ（格闘/射撃/覚醒）を判定するヘルパー関数
+  function getPartType(partName) {
+    if (partName.includes('格闘')) return 'melee';
+    if (partName.includes('射撃')) return 'shooting';
+    if (partName.includes('覚醒')) return 'awakening';
+    return '';
+  }
+
   // data.json を非同期読み込み
   async function loadDataFromGitHub() {
     const listElement = document.getElementById('stageList');
-    listElement.innerHTML = '<li style="text-align:center; color:#94a3b8; padding:20px;">データを読み込み中...</li>';
+    listElement.innerHTML = '<li style="text-align:center; color:#94a3b8; padding:15px; font-size:0.85rem;">データを読み込み中...</li>';
 
     try {
       const response = await fetch('data.json?t=' + new Date().getTime());
@@ -364,7 +442,7 @@
       renderStageView();
     } catch (error) {
       console.error(error);
-      listElement.innerHTML = '<li style="text-align:center; color:#ef4444; padding:20px;">データの読み込みに失敗しました。<br>data.json が存在するか確認してください。</li>';
+      listElement.innerHTML = '<li style="text-align:center; color:#ef4444; padding:15px; font-size:0.85rem;">データの読み込みに失敗しました。<br>data.json が存在するか確認してください。</li>';
     }
   }
 
@@ -408,15 +486,16 @@
     renderStageView();
   }
 
-  /* --- ステージ一覧表示 --- */
+  /* --- ステージ一覧表示（最適化版） --- */
   function renderStageView() {
     const listElement = document.getElementById('stageList');
     const resultCountEl = document.getElementById('resultCount');
     const filterStatusEl = document.getElementById('filterStatus');
 
-    listElement.innerHTML = '';
+    // DOM構築用 DocumentFragment（描画パフォーマンスの最適化）
+    const fragment = document.createDocumentFragment();
 
-    // フィルタリング処理（作品フィルター ＆ パーツフィルター）
+    // フィルタリング処理
     const filteredStages = stages.filter(stage => {
       if (currentSeriesFilter && stage.series !== currentSeriesFilter) {
         return false;
@@ -438,14 +517,16 @@
     filterStatusEl.textContent = statusText.length > 0 ? `絞り込み [ ${statusText.join(' / ')} ]` : '表示中: すべて';
 
     if (filteredStages.length === 0) {
-      listElement.innerHTML = '<li style="text-align:center; color:#64748b; padding:20px;">該当するステージ情報はありません</li>';
+      listElement.innerHTML = '<li style="text-align:center; color:#64748b; padding:15px; font-size:0.85rem;">該当するステージ情報はありません</li>';
       return;
     }
 
     filteredStages.forEach((stage, index) => {
       const li = document.createElement('li');
       li.className = 'stage-item';
-      li.style.animationDelay = `${Math.min(index * 0.04, 0.3)}s`;
+
+      // 3. アニメーション遅延の最適化（最大0.15秒に抑えて体感速度を高速化）
+      li.style.animationDelay = `${Math.min(index * 0.02, 0.15)}s`;
 
       const dropsList = stage.drops || [];
       const dropTagsHtml = dropsList.map(drop => {
@@ -454,14 +535,13 @@
         const type = isString ? 'unit' : (drop.type || 'unit');
 
         if (type === 'part') {
-          // パーツタグ（絵文字＋パーツ名）
+          const partType = getPartType(name);
           return `
-            <span class="drop-tag-part" onclick="filterByTag('${escapeHtml(name)}')">
+            <span class="drop-tag-part" data-type="${partType}" onclick="filterByTag('${escapeHtml(name)}')">
               🎯 ${escapeHtml(name)}
             </span>
           `;
         } else {
-          // 機体ドロップタグ
           return `
             <span class="drop-tag-unit">
               🤖 ${escapeHtml(name)}
@@ -481,15 +561,19 @@
         </div>
         
         <div class="drop-section">
-          <div class="drop-title">🎁 ドロップアイテム・素材</div>
+          <div class="drop-title">🎁 ドロップ</div>
           <div class="drop-tags">
-            ${dropTagsHtml || '<span style="font-size:0.8rem; color:#64748b;">登録なし</span>'}
+            ${dropTagsHtml || '<span style="font-size:0.75rem; color:#64748b;">登録なし</span>'}
           </div>
         </div>
       `;
 
-      listElement.appendChild(li);
+      fragment.appendChild(li);
     });
+
+    // 画面の一括更新（リフローを削減）
+    listElement.innerHTML = '';
+    listElement.appendChild(fragment);
   }
 
   function escapeHtml(str) {
