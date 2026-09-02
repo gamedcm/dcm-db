@@ -270,7 +270,7 @@
       background: #0f172a;
       border: 1px solid var(--border-color);
       padding: 2px 8px;
-      border-radius: 10px;
+      border-radius: 4px;
       font-size: 0.75rem;
       display: flex;
       align-items: center;
@@ -280,9 +280,9 @@
       transition: background 0.15s ease;
     }
 
-    .drop-tag-part[data-type="格闘"] { border-color: rgba(239, 68, 68, 0.6); color: #fca5a5; background: rgba(239, 68, 68, 0.1); }
-    .drop-tag-part[data-type="射撃"] { border-color: rgba(234, 179, 8, 0.6); color: #fde047; background: rgba(234, 179, 8, 0.1); }
-    .drop-tag-part[data-type="覚醒"] { border-color: rgba(59, 130, 246, 0.6); color: #93c5fd; background: rgba(59, 130, 246, 0.1); }
+    .drop-tag-part[data-type="格闘"] { border-color: rgba(239, 68, 68, 0.6); color: #fca5a5; background: rgba(239, 68, 68, 0.15); }
+    .drop-tag-part[data-type="射撃"] { border-color: rgba(234, 179, 8, 0.6); color: #fde047; background: rgba(234, 179, 8, 0.15); }
+    .drop-tag-part[data-type="覚醒"] { border-color: rgba(59, 130, 246, 0.6); color: #93c5fd; background: rgba(59, 130, 246, 0.15); }
 
     .drop-tag-part:hover {
       filter: brightness(1.2);
@@ -374,6 +374,8 @@
   let currentPartFilter = '';
   let currentSeriesFilter = '';
 
+  const knownPartKeywords = ['物理格闘', '物理射撃', 'ビーム格闘', 'ビーム射撃', '特殊格闘', '特殊射撃', '覚醒'];
+
   // 【黒】【赤】【青】などのカッコと文字を除去する関数
   function cleanName(name) {
     if (!name) return '';
@@ -462,7 +464,8 @@
         const dropsMatch = (stage.drops || []).some(d => {
           const rawName = typeof d === 'string' ? d : (d.name || '');
           const cleaned = cleanName(rawName);
-          return (d.type === 'part' || !d.type) && cleaned === currentPartFilter;
+          const isPart = (typeof d === 'object' && d.type === 'part') || knownPartKeywords.includes(cleaned);
+          return isPart && cleaned === currentPartFilter;
         });
         if (!dropsMatch) return false;
       }
@@ -492,10 +495,12 @@
       const dropTagsHtml = dropsList.map(drop => {
         const isString = typeof drop === 'string';
         const rawName = isString ? drop : (drop.name || '');
-        const name = cleanName(rawName); // 【黒】などの文字列を自動除去
-        const type = isString ? 'unit' : (drop.type || 'unit');
+        const name = cleanName(rawName);
+        
+        // typeの判定（明示的な指定、またはキーワード一致で判定）
+        const isPart = (!isString && drop.type === 'part') || knownPartKeywords.includes(name);
 
-        if (type === 'part') {
+        if (isPart) {
           const partType = getPartType(name);
           return `
             <span class="drop-tag-part" data-type="${partType}" onclick="filterByTag('${escapeHtml(name)}')">
