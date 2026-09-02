@@ -107,7 +107,6 @@
       margin-bottom: 6px;
     }
 
-    /* 3列固定のグリッドレイアウト */
     .quick-parts-list {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -212,27 +211,18 @@
     .stage-title-group {
       display: flex;
       align-items: center;
-      gap: 8px;
+      flex-wrap: wrap;
+      gap: 6px 8px;
       flex: 1;
-      overflow: hidden;
-    }
-
-    .work-tag {
-      font-size: 0.7rem;
-      color: #38bdf8;
-      background: rgba(56, 189, 248, 0.1);
-      padding: 1px 5px;
-      border-radius: 3px;
-      white-space: nowrap;
     }
 
     .stage-title {
       font-weight: bold;
       font-size: 0.9rem;
       color: #f8fafc;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      white-space: normal;
+      word-break: break-word;
+      line-height: 1.35;
     }
 
     .drop-section {
@@ -318,11 +308,10 @@
     </select>
   </div>
 
-  <!-- 武装強化パーツショートカット（3段構造） -->
+  <!-- 武装強化パーツショートカット -->
   <div class="quick-parts-container">
     <div class="quick-parts-title">🎯 武装強化パーツで絞り込み</div>
     <div class="quick-parts-list" id="partButtons">
-      <!-- 1段目 -->
       <button class="part-btn" data-tag="物理格闘" data-type="格闘" onclick="filterByTag('物理格闘')">
         <span>物理格闘</span>
       </button>
@@ -332,8 +321,6 @@
       <button class="part-btn" data-tag="特殊格闘" data-type="格闘" onclick="filterByTag('特殊格闘')">
         <span>特殊格闘</span>
       </button>
-
-      <!-- 2段目 -->
       <button class="part-btn" data-tag="物理射撃" data-type="射撃" onclick="filterByTag('物理射撃')">
         <span>物理射撃</span>
       </button>
@@ -343,8 +330,6 @@
       <button class="part-btn" data-tag="特殊射撃" data-type="射撃" onclick="filterByTag('特殊射撃')">
         <span>特殊射撃</span>
       </button>
-
-      <!-- 3段目 -->
       <button class="part-btn" data-tag="覚醒" data-type="覚醒" onclick="filterByTag('覚醒')">
         <span>覚醒</span>
       </button>
@@ -376,7 +361,6 @@
 
   const knownPartKeywords = ['物理格闘', '物理射撃', 'ビーム格闘', 'ビーム射撃', '特殊格闘', '特殊射撃', '覚醒'];
 
-  // 【黒】【赤】【青】などのカッコと文字を除去する関数
   function cleanName(name) {
     if (!name) return '';
     return name.replace(/^【[^】]+】\s*/, '');
@@ -389,7 +373,6 @@
     return "";
   }
 
-  // data.json を非同期読み込み
   async function loadDataFromGitHub() {
     const listElement = document.getElementById('stageList');
     listElement.innerHTML = '<li style="text-align:center; color:#94a3b8; padding:15px; font-size:0.85rem;">データを読み込み中...</li>';
@@ -407,7 +390,6 @@
     }
   }
 
-  // 作品プルダウンの選択肢を動的生成
   function initSeriesDropdown() {
     const seriesSet = new Set();
     stages.forEach(stage => {
@@ -455,7 +437,6 @@
 
     listElement.innerHTML = '';
 
-    // フィルタリング処理
     const filteredStages = stages.filter(stage => {
       if (currentSeriesFilter && stage.series !== currentSeriesFilter) {
         return false;
@@ -497,7 +478,6 @@
         const rawName = isString ? drop : (drop.name || '');
         const name = cleanName(rawName);
         
-        // typeの判定（明示的な指定、またはキーワード一致で判定）
         const isPart = (!isString && drop.type === 'part') || knownPartKeywords.includes(name);
 
         if (isPart) {
@@ -516,13 +496,10 @@
         }
       }).join('');
 
-      const seriesHtml = stage.series ? `<span class="work-tag">${escapeHtml(stage.series)}</span>` : '';
-
       li.innerHTML = `
         <div class="stage-header">
           <div class="stage-title-group">
-            ${seriesHtml}
-            <span class="stage-title">${escapeHtml(stage.name)}</span>
+            <span class="stage-title">${escapeHtml(stage.name || '')}</span>
           </div>
         </div>
         
