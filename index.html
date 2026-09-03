@@ -135,8 +135,8 @@
     .part-btn[data-type="格闘"] { border-color: rgba(239, 68, 68, 0.4); color: #fca5a5; }
     .part-btn[data-type="射撃"] { border-color: rgba(234, 179, 8, 0.4); color: #fde047; }
     .part-btn[data-type="覚醒"] { border-color: rgba(59, 130, 246, 0.4); color: #93c5fd; }
-    /* ★ボタン用デザイン */
-    .part-btn[data-type="star"] { border-color: rgba(250, 204, 21, 0.4); color: #fde047; grid-column: span 3; }
+    /* ★ボタン用デザイン（幅を指定せず1マス分に） */
+    .part-btn[data-type="star"] { border-color: rgba(250, 204, 21, 0.4); color: #fde047; }
 
     .part-btn[data-type="格闘"]:hover, .part-btn[data-type="格闘"].active {
       background: rgba(239, 68, 68, 0.25);
@@ -364,7 +364,7 @@
       <button class="part-btn" data-tag="覚醒" data-type="覚醒" onclick="filterByTag('覚醒')">
         <span>覚醒</span>
       </button>
-      <!-- ★ボタンを追加 -->
+      <!-- ★ボタンを覚醒の右隣に配置 -->
       <button class="part-btn" data-tag="★" data-type="star" onclick="filterByTag('★')">
         <span>★</span>
       </button>
@@ -459,20 +459,15 @@
   /* --- フィルター切り替えロジック --- */
   function filterByTag(tagName) {
     if (tagName === '★') {
-      // ★ボタンが押された場合：トグル切り替え
       starFilterActive = !starFilterActive;
     } else {
-      // 武装パーツボタンが押された場合
       if (currentPartFilter === tagName) {
-        // すでに選ばれているものをもう一度押したら解除
         currentPartFilter = '';
       } else {
-        // 新しく選ぶ（武装パーツ同士の複数選択はここで上書きされるため排他的になる）
         currentPartFilter = tagName;
       }
     }
     
-    // ボタンの見た目（activeクラス）の更新
     document.querySelectorAll('.part-btn').forEach(btn => {
       const tag = btn.getAttribute('data-tag');
       if (tag === '★') {
@@ -496,12 +491,10 @@
     listElement.innerHTML = '';
 
     const filteredStages = stages.filter(stage => {
-      // 1. シリーズフィルターのチェック
       if (currentSeriesFilter && stage.series !== currentSeriesFilter) {
         return false;
       }
 
-      // 2. 武装パーツフィルターのチェック
       let matchesPart = true;
       if (currentPartFilter) {
         const rawDrops = normalizeList(stage.drops);
@@ -514,7 +507,6 @@
       }
       if (!matchesPart) return false;
 
-      // 3. ★フィルターのチェック（鹵獲データの中に "★" が含まれているか）
       let matchesStar = true;
       if (starFilterActive) {
         const rawCaptures = normalizeList(stage.captures);
@@ -530,7 +522,6 @@
 
     resultCountEl.textContent = filteredStages.length;
     
-    // ステータス表示の生成
     let statusText = [];
     if (currentSeriesFilter) statusText.push(`作品: ${currentSeriesFilter}`);
     if (currentPartFilter) statusText.push(`パーツ: ${currentPartFilter}`);
@@ -550,7 +541,6 @@
       li.className = 'stage-item';
       li.style.animationDelay = `${Math.min(index * 0.02, 0.15)}s`;
 
-      /* --- ドロップ要素のレンダリング --- */
       const dropsList = normalizeList(stage.drops);
       const dropTagsHtml = dropsList.map(drop => {
         const isString = typeof drop === 'string';
@@ -575,7 +565,6 @@
         }
       }).join('');
 
-      /* --- 鹵獲可能機体のレンダリング --- */
       const captureList = normalizeList(stage.captures);
       const captureTagsHtml = captureList.map(capture => {
         const rawName = typeof capture === 'string' ? capture : (capture.name || '');
