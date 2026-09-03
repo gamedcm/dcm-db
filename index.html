@@ -59,8 +59,8 @@
     .header-info {
       display: flex;
       align-items: center;
-      gap: 6px;
-      font-size: 0.8rem;
+      gap: 5px;
+      font-size: 0.75rem;
       color: #cbd5e1;
       flex: 1;
       justify-content: center;
@@ -79,10 +79,18 @@
       border: 1px solid #f97316; /* オレンジ色の枠 */
       color: #fed7aa;            /* 少し明るめのオレンジ文字 */
       background: rgba(249, 115, 22, 0.1); /* 薄いオレンジの背景 */
-      padding: 1px 6px;
+      padding: 1px 5px;
       border-radius: 4px;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-weight: bold;
+    }
+
+    /* 地形アイコンのスタイル */
+    .terrain-icons {
+      display: inline-flex;
+      gap: 3px;
+      font-size: 0.75rem;
+      margin-left: 2px;
     }
 
     /* 右上の！お知らせボタン */
@@ -449,12 +457,13 @@
   <div class="header-bar">
     <h1>GGENDB</h1>
     
-    <!-- 追加した次回マスターリーグの告知エリア -->
+    <!-- 次回マスターリーグの告知エリア（地形アイコン追加） -->
     <div class="header-info">
       <span class="header-info-title">次回:</span>
       <span>マスターリーグ</span>
       <span class="orange-badge">SSR以下</span>
       <span class="orange-badge">アルティメット</span>
+      <span class="terrain-icons" title="地形">🪐☁️🏔️🌊🫧</span>
     </div>
 
     <!-- 右上の！お知らせボタン -->
