@@ -132,6 +132,20 @@
       gap: 8px;
     }
 
+    /* お知らせリンクカード */
+    .news-item-link {
+      text-decoration: none;
+      display: block;
+      transition: transform 0.1s ease;
+    }
+    .news-item-link:hover {
+      transform: translateY(-1px);
+    }
+    .news-item-link:hover .news-item-row {
+      border-color: var(--accent-color);
+      background: rgba(56, 189, 248, 0.08);
+    }
+
     .news-item-row {
       background: rgba(15, 23, 42, 0.5);
       border: 1px solid rgba(51, 65, 85, 0.5);
@@ -506,20 +520,26 @@
       <button class="news-close-btn" onclick="toggleNewsModal()">×</button>
     </div>
     <div class="news-modal-body">
-      <div class="news-item-row">
-        <div>
-          <span class="news-badge campaign">キャンペーン</span>
-          <span class="news-date">2026/09/03 17:00</span>
+      <!-- 各お知らせ項目（クリックで公式サイトの該当ページに別タブで飛ぶようにリンクを設定） -->
+      <a href="https://gget.ggame.jp/jp/" target="_blank" rel="noopener noreferrer" class="news-item-link">
+        <div class="news-item-row">
+          <div>
+            <span class="news-badge campaign">キャンペーン</span>
+            <span class="news-date">2026/09/03 17:00</span>
+          </div>
+          <div class="news-text">「東京ゲームショウ2026」にてプロモーションコード配布決定！</div>
         </div>
-        <div class="news-text">「東京ゲームショウ2026」にてプロモーションコード配布決定！</div>
-      </div>
-      <div class="news-item-row">
-        <div>
-          <span class="news-badge event">イベント</span>
-          <span class="news-date">2026/09/02 12:00</span>
+      </a>
+
+      <a href="https://gget.ggame.jp/jp/" target="_blank" rel="noopener noreferrer" class="news-item-link">
+        <div class="news-item-row">
+          <div>
+            <span class="news-badge event">イベント</span>
+            <span class="news-date">2026/09/02 12:00</span>
+          </div>
+          <div class="news-text">9月2日グフの日スペシャルステージ開催</div>
         </div>
-        <div class="news-text">9月2日グフの日スペシャルステージ開催</div>
-      </div>
+      </a>
     </div>
   </div>
 </div>
