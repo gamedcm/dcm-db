@@ -135,8 +135,12 @@
     .part-btn[data-type="格闘"] { border-color: rgba(239, 68, 68, 0.4); color: #fca5a5; }
     .part-btn[data-type="射撃"] { border-color: rgba(234, 179, 8, 0.4); color: #fde047; }
     .part-btn[data-type="覚醒"] { border-color: rgba(59, 130, 246, 0.4); color: #93c5fd; }
-    /* ★ボタン用デザイン（幅を指定せず1マス分に） */
-    .part-btn[data-type="star"] { border-color: rgba(250, 204, 21, 0.4); color: #fde047; }
+    
+    /* ★ボタン用デザイン（鹵獲可能ユニットと同じ青み・アクセントカラー） */
+    .part-btn[data-type="star"] { 
+      border-color: rgba(56, 189, 248, 0.4); 
+      color: #38bdf8; 
+    }
 
     .part-btn[data-type="格闘"]:hover, .part-btn[data-type="格闘"].active {
       background: rgba(239, 68, 68, 0.25);
@@ -154,9 +158,9 @@
       box-shadow: 0 0 6px rgba(59, 130, 246, 0.3);
     }
     .part-btn[data-type="star"]:hover, .part-btn[data-type="star"].active {
-      background: rgba(250, 204, 21, 0.25);
-      border-color: #facc15;
-      box-shadow: 0 0 6px rgba(250, 204, 21, 0.3);
+      background: rgba(56, 189, 248, 0.25);
+      border-color: #38bdf8;
+      box-shadow: 0 0 6px rgba(56, 189, 248, 0.3);
     }
 
     /* 件数カウンター表示バー */
@@ -364,7 +368,7 @@
       <button class="part-btn" data-tag="覚醒" data-type="覚醒" onclick="filterByTag('覚醒')">
         <span>覚醒</span>
       </button>
-      <!-- ★ボタンを覚醒の右隣に配置 -->
+      <!-- ★ボタン（鹵獲と同じ青） -->
       <button class="part-btn" data-tag="★" data-type="star" onclick="filterByTag('★')">
         <span>★</span>
       </button>
@@ -391,8 +395,8 @@
 
 <script>
   let stages = [];
-  let currentPartFilter = '';   // 選択中の武装パーツフィルター（1つだけ保持）
-  let starFilterActive = false; // ★フィルターが有効かどうか
+  let currentPartFilter = '';   
+  let starFilterActive = false; 
   let currentSeriesFilter = '';
 
   const knownPartKeywords = ['物理格闘', '物理射撃', 'ビーム格闘', 'ビーム射撃', '特殊格闘', '特殊射撃', '覚醒'];
@@ -456,7 +460,6 @@
     renderStageView();
   }
 
-  /* --- フィルター切り替えロジック --- */
   function filterByTag(tagName) {
     if (tagName === '★') {
       starFilterActive = !starFilterActive;
@@ -482,7 +485,6 @@
     renderStageView();
   }
 
-  /* --- ステージ一覧表示＆検索フィルタリング --- */
   function renderStageView() {
     const listElement = document.getElementById('stageList');
     const resultCountEl = document.getElementById('resultCount');
