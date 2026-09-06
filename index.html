@@ -12,11 +12,9 @@
       --text-color: #f8fafc;
       --accent-color: #38bdf8;
       --border-color: #334155;
-
-      /* 武装強化パーツカラー */
       --color-格闘: #ef4444;
       --color-射撃: #eab308;
-      --color-覚醒: #2563eb; 
+      --color-覚醒: #2563eb;
     }
 
     body {
@@ -32,11 +30,12 @@
       box-sizing: border-box;
     }
 
-    .container {
+    .container, .footer {
       width: 100%;
       max-width: 650px;
-      flex: 1;
     }
+
+    .container { flex: 1; }
 
     .header-bar {
       display: flex;
@@ -48,14 +47,8 @@
       gap: 8px;
     }
 
-    h1 {
-      font-size: 1.2rem;
-      color: var(--accent-color);
-      margin: 0;
-      white-space: nowrap;
-    }
+    h1 { font-size: 1.2rem; color: var(--accent-color); margin: 0; white-space: nowrap; }
 
-    /* ヘッダー中央の告知エリア */
     .header-info {
       display: flex;
       align-items: center;
@@ -68,31 +61,19 @@
       white-space: nowrap;
     }
 
-    .header-info-title {
-      font-weight: bold;
-      color: #94a3b8;
-    }
+    .header-info-title { font-weight: bold; color: #94a3b8; }
 
-    /* オレンジ色の枠で囲うタグのスタイル */
     .orange-badge {
       display: inline-block;
-      border: 1px solid #f97316; /* オレンジ色の枠 */
-      color: #fed7aa;            /* 少し明るめのオレンジ文字 */
-      background: rgba(249, 115, 22, 0.1); /* 薄いオレンジの背景 */
+      border: 1px solid #f97316;
+      color: #fed7aa;
+      background: rgba(249, 115, 22, 0.1);
       padding: 1px 5px;
       border-radius: 4px;
       font-size: 0.7rem;
       font-weight: bold;
     }
 
-    /* 地形アイコンのスタイル */
-    .terrain-icons {
-      display: inline-flex;
-      font-size: 0.75rem;
-      margin-left: 2px;
-    }
-
-    /* 右上の！お知らせボタン */
     .news-trigger-btn {
       background: #0f172a;
       border: 1px solid var(--accent-color);
@@ -106,22 +87,15 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: background 0.15s ease;
       flex-shrink: 0;
     }
-    .news-trigger-btn:hover {
-      background: rgba(56, 189, 248, 0.2);
-    }
+    .news-trigger-btn:hover { background: rgba(56, 189, 248, 0.2); }
 
-    /* お知らせモーダルの背景 */
     .news-modal {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      inset: 0;
       background: rgba(15, 23, 42, 0.8);
-      display: flex;
+      display: none;
       align-items: center;
       justify-content: center;
       z-index: 1000;
@@ -129,7 +103,6 @@
       box-sizing: border-box;
     }
 
-    /* モーダルの中身 */
     .news-modal-content {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
@@ -149,19 +122,10 @@
       border-bottom: 1px solid var(--border-color);
       font-size: 0.85rem;
       font-weight: bold;
-      color: #f8fafc;
     }
 
-    .news-close-btn {
-      background: none;
-      border: none;
-      color: #94a3b8;
-      font-size: 1.2rem;
-      cursor: pointer;
-    }
-    .news-close-btn:hover {
-      color: #f8fafc;
-    }
+    .news-close-btn { background: none; border: none; color: #94a3b8; font-size: 1.2rem; cursor: pointer; }
+    .news-close-btn:hover { color: #f8fafc; }
 
     .news-modal-body {
       padding: 24px 20px;
@@ -183,31 +147,22 @@
       border-radius: 6px;
       font-weight: bold;
       text-decoration: none;
-      transition: filter 0.15s ease;
       font-size: 0.9rem;
     }
+    .official-link-btn:hover { filter: brightness(1.1); }
 
-    .official-link-btn:hover {
-      filter: brightness(1.1);
-    }
-
-    /* フィルタコントロールエリア */
-    .filter-control-container {
+    .filter-control-container, .quick-parts-container {
       background: var(--card-bg);
       padding: 8px 12px;
       border-radius: 6px;
       margin-bottom: 10px;
       border: 1px solid var(--border-color);
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
+      box-sizing: border-box;
+      width: 100%;
     }
 
-    .filter-label {
-      font-size: 0.75rem;
-      color: #94a3b8;
-      font-weight: bold;
-    }
+    .filter-control-container { display: flex; flex-direction: column; gap: 4px; }
+    .filter-label, .quick-parts-title { font-size: 0.75rem; color: #94a3b8; font-weight: bold; }
 
     .series-select {
       background: #0f172a;
@@ -221,35 +176,10 @@
       outline: none;
       cursor: pointer;
     }
+    .series-select:focus { border-color: var(--accent-color); }
 
-    .series-select:focus {
-      border-color: var(--accent-color);
-    }
-
-    /* 武装強化パーツショートカット */
-    .quick-parts-container {
-      background: var(--card-bg);
-      padding: 10px 12px;
-      border-radius: 6px;
-      margin-bottom: 10px;
-      border: 1px solid var(--border-color);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-      box-sizing: border-box;
-      width: 100%;
-    }
-
-    .quick-parts-title {
-      font-size: 0.75rem;
-      color: #94a3b8;
-      font-weight: bold;
-      margin-bottom: 6px;
-    }
-
-    .quick-parts-list {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
-    }
+    .quick-parts-title { margin-bottom: 6px; }
+    .quick-parts-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
 
     .part-btn {
       background: #0f172a;
@@ -261,9 +191,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
       cursor: pointer;
-      transition: border-color 0.15s ease, background-color 0.15s ease;
       width: 100%;
       box-sizing: border-box;
       font-weight: bold;
@@ -274,28 +202,11 @@
     .part-btn[data-type="覚醒"] { border-color: rgba(37, 99, 235, 0.5); color: #60a5fa; }
     .part-btn[data-type="star"] { border-color: rgba(56, 189, 248, 0.25); color: #bae6fd; }
 
-    .part-btn[data-type="格闘"]:hover, .part-btn[data-type="格闘"].active {
-      background: rgba(239, 68, 68, 0.25);
-      border-color: var(--color-格闘);
-      box-shadow: 0 0 6px rgba(239, 68, 68, 0.3);
-    }
-    .part-btn[data-type="射撃"]:hover, .part-btn[data-type="射撃"].active {
-      background: rgba(234, 179, 8, 0.25);
-      border-color: var(--color-射撃);
-      box-shadow: 0 0 6px rgba(234, 179, 8, 0.3);
-    }
-    .part-btn[data-type="覚醒"]:hover, .part-btn[data-type="覚醒"].active {
-      background: rgba(37, 99, 235, 0.3);
-      border-color: var(--color-覚醒);
-      box-shadow: 0 0 6px rgba(37, 99, 235, 0.4);
-    }
-    .part-btn[data-type="star"]:hover, .part-btn[data-type="star"].active {
-      background: rgba(56, 189, 248, 0.15);
-      border-color: rgba(56, 189, 248, 0.6);
-      box-shadow: 0 0 6px rgba(56, 189, 248, 0.2);
-    }
+    .part-btn[data-type="格闘"]:hover, .part-btn[data-type="格闘"].active { background: rgba(239, 68, 68, 0.25); border-color: var(--color-格闘); }
+    .part-btn[data-type="射撃"]:hover, .part-btn[data-type="射撃"].active { background: rgba(234, 179, 8, 0.25); border-color: var(--color-射撃); }
+    .part-btn[data-type="覚醒"]:hover, .part-btn[data-type="覚醒"].active { background: rgba(37, 99, 235, 0.3); border-color: var(--color-覚醒); }
+    .part-btn[data-type="star"]:hover, .part-btn[data-type="star"].active { background: rgba(56, 189, 248, 0.15); border-color: rgba(56, 189, 248, 0.6); }
 
-    /* 件数カウンター表示バー */
     .result-bar {
       display: flex;
       justify-content: space-between;
@@ -305,18 +216,9 @@
       margin-bottom: 8px;
       padding: 0 2px;
     }
+    .result-count { color: #38bdf8; font-weight: bold; font-size: 0.9rem; }
 
-    .result-count {
-      color: #38bdf8;
-      font-weight: bold;
-      font-size: 0.9rem;
-    }
-
-    .stage-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
+    .stage-list { list-style: none; padding: 0; margin: 0; }
 
     .stage-item {
       background: var(--card-bg);
@@ -327,8 +229,6 @@
       display: flex;
       flex-direction: column;
       gap: 6px;
-      contain: content;
-      will-change: transform, opacity;
       animation: fadeIn 0.15s ease-out forwards;
     }
 
@@ -337,55 +237,20 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .stage-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-    }
+    .stage-title { font-weight: bold; font-size: 0.9rem; color: #f8fafc; word-break: break-word; line-height: 1.35; }
 
-    .stage-title-group {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 6px 8px;
-      flex: 1;
-    }
-
-    .stage-title {
-      font-weight: bold;
-      font-size: 0.9rem;
-      color: #f8fafc;
-      white-space: normal;
-      word-break: break-word;
-      line-height: 1.35;
-    }
-
-    .info-sections {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
+    .info-sections { display: flex; flex-direction: column; gap: 2px; }
     .drop-section, .capture-section {
       background: rgba(15, 23, 42, 0.5);
       padding: 4px 8px;
       border-radius: 4px;
       border: 1px solid rgba(51, 65, 85, 0.5);
     }
+    .capture-section { background: rgba(15, 23, 42, 0.8); border-color: rgba(56, 189, 248, 0.2); }
 
-    .capture-section {
-      background: rgba(15, 23, 42, 0.8);
-      border-color: rgba(56, 189, 248, 0.2);
-    }
+    .drop-tags { display: flex; flex-wrap: wrap; gap: 4px; }
 
-    .drop-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
-    }
-
-    .drop-tag-unit {
+    .drop-tag-unit, .drop-tag-capture, .drop-tag-part {
       background: #0f172a;
       border: 1px solid var(--border-color);
       color: #cbd5e1;
@@ -397,57 +262,20 @@
       gap: 4px;
     }
 
-    .drop-tag-capture {
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid rgba(56, 189, 248, 0.2);
-      color: #bae6fd;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .drop-tag-part {
-      background: #0f172a;
-      border: 1px solid var(--border-color);
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background 0.15s ease;
-    }
-
+    .drop-tag-capture { background: rgba(15, 23, 42, 0.6); border-color: rgba(56, 189, 248, 0.2); color: #bae6fd; }
+    .drop-tag-part { cursor: pointer; font-weight: bold; }
     .drop-tag-part[data-type="格闘"] { border-color: rgba(239, 68, 68, 0.6); color: #fca5a5; background: rgba(239, 68, 68, 0.15); }
     .drop-tag-part[data-type="射撃"] { border-color: rgba(234, 179, 8, 0.6); color: #fde047; background: rgba(234, 179, 8, 0.15); }
     .drop-tag-part[data-type="覚醒"] { border-color: rgba(37, 99, 235, 0.7); color: #93c5fd; background: rgba(37, 99, 235, 0.2); }
-
-    .drop-tag-part:hover {
-      filter: brightness(1.2);
-    }
+    .drop-tag-part:hover { filter: brightness(1.2); }
 
     .footer {
-      width: 100%;
-      max-width: 650px;
       margin-top: 24px;
       padding-top: 10px;
       border-top: 1px solid var(--border-color);
       text-align: center;
     }
-
-    .footer-disclaimer {
-      font-size: 0.7rem;
-      color: #64748b;
-      line-height: 1.4;
-      margin: 0;
-      word-break: keep-all;
-      overflow-wrap: anywhere;
-    }
+    .footer-disclaimer { font-size: 0.7rem; color: #64748b; line-height: 1.4; margin: 0; overflow-wrap: anywhere; }
   </style>
 </head>
 <body>
@@ -455,77 +283,39 @@
 <div class="container">
   <div class="header-bar">
     <h1>GGENDB</h1>
-    
-    <!-- 次回マスターリーグの告知エリア（地形アイコン：🪐のみ） -->
     <div class="header-info">
       <span class="header-info-title">次回:</span>
       <span>マスターリーグ</span>
       <span class="orange-badge">SSR以下</span>
       <span class="orange-badge">アルティメット</span>
-      <span class="terrain-icons" title="宇宙">🪐</span>
+      <span title="宇宙">🪐</span>
     </div>
-
-    <!-- 右上の！お知らせボタン -->
-    <button class="news-trigger-btn" onclick="toggleNewsModal()" title="お知らせ">
-      <span>!</span>
-    </button>
+    <button class="news-trigger-btn" onclick="toggleModal(true)" title="お知らせ">!</button>
   </div>
 
-  <!-- 作品（シリーズ）ごとフィルター -->
   <div class="filter-control-container">
     <label class="filter-label" for="seriesSelect">🎬 作品（シリーズ）で絞り込み</label>
-    <select id="seriesSelect" class="series-select" onchange="handleSeriesChange()">
-      <option value="">すべての作品を表示</option>
-    </select>
+    <select id="seriesSelect" class="series-select" onchange="currentSeriesFile = this.value; renderStageView()"></select>
   </div>
 
-  <!-- 武装強化パーツショートカット -->
   <div class="quick-parts-container">
     <div class="quick-parts-title">🎯 武装強化パーツで絞り込み</div>
-    <div class="quick-parts-list" id="partButtons">
-      <button class="part-btn" data-tag="物理格闘" data-type="格闘" onclick="filterByTag('物理格闘')">
-        <span>物理格闘</span>
-      </button>
-      <button class="part-btn" data-tag="ビーム格闘" data-type="格闘" onclick="filterByTag('ビーム格闘')">
-        <span>ビーム格闘</span>
-      </button>
-      <button class="part-btn" data-tag="特殊格闘" data-type="格闘" onclick="filterByTag('特殊格闘')">
-        <span>特殊格闘</span>
-      </button>
-      <button class="part-btn" data-tag="物理射撃" data-type="射撃" onclick="filterByTag('物理射撃')">
-        <span>物理射撃</span>
-      </button>
-      <button class="part-btn" data-tag="ビーム射撃" data-type="射撃" onclick="filterByTag('ビーム射撃')">
-        <span>ビーム射撃</span>
-      </button>
-      <button class="part-btn" data-tag="特殊射撃" data-type="射撃" onclick="filterByTag('特殊射撃')">
-        <span>特殊射撃</span>
-      </button>
-      <button class="part-btn" data-tag="覚醒" data-type="覚醒" onclick="filterByTag('覚醒')">
-        <span>覚醒</span>
-      </button>
-      <button class="part-btn" data-tag="★" data-type="star" onclick="filterByTag('★')">
-        <span>★</span>
-      </button>
-    </div>
+    <div class="quick-parts-list" id="partButtons"></div>
   </div>
 
-  <!-- 件数カウンターバー -->
   <div class="result-bar">
     <span id="filterStatus">表示中: すべて</span>
     <span>該当: <span id="resultCount" class="result-count">0</span> 件</span>
   </div>
 
-  <!-- リスト表示エリア -->
   <ul id="stageList" class="stage-list"></ul>
 </div>
 
-<!-- お知らせポップアップ -->
-<div id="newsModal" class="news-modal" style="display: none;">
+<div id="newsModal" class="news-modal" onclick="if(event.target === this) toggleModal(false)">
   <div class="news-modal-content">
     <div class="news-modal-header">
       <span>📢 最新情報・お知らせ</span>
-      <button class="news-close-btn" onclick="toggleNewsModal()">×</button>
+      <button class="news-close-btn" onclick="toggleModal(false)">×</button>
     </div>
     <div class="news-modal-body">
       <p>最新のアップデートや詳細なお知らせは、公式ウェブサイトをご確認ください。</p>
@@ -536,7 +326,6 @@
   </div>
 </div>
 
-<!-- フッター権利表記 -->
 <footer class="footer">
   <p class="footer-disclaimer">
     当サイトは個人が運営する非公式サイトであり、株式会社バンダイナムコエンターテインメントとは一切関係ありません。
@@ -545,253 +334,100 @@
 </footer>
 
 <script>
-  let stages = [];
-  let currentPartFilter = '';   
-  let starFilterActive = false; 
-  let currentSeriesFilter = '';
-
+  let stages = [], currentPartFilter = '', starFilterActive = false, currentSeriesFile = '';
+  const partsData = [
+    {tag: '物理格闘', type: '格闘'}, {tag: 'ビーム格闘', type: '格闘'}, {tag: '特殊格闘', type: '格闘'},
+    {tag: '物理射撃', type: '射撃'}, {tag: 'ビーム射撃', type: '射撃'}, {tag: '特殊射撃', type: '射撃'},
+    {tag: '覚醒', type: '覚醒'}, {tag: '★', type: 'star'}
+  ];
   const knownPartKeywords = ['物理格闘', '物理射撃', 'ビーム格闘', 'ビーム射撃', '特殊格闘', '特殊射撃', '覚醒'];
 
-  function cleanName(name) {
-    if (!name) return '';
-    return name.replace(/^【[^】]+】\s*/, '').trim();
-  }
+  const cleanName = (name) => name ? name.replace(/^【[^】]+】\s*/, '').trim() : '';
+  const getPartType = (name) => name.includes("格闘") ? "格闘" : name.includes("射撃") ? "射撃" : name.includes("覚醒") ? "覚醒" : "";
+  const normalizeList = (data) => Array.isArray(data) ? data : (typeof data === 'string' ? data.split(',').map(i => i.trim()).filter(Boolean) : []);
+  const toggleModal = (show) => document.getElementById('newsModal').style.display = show ? 'flex' : 'none';
+  const escapeHtml = (str) => str.replace(/[&<>"']/g, m => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'}[m]));
 
-  function getPartType(name) {
-    if (name.includes("格闘")) return "格闘";
-    if (name.includes("射撃")) return "射撃";
-    if (name.includes("覚醒")) return "覚醒";
-    return "";
-  }
-
-  function normalizeList(data) {
-    if (!data) return [];
-    if (Array.isArray(data)) return data;
-    if (typeof data === 'string') {
-      return data.split(',').map(item => item.trim()).filter(Boolean);
-    }
-    return [];
-  }
-
-  function toggleNewsModal() {
-    const modal = document.getElementById('newsModal');
-    if (modal.style.display === 'none') {
-      modal.style.display = 'flex';
-    } else {
-      modal.style.display = 'none';
-    }
-  }
-
-  window.addEventListener('click', (e) => {
-    const modal = document.getElementById('newsModal');
-    if (e.target === modal) {
-      modal.style.display = 'none';
-    }
-  });
+  // パーツボタンの自動生成
+  document.getElementById('partButtons').innerHTML = partsData.map(p => `
+    <button class="part-btn" data-tag="${p.tag}" data-type="${p.type}" onclick="filterByTag('${p.tag}')">${p.tag}</button>
+  `).join('');
 
   async function loadDataFromGitHub() {
-    const listElement = document.getElementById('stageList');
-    listElement.innerHTML = '<li style="text-align:center; color:#94a3b8; padding:15px; font-size:0.85rem;">データを読み込み中...</li>';
-
+    const listEl = document.getElementById('stageList');
+    listEl.innerHTML = '<li style="text-align:center; color:#94a3b8; padding:15px; font-size:0.85rem;">データを読み込み中...</li>';
     try {
-      const response = await fetch('data.json?t=' + new Date().getTime());
-      if (!response.ok) throw new Error('data.json の読み込みに失敗しました');
+      const res = await fetch('data.json?t=' + Date.now());
+      if (!res.ok) throw new Error();
+      stages = await res.json();
       
-      stages = await response.json();
-      initSeriesDropdown();
+      const seriesSet = [...new Set(stages.map(s => s.series).filter(Boolean))];
+      document.getElementById('seriesSelect').innerHTML = '<option value="">すべての作品を表示</option>' + 
+        seriesSet.map(s => `<option value="${s}">${s}</option>`).join('');
       renderStageView();
-    } catch (error) {
-      console.error(error);
-      listElement.innerHTML = '<li style="text-align:center; color:#ef4444; padding:15px; font-size:0.85rem;">データの読み込みに失敗しました。<br>data.json が存在するか確認してください。</li>';
+    } catch {
+      listEl.innerHTML = '<li style="text-align:center; color:#ef4444; padding:15px; font-size:0.85rem;">データの読み込みに失敗しました。</li>';
     }
-  }
-
-  function initSeriesDropdown() {
-    const seriesSet = new Set();
-    stages.forEach(stage => {
-      if (stage.series) seriesSet.add(stage.series);
-    });
-
-    const selectEl = document.getElementById('seriesSelect');
-    seriesSet.forEach(series => {
-      const option = document.createElement('option');
-      option.value = series;
-      option.textContent = series;
-      selectEl.appendChild(option);
-    });
-  }
-
-  function handleSeriesChange() {
-    const selectEl = document.getElementById('seriesSelect');
-    currentSeriesFilter = selectEl.value;
-    renderStageView();
   }
 
   function filterByTag(tagName) {
-    if (tagName === '★') {
-      starFilterActive = !starFilterActive;
-    } else {
-      if (currentPartFilter === tagName) {
-        currentPartFilter = '';
-      } else {
-        currentPartFilter = tagName;
-      }
-    }
+    if (tagName === '★') starFilterActive = !starFilterActive;
+    else currentPartFilter = currentPartFilter === tagName ? '' : tagName;
     
     document.querySelectorAll('.part-btn').forEach(btn => {
-      const tag = btn.getAttribute('data-tag');
-      if (tag === '★') {
-        if (starFilterActive) btn.classList.add('active');
-        else btn.classList.remove('active');
-      } else {
-        if (tag === currentPartFilter) btn.classList.add('active');
-        else btn.classList.remove('active');
-      }
+      const tag = btn.dataset.tag;
+      btn.classList.toggle('active', tag === '★' ? starFilterActive : tag === currentPartFilter);
     });
-
     renderStageView();
   }
 
   function renderStageView() {
-    const listElement = document.getElementById('stageList');
-    const resultCountEl = document.getElementById('resultCount');
-    const filterStatusEl = document.getElementById('filterStatus');
-
-    listElement.innerHTML = '';
-
-    const filteredStages = stages.filter(stage => {
-      if (currentSeriesFilter && stage.series !== currentSeriesFilter) {
-        return false;
-      }
-
-      let matchesPart = true;
-      if (currentPartFilter) {
-        const rawDrops = normalizeList(stage.drops);
-        matchesPart = rawDrops.some(d => {
-          const rawName = typeof d === 'string' ? d : (d.name || '');
-          const cleaned = cleanName(rawName);
-          const isPart = (typeof d === 'object' && d.type === 'part') || knownPartKeywords.includes(cleaned);
-          return isPart && cleaned === currentPartFilter;
-        });
-      }
-      if (!matchesPart) return false;
-
-      let matchesStar = true;
-      if (starFilterActive) {
-        const rawCaptures = normalizeList(stage.captures);
-        matchesStar = rawCaptures.some(cap => {
-          const rawName = typeof cap === 'string' ? cap : (cap.name || '');
-          return rawName.includes('★');
-        });
-      }
-      if (!matchesStar) return false;
-
+    const listEl = document.getElementById('stageList');
+    const filtered = stages.filter(s => {
+      if (currentSeriesFile && s.series !== currentSeriesFile) return false;
+      if (currentPartFilter && !normalizeList(s.drops).some(d => cleanName(typeof d === 'string' ? d : d.name) === currentPartFilter)) return false;
+      if (starFilterActive && !normalizeList(s.captures).some(c => (typeof c === 'string' ? c : c.name || '').includes('★'))) return false;
       return true;
     });
 
-    resultCountEl.textContent = filteredStages.length;
+    document.getElementById('resultCount').textContent = filtered.length;
     
-    let statusText = [];
-    if (currentSeriesFilter) statusText.push(`作品: ${currentSeriesFilter}`);
-    if (currentPartFilter) statusText.push(`パーツ: ${currentPartFilter}`);
-    if (starFilterActive) statusText.push(`★付き`);
-    
-    filterStatusEl.textContent = statusText.length > 0 ? `絞り込み [ ${statusText.join(' / ')} ]` : '表示中: すべて';
+    let status = [];
+    if (currentSeriesFile) status.push(`作品: ${currentSeriesFile}`);
+    if (currentPartFilter) status.push(`パーツ: ${currentPartFilter}`);
+    if (starFilterActive) status.push(`★付き`);
+    document.getElementById('filterStatus').textContent = status.length ? `絞り込み [ ${status.join(' / ')} ]` : '表示中: すべて';
 
-    if (filteredStages.length === 0) {
-      listElement.innerHTML = '<li style="text-align:center; color:#64748b; padding:15px; font-size:0.85rem;">該当するステージ情報はありません</li>';
+    if (!filtered.length) {
+      listEl.innerHTML = '<li style="text-align:center; color:#64748b; padding:15px; font-size:0.85rem;">該当するステージ情報はありません</li>';
       return;
     }
 
-    const fragment = document.createDocumentFragment();
-
-    filteredStages.forEach((stage, index) => {
-      const li = document.createElement('li');
-      li.className = 'stage-item';
-      li.style.animationDelay = `${Math.min(index * 0.02, 0.15)}s`;
-
-      const dropsList = normalizeList(stage.drops);
-      const dropTagsHtml = dropsList.map(drop => {
-        const isString = typeof drop === 'string';
-        const rawName = isString ? drop : (drop.name || '');
-        const name = cleanName(rawName);
-        
-        const isPart = (!isString && drop.type === 'part') || knownPartKeywords.includes(name);
-
-        if (isPart) {
-          const partType = getPartType(name);
-          return `
-            <span class="drop-tag-part" data-type="${partType}" onclick="filterByTag('${escapeHtml(name)}')">
-              🎯 ${escapeHtml(name)}
-            </span>
-          `;
-        } else {
-          return `
-            <span class="drop-tag-unit">
-              📒 ${escapeHtml(name)}
-            </span>
-          `;
-        }
+    listEl.innerHTML = filtered.map(stage => {
+      const drops = normalizeList(stage.drops).map(d => {
+        const isStr = typeof d === 'string', raw = isStr ? d : (d.name || ''), name = cleanName(raw);
+        return (!isStr && d.type === 'part') || knownPartKeywords.includes(name)
+          ? `<span class="drop-tag-part" data-type="${getPartType(name)}" onclick="filterByTag('${escapeHtml(name)}')">🎯 ${escapeHtml(name)}</span>`
+          : `<span class="drop-tag-unit">📒 ${escapeHtml(name)}</span>`;
       }).join('');
 
-      const captureList = normalizeList(stage.captures);
-      const captureTagsHtml = captureList.map(capture => {
-        const rawName = typeof capture === 'string' ? capture : (capture.name || '');
-        const name = cleanName(rawName);
-        return `
-          <span class="drop-tag-capture">
-            🤖 ${escapeHtml(name)}
-          </span>
-        `;
-      }).join('');
+      const captures = normalizeList(stage.captures).map(c => `
+        <span class="drop-tag-capture">🤖 ${escapeHtml(cleanName(typeof c === 'string' ? c : c.name))}</span>
+      `).join('');
 
-      const captureSectionHtml = captureList.length > 0 ? `
-        <div class="capture-section">
-          <div class="drop-tags">
-            ${captureTagsHtml}
+      return `
+        <li class="stage-item">
+          <div class="stage-title">${escapeHtml(stage.name || '')}</div>
+          <div class="info-sections">
+            <div class="drop-section"><div class="drop-tags">${drops || '<span style="font-size:0.75rem; color:#64748b;">登録なし</span>'}</div></div>
+            ${captures ? `<div class="capture-section"><div class="drop-tags">${captures}</div></div>` : ''}
           </div>
-        </div>
-      ` : '';
-
-      li.innerHTML = `
-        <div class="stage-header">
-          <div class="stage-title-group">
-            <span class="stage-title">${escapeHtml(stage.name || '')}</span>
-          </div>
-        </div>
-        
-        <div class="info-sections">
-          <div class="drop-section">
-            <div class="drop-tags">
-              ${dropTagsHtml || '<span style="font-size:0.75rem; color:#64748b;">登録なし</span>'}
-            </div>
-          </div>
-          ${captureSectionHtml}
-        </div>
+        </li>
       `;
-
-      fragment.appendChild(li);
-    });
-
-    listElement.appendChild(fragment);
+    }).join('');
   }
 
-  function escapeHtml(str) {
-    return str.replace(/[&<>"']/g, function(m) {
-      return {
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#039;'
-      }[m];
-    });
-  }
-
-  window.addEventListener('DOMContentLoaded', () => {
-    loadDataFromGitHub();
-  });
+  loadDataFromGitHub();
 </script>
-
 </body>
 </html>
