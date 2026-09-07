@@ -162,7 +162,34 @@
     }
 
     .filter-control-container { display: flex; flex-direction: column; gap: 8px; }
+    
+    .filter-control-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
     .filter-label, .quick-parts-title { font-size: 0.75rem; color: #94a3b8; font-weight: bold; }
+
+    .history-toggle-btn {
+      background: #0f172a;
+      border: 1px solid var(--border-color);
+      color: #94a3b8;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s;
+    }
+    .history-toggle-btn.active {
+      background: rgba(56, 189, 248, 0.2);
+      border-color: var(--accent-color);
+      color: var(--accent-color);
+    }
 
     .series-select {
       background: #0f172a;
@@ -177,45 +204,6 @@
       cursor: pointer;
     }
     .series-select:focus { border-color: var(--accent-color); }
-
-    .history-filter-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 10px;
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      padding: 8px 12px;
-      border-radius: 6px;
-      box-sizing: border-box;
-      width: 100%;
-    }
-
-    .history-filter-title {
-      font-size: 0.75rem;
-      color: #94a3b8;
-      font-weight: bold;
-    }
-
-    .history-toggle-btn {
-      background: #0f172a;
-      border: 1px solid var(--border-color);
-      color: #94a3b8;
-      padding: 4px 10px;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      font-weight: bold;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      transition: all 0.2s;
-    }
-    .history-toggle-btn.active {
-      background: rgba(56, 189, 248, 0.2);
-      border-color: var(--accent-color);
-      color: var(--accent-color);
-    }
 
     .quick-parts-title { margin-bottom: 6px; }
     .quick-parts-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
@@ -353,15 +341,13 @@
     <button class="news-trigger-btn" onclick="toggleModal(true)" title="お知らせ">!</button>
   </div>
 
-  <div class="history-filter-bar">
-    <span class="history-filter-title">📜 ヒストリーステージ表示</span>
-    <button id="historyToggleBtn" class="history-toggle-btn active" onclick="toggleHistoryFilter()">
-      <span id="historyToggleIcon">✓</span> <span id="historyToggleText">ON</span>
-    </button>
-  </div>
-
   <div class="filter-control-container">
-    <label class="filter-label" for="seriesSelect">🎬 作品（シリーズ）で絞り込み</label>
+    <div class="filter-control-header">
+      <label class="filter-label" for="seriesSelect">🎬 作品（シリーズ）で絞り込み</label>
+      <button id="historyToggleBtn" class="history-toggle-btn active" onclick="toggleHistoryFilter()">
+        📜 ヒストリー: <span id="historyToggleIcon">✓</span> <span id="historyToggleText">ON</span>
+      </button>
+    </div>
     <select id="seriesSelect" class="series-select" onchange="currentSeriesFile = this.value; renderStageView()"></select>
   </div>
 
