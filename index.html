@@ -161,7 +161,7 @@
       width: 100%;
     }
 
-    .filter-control-container { display: flex; flex-direction: column; gap: 4px; }
+    .filter-control-container { display: flex; flex-direction: column; gap: 8px; }
     .filter-label, .quick-parts-title { font-size: 0.75rem; color: #94a3b8; font-weight: bold; }
 
     .series-select {
@@ -177,6 +177,45 @@
       cursor: pointer;
     }
     .series-select:focus { border-color: var(--accent-color); }
+
+    .history-filter-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 8px 12px;
+      border-radius: 6px;
+      box-sizing: border-box;
+      width: 100%;
+    }
+
+    .history-filter-title {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      font-weight: bold;
+    }
+
+    .history-toggle-btn {
+      background: #0f172a;
+      border: 1px solid var(--border-color);
+      color: #94a3b8;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s;
+    }
+    .history-toggle-btn.active {
+      background: rgba(56, 189, 248, 0.2);
+      border-color: var(--accent-color);
+      color: var(--accent-color);
+    }
 
     .quick-parts-title { margin-bottom: 6px; }
     .quick-parts-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
@@ -314,6 +353,13 @@
     <button class="news-trigger-btn" onclick="toggleModal(true)" title="お知らせ">!</button>
   </div>
 
+  <div class="history-filter-bar">
+    <span class="history-filter-title">📜 ヒストリーステージ表示</span>
+    <button id="historyToggleBtn" class="history-toggle-btn active" onclick="toggleHistoryFilter()">
+      <span id="historyToggleIcon">✓</span> <span id="historyToggleText">ON</span>
+    </button>
+  </div>
+
   <div class="filter-control-container">
     <label class="filter-label" for="seriesSelect">🎬 作品（シリーズ）で絞り込み</label>
     <select id="seriesSelect" class="series-select" onchange="currentSeriesFile = this.value; renderStageView()"></select>
@@ -361,7 +407,21 @@
 
 <script>
   let stages = [], currentPartFilter = '', starFilterActive = false, currentSeriesFile = '';
-  let isAscending = false; // 順序フラグ（初期値：新しい順などのデフォルトから反転させるかどうか）
+  let isAscending = false; // 逆順フラグ
+  let showHistoryStages = true; // 初期値：表示する（ON）
+
+  // 指定されたヒストリーステージの作品名リスト
+  const historySeriesList = [
+    "機動戦士ガンダム0080 ポケットの中の戦争",
+    "機動戦士ガンダム外伝 THE BLUE DESTINY",
+    "機動戦士ガンダム 第08MS小隊",
+    "機動戦士ガンダム サンダーボルト",
+    "機動戦士ガンダム サンダーボルト BANDIT FLOWER",
+    "機動戦士ガンダム0083 STARDUST MEMORY",
+    "機動戦士ガンダムSEED ASTRAY",
+    "機動戦士ガンダムSEED X ASTRAY",
+    "機動戦士ガンダム 鉄血のオルフェンズ 月鋼"
+  ];
   
   const partsData = [
     {tag: '物理格闘', type: '格闘'}, {tag: 'ビーム格闘', type: '格闘'}, {tag: '特殊格闘', type: '格闘'},
@@ -409,6 +469,25 @@
     renderStageView();
   }
 
+  // ヒストリーステージのワンボタン切り替え（ON/OFF）
+  function toggleHistoryFilter() {
+    showHistoryStages = !showHistoryStages;
+    const btn = document.getElementById('historyToggleBtn');
+    const icon = document.getElementById('historyToggleIcon');
+    const text = document.getElementById('historyToggleText');
+
+    if (showHistoryStages) {
+      btn.classList.add('active');
+      icon.textContent = '✓';
+      text.textContent = 'ON';
+    } else {
+      btn.classList.remove('active');
+      icon.textContent = '-';
+      text.textContent = 'OFF';
+    }
+    renderStageView();
+  }
+
   // 並び順（正順・逆順）の切り替え
   function toggleSortOrder() {
     isAscending = !isAscending;
@@ -428,13 +507,17 @@
   function renderStageView() {
     const listEl = document.getElementById('stageList');
     let filtered = stages.filter(s => {
+      // ボタンがOFF（非表示）のとき、ヒストリーステージに該当する作品なら除外する
+      if (!showHistoryStages && historySeriesList.includes(s.series)) {
+        return false;
+      }
       if (currentSeriesFile && s.series !== currentSeriesFile) return false;
       if (currentPartFilter && !normalizeList(s.drops).some(d => cleanName(typeof d === 'string' ? d : d.name) === currentPartFilter)) return false;
       if (starFilterActive && !normalizeList(s.captures).some(c => (typeof c === 'string' ? c : c.name || '').includes('★'))) return false;
       return true;
     });
 
-    // 逆順（あるいは指定された並び順）に反転
+    // 逆順に反転
     if (isAscending) {
       filtered = [...filtered].reverse();
     }
@@ -442,6 +525,7 @@
     document.getElementById('resultCount').textContent = filtered.length;
     
     let status = [];
+    if (!showHistoryStages) status.push(`ヒストリー除外`);
     if (currentSeriesFile) status.push(`作品: ${currentSeriesFile}`);
     if (currentPartFilter) status.push(`パーツ: ${currentPartFilter}`);
     if (starFilterActive) status.push(`★付き`);
