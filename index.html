@@ -215,8 +215,29 @@
       color: #94a3b8;
       margin-bottom: 8px;
       padding: 0 2px;
+      gap: 8px;
     }
     .result-count { color: #38bdf8; font-weight: bold; font-size: 0.9rem; }
+
+    .result-right-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sort-order-btn {
+      background: #1e293b;
+      border: 1px solid var(--border-color);
+      color: #cbd5e1;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .sort-order-btn:hover { border-color: var(--accent-color); color: #f8fafc; }
 
     .stage-list { list-style: none; padding: 0; margin: 0; }
 
@@ -305,7 +326,12 @@
 
   <div class="result-bar">
     <span id="filterStatus">表示中: すべて</span>
-    <span>該当: <span id="resultCount" class="result-count">0</span> 件</span>
+    <div class="result-right-group">
+      <span>該当: <span id="resultCount" class="result-count">0</span> 件</span>
+      <button id="sortOrderBtn" class="sort-order-btn" onclick="toggleSortOrder()">
+        <span id="sortOrderIcon">🔄</span> <span id="sortOrderText">逆順</span>
+      </button>
+    </div>
   </div>
 
   <ul id="stageList" class="stage-list"></ul>
@@ -335,6 +361,8 @@
 
 <script>
   let stages = [], currentPartFilter = '', starFilterActive = false, currentSeriesFile = '';
+  let isAscending = false; // 順序フラグ（初期値：新しい順などのデフォルトから反転させるかどうか）
+  
   const partsData = [
     {tag: '物理格闘', type: '格闘'}, {tag: 'ビーム格闘', type: '格闘'}, {tag: '特殊格闘', type: '格闘'},
     {tag: '物理射撃', type: '射撃'}, {tag: 'ビーム射撃', type: '射撃'}, {tag: '特殊射撃', type: '射撃'},
@@ -381,14 +409,35 @@
     renderStageView();
   }
 
+  // 並び順（正順・逆順）の切り替え
+  function toggleSortOrder() {
+    isAscending = !isAscending;
+    const btnText = document.getElementById('sortOrderText');
+    const btnIcon = document.getElementById('sortOrderIcon');
+    
+    if (isAscending) {
+      btnText.textContent = '正順';
+      btnIcon.textContent = '🔼';
+    } else {
+      btnText.textContent = '逆順';
+      btnIcon.textContent = '🔽';
+    }
+    renderStageView();
+  }
+
   function renderStageView() {
     const listEl = document.getElementById('stageList');
-    const filtered = stages.filter(s => {
+    let filtered = stages.filter(s => {
       if (currentSeriesFile && s.series !== currentSeriesFile) return false;
       if (currentPartFilter && !normalizeList(s.drops).some(d => cleanName(typeof d === 'string' ? d : d.name) === currentPartFilter)) return false;
       if (starFilterActive && !normalizeList(s.captures).some(c => (typeof c === 'string' ? c : c.name || '').includes('★'))) return false;
       return true;
     });
+
+    // 逆順（あるいは指定された並び順）に反転
+    if (isAscending) {
+      filtered = [...filtered].reverse();
+    }
 
     document.getElementById('resultCount').textContent = filtered.length;
     
