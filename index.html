@@ -124,11 +124,11 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     }
 
-    /* ガチャ用モーダル（大きめ） */
+/* ガチャ用モーダル（大きめ） */
     .gacha-modal-content {
       max-width: 500px;
-      max-height: 90vh;
-      overflow-y: auto;
+      /* max-height: 90vh; ← ここを削除（またはコメントアウト） */
+      overflow-y: visible; /* または auto を解除 */
     }
 
     .news-modal-header {
@@ -181,14 +181,14 @@
       cursor: pointer;
     }
     .gacha-btn:hover { filter: brightness(1.1); }
-    .gacha-results {
+.gacha-results {
       background: #0f172a;
       border: 1px solid var(--border-color);
       border-radius: 6px;
       padding: 12px;
-      min-height: 120px;
-      max-height: 300px;
-      overflow-y: auto;
+      /* min-height: 120px; ← 消してもOK */
+      /* max-height: 300px; ← この制限をなくす */
+      /* overflow-y: auto;  ← スクロールを発生させる原因を消す */
       text-align: left;
       font-size: 0.85rem;
       display: flex;
