@@ -538,7 +538,7 @@
     <button class="part-btn" data-tag="${p.tag}" data-type="${p.type}" onclick="filterByTag('${p.tag}')">${p.tag}</button>
   `).join('');
 
-  // ガチャシミュレーター抽選ロジック（ピックアップのみ#付き）
+  // ガチャシミュレーター抽選ロジック（ピックアップのみ #数字なし）
   function runGacha(count) {
     const resultsContainer = document.getElementById('gachaResults');
     let html = '';
@@ -551,16 +551,13 @@
       if (rand < 2.0) {
         const urRand = Math.random() * 2.0;
         if (urRand < 0.75) {
-          const pickIndex = Math.floor(Math.random() * 3) + 1;
-          itemName = `UR ピックアップ #${pickIndex}`;
+          itemName = 'UR ピックアップ';
           itemClass = 'ur';
         } else if (urRand < 1.5) {
-          const pickIndex = Math.floor(Math.random() * 3) + 4;
-          itemName = `UR ピックアップ #${pickIndex}`;
+          itemName = 'UR ピックアップ';
           itemClass = 'ur';
         } else if (urRand < 2.0) {
-          const pickIndex = Math.floor(Math.random() * 3) + 7;
-          itemName = `UR ピックアップ #${pickIndex}`;
+          itemName = 'UR ピックアップ';
           itemClass = 'ur';
         } else {
           itemName = 'UR';
@@ -569,8 +566,7 @@
       } else if (rand < 19.5) {
         const ssrRand = Math.random() * 17.5;
         if (ssrRand < 2.5) {
-          const pickIndex = Math.floor(Math.random() * 5) + 1;
-          itemName = `SSR ピックアップ #${pickIndex}`;
+          itemName = 'SSR ピックアップ';
           itemClass = 'ssr';
         } else {
           itemName = 'SSR';
