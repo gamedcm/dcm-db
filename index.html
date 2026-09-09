@@ -202,7 +202,10 @@
     }
     /* レアリティごとの色分け */
     .gacha-item.ur { border-left-color: #f59e0b; background: rgba(245, 158, 11, 0.15); color: #fcd34d; font-weight: bold; }
-    .gacha-item.ssr { border-left-color: #38bdf8; background: rgba(56, 189, 248, 0.15); color: #bae6fd; }
+    .gacha-item.ssr { border-left-color: #38bdf8; background: rgba(56, 189, 248, 0.15); color: #bae6fd; font-weight: bold; }
+    .gacha-item.sr { border-left-color: #a855f7; background: rgba(168, 85, 247, 0.15); color: #e9d5ff; }
+    .gacha-item.r { border-left-color: #64748b; background: rgba(100, 116, 139, 0.15); color: #cbd5e1; }
+    .gacha-item.n { border-left-color: #475569; background: rgba(71, 85, 105, 0.15); color: #94a3b8; }
 
     .official-link-btn {
       display: inline-block;
@@ -515,14 +518,10 @@
     <button class="part-btn" data-tag="${p.tag}" data-type="${p.type}" onclick="filterByTag('${p.tag}')">${p.tag}</button>
   `).join('');
 
-  // ガチャシミュレーター（UR合計30%、SSR3体各2.45%）
+  // ガチャシミュレーター（UR合計30%、SSR各2.45%・合計7.35%、残りをSR、R、Nに振り分け）
   function runGacha(count) {
     const resultsContainer = document.getElementById('gachaResults');
     let html = '';
-
-    const urItems = ['UR A', 'UR B', 'UR C', 'UR D']; // 4体の合計確率が30%（各7.5%）
-    const ssrItems = ['SSR X', 'SSR Y', 'SSR Z']; // 3体のみ（各2.45% = 合計7.35%）
-    const otherItems = ['SR 1', 'SR 2', 'R 1', 'R 2', 'R 3']; // 残り（約62.65%）
 
     for (let i = 0; i < count; i++) {
       const rand = Math.random() * 100;
@@ -530,17 +529,20 @@
       let itemClass = '';
 
       if (rand < 30) {
-        const index = Math.floor(Math.random() * urItems.length);
-        itemName = urItems[index];
+        itemName = 'UR';
         itemClass = 'ur';
-      } else if (rand < 37.35) {
-        const index = Math.floor(Math.random() * ssrItems.length);
-        itemName = ssrItems[index];
+      } else if (rand < 37.35) { // 30% + 7.35% (SSR 3体分の合計確率)
+        itemName = 'SSR';
         itemClass = 'ssr';
+      } else if (rand < 67.35) { // 残りの中からSR
+        itemName = 'SR';
+        itemClass = 'sr';
+      } else if (rand < 92.35) { // 残りの中からR
+        itemName = 'R';
+        itemClass = 'r';
       } else {
-        const index = Math.floor(Math.random() * otherItems.length);
-        itemName = otherItems[index];
-        itemClass = '';
+        itemName = 'N';
+        itemClass = 'n';
       }
 
       html += `<div class="gacha-item ${itemClass}">✨ ${itemName}</div>`;
