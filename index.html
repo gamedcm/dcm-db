@@ -47,7 +47,17 @@
       gap: 8px;
     }
 
-    h1 { font-size: 1.2rem; color: var(--accent-color); margin: 0; white-space: nowrap; }
+    /* GGENDBのリンクスタイル（クリックできるように調整） */
+    h1 { font-size: 1.2rem; margin: 0; white-space: nowrap; }
+    h1 a {
+      color: var(--accent-color);
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    h1 a:hover {
+      opacity: 0.8;
+      text-decoration: underline;
+    }
 
     .header-info {
       display: flex;
@@ -330,7 +340,9 @@
 
 <div class="container">
   <div class="header-bar">
-    <h1>GGENDB</h1>
+    <!-- ▼ GGENDBをガチャシミュレーター（gacha.html）へのリンクに変更しました ▼ -->
+    <h1><a href="gacha.html" title="ガチャシミュレーターを開く">GGENDB</a></h1>
+    
     <div class="header-info">
       <span class="header-info-title">次回:</span>
       <span>マスターリーグ</span>
@@ -445,6 +457,7 @@
   }
 
   function filterByTag(tagName) {
+    if (tagName === '★') starFilterArticle = !starFilterActive; // 修正
     if (tagName === '★') starFilterActive = !starFilterActive;
     else currentPartFilter = currentPartFilter === tagName ? '' : tagName;
     
@@ -493,7 +506,6 @@
   function renderStageView() {
     const listEl = document.getElementById('stageList');
     let filtered = stages.filter(s => {
-      // ボタンがOFF（非表示）のとき、ヒストリーステージに該当する作品なら除外する
       if (!showHistoryStages && historySeriesList.includes(s.series)) {
         return false;
       }
@@ -503,7 +515,6 @@
       return true;
     });
 
-    // 逆順に反転
     if (isAscending) {
       filtered = [...filtered].reverse();
     }
