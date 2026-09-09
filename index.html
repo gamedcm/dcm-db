@@ -538,7 +538,7 @@
     <button class="part-btn" data-tag="${p.tag}" data-type="${p.type}" onclick="filterByTag('${p.tag}')">${p.tag}</button>
   `).join('');
 
-  // ガチャシミュレーター抽選ロジック（括弧なし表記）
+  // ガチャシミュレーター抽選ロジック（ピックアップのみ#付き）
   function runGacha(count) {
     const resultsContainer = document.getElementById('gachaResults');
     let html = '';
@@ -551,36 +551,36 @@
       if (rand < 2.0) {
         const urRand = Math.random() * 2.0;
         if (urRand < 0.75) {
-          itemName = 'UR ピックアップ1';
+          const pickIndex = Math.floor(Math.random() * 3) + 1;
+          itemName = `UR ピックアップ #${pickIndex}`;
           itemClass = 'ur';
         } else if (urRand < 1.5) {
-          itemName = 'UR ピックアップ2';
+          const pickIndex = Math.floor(Math.random() * 3) + 4;
+          itemName = `UR ピックアップ #${pickIndex}`;
           itemClass = 'ur';
         } else if (urRand < 2.0) {
-          itemName = 'UR ピックアップ3';
+          const pickIndex = Math.floor(Math.random() * 3) + 7;
+          itemName = `UR ピックアップ #${pickIndex}`;
           itemClass = 'ur';
         } else {
-          const normalIndex = Math.floor(Math.random() * 56) + 1;
-          itemName = `UR #${normalIndex}`;
+          itemName = 'UR';
           itemClass = 'ur';
         }
       } else if (rand < 19.5) {
         const ssrRand = Math.random() * 17.5;
         if (ssrRand < 2.5) {
-          itemName = 'SSR ピックアップ';
+          const pickIndex = Math.floor(Math.random() * 5) + 1;
+          itemName = `SSR ピックアップ #${pickIndex}`;
           itemClass = 'ssr';
         } else {
-          const normalIndex = Math.floor(Math.random() * 125) + 1;
-          itemName = `SSR #${normalIndex}`;
+          itemName = 'SSR';
           itemClass = 'ssr';
         }
       } else if (rand < 41.5) {
-        const normalIndex = Math.floor(Math.random() * 94) + 1;
-        itemName = `SR #${normalIndex}`;
+        itemName = 'SR';
         itemClass = 'sr';
       } else {
-        const normalIndex = Math.floor(Math.random() * 84) + 1;
-        itemName = `R #${normalIndex}`;
+        itemName = 'R';
         itemClass = 'r';
       }
 
