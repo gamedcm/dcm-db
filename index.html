@@ -193,6 +193,8 @@
       gap: 6px;
       width: 100%;
       box-sizing: border-box;
+      max-height: 250px;
+      overflow-y: auto;
     }
     .gacha-item {
       padding: 6px 8px;
@@ -200,12 +202,30 @@
       border-left: 3px solid var(--accent-color);
       border-radius: 2px;
     }
-    /* レアリティごとの色分け */
-    .gacha-item.ur { border-left-color: #f59e0b; background: rgba(245, 158, 11, 0.15); color: #fcd34d; font-weight: bold; }
-    .gacha-item.ssr { border-left-color: #38bdf8; background: rgba(56, 189, 248, 0.15); color: #bae6fd; font-weight: bold; }
-    .gacha-item.sr { border-left-color: #a855f7; background: rgba(168, 85, 247, 0.15); color: #e9d5ff; }
-    .gacha-item.r { border-left-color: #64748b; background: rgba(100, 116, 139, 0.15); color: #cbd5e1; }
-    .gacha-item.n { border-left-color: #475569; background: rgba(71, 85, 105, 0.15); color: #94a3b8; }
+    
+    /* レアリティごとの色（UR:虹色 / SSR:金色 / SR:銀色 / R:銅色） */
+    .gacha-item.ur {
+      border-left-color: #ec4899;
+      background: linear-gradient(135deg, rgba(236,72,153,0.15), rgba(59,130,246,0.15), rgba(16,185,129,0.15));
+      color: #f472b6;
+      font-weight: bold;
+    }
+    .gacha-item.ssr {
+      border-left-color: #eab308;
+      background: rgba(234, 179, 8, 0.15);
+      color: #fde047;
+      font-weight: bold;
+    }
+    .gacha-item.sr {
+      border-left-color: #94a3b8;
+      background: rgba(148, 163, 184, 0.15);
+      color: #e2e8f0;
+    }
+    .gacha-item.r {
+      border-left-color: #d97706;
+      background: rgba(217, 119, 6, 0.15);
+      color: #fbbf24;
+    }
 
     .official-link-btn {
       display: inline-block;
@@ -518,7 +538,7 @@
     <button class="part-btn" data-tag="${p.tag}" data-type="${p.type}" onclick="filterByTag('${p.tag}')">${p.tag}</button>
   `).join('');
 
-  // ガチャシミュレーター（UR合計30%、SSR各2.45%・合計7.35%、残りをSR、R、Nに振り分け）
+  // ガチャシミュレーター抽選ロジック（N排出なし、指定の個別確率を反映）
   function runGacha(count) {
     const resultsContainer = document.getElementById('gachaResults');
     let html = '';
@@ -528,21 +548,44 @@
       let itemName = '';
       let itemClass = '';
 
-      if (rand < 30) {
-        itemName = 'UR';
-        itemClass = 'ur';
-      } else if (rand < 37.35) { // 30% + 7.35% (SSR 3体分の合計確率)
-        itemName = 'SSR';
-        itemClass = 'ssr';
-      } else if (rand < 67.35) { // 残りの中からSR
-        itemName = 'SR';
+      if (rand < 2.0) {
+        // UR (合計2.0%)
+        const urRand = Math.random() * 2.0;
+        if (urRand < 0.75) {
+          itemName = 'UR (ピックアップ1: 0.75%)';
+          itemClass = 'ur';
+        } else if (urRand < 1.5) { // 0.75 + 0.75
+          itemName = 'UR (ピックアップ2: 0.75%)';
+          itemClass = 'ur';
+        } else if (urRand < 2.0) { // 1.5 + 0.5
+          itemName = 'UR (ピックアップ3: 0.5%)';
+          itemClass = 'ur';
+        } else {
+          const normalIndex = Math.floor(Math.random() * 56) + 1;
+          itemName = `UR (通常 #${normalIndex})`;
+          itemClass = 'ur';
+        }
+      } else if (rand < 19.5) { // 2.0 + 17.5 = 19.5%
+        // SSR (合計17.5%)
+        const ssrRand = Math.random() * 17.5;
+        if (ssrRand < 2.5) {
+          itemName = 'SSR (ピックアップ: 2.5%)';
+          itemClass = 'ssr';
+        } else {
+          const normalIndex = Math.floor(Math.random() * 125) + 1;
+          itemName = `SSR (通常 #${normalIndex}: 0.49%)`;
+          itemClass = 'ssr';
+        }
+      } else if (rand < 41.5) { // 19.5 + 22.0 = 41.5%
+        // SR (合計22.0%, 94体で0.23%ベース)
+        const normalIndex = Math.floor(Math.random() * 94) + 1;
+        itemName = `SR (#${normalIndex}: 0.23%)`;
         itemClass = 'sr';
-      } else if (rand < 92.35) { // 残りの中からR
-        itemName = 'R';
+      } else { // 残り (41.5% ～ 100% = 58.5%)
+        // R (合計58.5%, 84体で0.57%ベース)
+        const normalIndex = Math.floor(Math.random() * 84) + 1;
+        itemName = `R (#${normalIndex}: 0.57%)`;
         itemClass = 'r';
-      } else {
-        itemName = 'N';
-        itemClass = 'n';
       }
 
       html += `<div class="gacha-item ${itemClass}">✨ ${itemName}</div>`;
