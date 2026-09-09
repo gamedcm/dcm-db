@@ -47,14 +47,14 @@
       gap: 8px;
     }
 
-    /* GGENDBのリンクスタイル（クリックできるように調整） */
+    /* GGENDBのタイトル（クリックでガチャモーダルを開く） */
     h1 { font-size: 1.2rem; margin: 0; white-space: nowrap; }
-    h1 a {
+    h1 span {
       color: var(--accent-color);
-      text-decoration: none;
+      cursor: pointer;
       transition: opacity 0.2s;
     }
-    h1 a:hover {
+    h1 span:hover {
       opacity: 0.8;
       text-decoration: underline;
     }
@@ -101,10 +101,11 @@
     }
     .news-trigger-btn:hover { background: rgba(56, 189, 248, 0.2); }
 
+    /* 共通モーダル（お知らせ＆ガチャ用） */
     .news-modal {
       position: fixed;
       inset: 0;
-      background: rgba(15, 23, 42, 0.8);
+      background: rgba(15, 23, 42, 0.85);
       display: none;
       align-items: center;
       justify-content: center;
@@ -122,6 +123,13 @@
       display: flex;
       flex-direction: column;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    /* ガチャ専用の大きめモーダル */
+    .gacha-modal-content {
+      max-width: 600px;
+      height: 85vh;
+      max-height: 800px;
     }
 
     .news-modal-header {
@@ -147,6 +155,21 @@
       font-size: 0.85rem;
       color: #cbd5e1;
       line-height: 1.5;
+    }
+
+    /* ガチャ用iframe埋め込みエリア */
+    .gacha-iframe-container {
+      padding: 0;
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    .gacha-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: var(--bg-color);
     }
 
     .official-link-btn {
@@ -340,8 +363,8 @@
 
 <div class="container">
   <div class="header-bar">
-    <!-- ▼ GGENDBをガチャシミュレーター（gacha.html）へのリンクに変更しました ▼ -->
-    <h1><a href="gacha.html" title="ガチャシミュレーターを開く">GGENDB</a></h1>
+    <!-- ▼ GGENDBをクリックするとガチャシミュレーターのポップアップが開くように変更 ▼ -->
+    <h1><span onclick="toggleGachaModal(true)" title="ガチャシミュレーターを開く">GGENDB</span></h1>
     
     <div class="header-info">
       <span class="header-info-title">次回:</span>
@@ -350,7 +373,7 @@
       <span class="orange-badge">アルティメット</span>
       <span title="宇宙">🪐</span>
     </div>
-    <button class="news-trigger-btn" onclick="toggleModal(true)" title="お知らせ">!</button>
+    <button class="news-trigger-btn" onclick="toggleNewsModal(true)" title="お知らせ">!</button>
   </div>
 
   <div class="filter-control-container">
@@ -381,17 +404,32 @@
   <ul id="stageList" class="stage-list"></ul>
 </div>
 
-<div id="newsModal" class="news-modal" onclick="if(event.target === this) toggleModal(false)">
+<!-- お知らせモーダル -->
+<div id="newsModal" class="news-modal" onclick="if(event.target === this) toggleNewsModal(false)">
   <div class="news-modal-content">
     <div class="news-modal-header">
       <span>📢 最新情報・お知らせ</span>
-      <button class="news-close-btn" onclick="toggleModal(false)">×</button>
+      <button class="news-close-btn" onclick="toggleNewsModal(false)">×</button>
     </div>
     <div class="news-modal-body">
       <p>最新のアップデートや詳細なお知らせは、公式ウェブサイトをご確認ください。</p>
       <a href="https://web.jp.eternal.channel.or.jp/ja/information/update.html" target="_blank" rel="noopener noreferrer" class="official-link-btn">
         公式お知らせページを開く（外部サイト）
       </a>
+    </div>
+  </div>
+</div>
+
+<!-- ガチャシミュレーター用ポップアップモーダル -->
+<div id="gachaModal" class="news-modal" onclick="if(event.target === this) toggleGachaModal(false)">
+  <div class="news-modal-content gacha-modal-content">
+    <div class="news-modal-header">
+      <span>🎰 ガチャシミュレーター</span>
+      <button class="news-close-btn" onclick="toggleGachaModal(false)">×</button>
+    </div>
+    <div class="news-iframe-container">
+      <!-- 同一フォルダにある gacha.html を読み込みます -->
+      <iframe src="gacha.html" class="gacha-iframe" title="ガチャシミュレーター"></iframe>
     </div>
   </div>
 </div>
@@ -408,7 +446,6 @@
   let isAscending = false; // 逆順フラグ
   let showHistoryStages = true; // 初期値：表示する（ON）
 
-  // 指定されたヒストリーステージの作品名リスト
   const historySeriesList = [
     "機動戦士ガンダム0080 ポケットの中の戦争",
     "機動戦士ガンダム外伝 THE BLUE DESTINY",
@@ -431,10 +468,12 @@
   const cleanName = (name) => name ? name.replace(/^【[^】]+】\s*/, '').trim() : '';
   const getPartType = (name) => name.includes("格闘") ? "格闘" : name.includes("射撃") ? "射撃" : name.includes("覚醒") ? "覚醒" : "";
   const normalizeList = (data) => Array.isArray(data) ? data : (typeof data === 'string' ? data.split(',').map(i => i.trim()).filter(Boolean) : []);
-  const toggleModal = (show) => document.getElementById('newsModal').style.display = show ? 'flex' : 'none';
+  
+  const toggleNewsModal = (show) => document.getElementById('newsModal').style.display = show ? 'flex' : 'none';
+  const toggleGachaModal = (show) => document.getElementById('gachaModal').style.display = show ? 'flex' : 'none';
+
   const escapeHtml = (str) => str.replace(/[&<>"']/g, m => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'}[m]));
 
-  // パーツボタンの自動生成
   document.getElementById('partButtons').innerHTML = partsData.map(p => `
     <button class="part-btn" data-tag="${p.tag}" data-type="${p.type}" onclick="filterByTag('${p.tag}')">${p.tag}</button>
   `).join('');
@@ -457,7 +496,6 @@
   }
 
   function filterByTag(tagName) {
-    if (tagName === '★') starFilterArticle = !starFilterActive; // 修正
     if (tagName === '★') starFilterActive = !starFilterActive;
     else currentPartFilter = currentPartFilter === tagName ? '' : tagName;
     
@@ -468,7 +506,6 @@
     renderStageView();
   }
 
-  // ヒストリーステージのワンボタン切り替え（ON/OFF）
   function toggleHistoryFilter() {
     showHistoryStages = !showHistoryStages;
     const btn = document.getElementById('historyToggleBtn');
@@ -487,7 +524,6 @@
     renderStageView();
   }
 
-  // 並び順（正順・逆順）の切り替え
   function toggleSortOrder() {
     isAscending = !isAscending;
     const btnText = document.getElementById('sortOrderText');
