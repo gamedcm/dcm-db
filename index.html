@@ -200,7 +200,7 @@
       border-left: 3px solid var(--accent-color);
       border-radius: 2px;
     }
-    /* レアリティごとの色分けなどの装飾 */
+    /* レアリティごとの色分け */
     .gacha-item.ur { border-left-color: #f59e0b; background: rgba(245, 158, 11, 0.15); color: #fcd34d; font-weight: bold; }
     .gacha-item.ssr { border-left-color: #38bdf8; background: rgba(56, 189, 248, 0.15); color: #bae6fd; }
 
@@ -455,14 +455,14 @@
 <div id="gachaModal" class="news-modal" onclick="if(event.target === this) toggleGachaModal(false)">
   <div class="news-modal-content gacha-modal-content">
     <div class="news-modal-header">
-      <span>🎰 ガチャシミュレーター（100連まで対応）</span>
+      <span>🎰 ガチャシミュレーター</span>
       <button class="news-close-btn" onclick="toggleGachaModal(false)">×</button>
     </div>
     <div class="news-modal-body gacha-inner-body">
       <p style="margin:0; font-size:0.8rem; color:#94a3b8;">ボタンを押してガチャをシミュレートできます。</p>
       <div class="gacha-btns">
+        <button class="gacha-btn" onclick="runGacha(1)">単発ガチャ</button>
         <button class="gacha-btn" onclick="runGacha(10)">10連ガチャ</button>
-        <button class="gacha-btn" onclick="runGacha(100)">100連ガチャ（10回）</button>
       </div>
       <div id="gachaResults" class="gacha-results">
         <span style="color:#64748b; text-align:center; margin:auto;">ここに結果が表示されます</span>
@@ -515,15 +515,14 @@
     <button class="part-btn" data-tag="${p.tag}" data-type="${p.type}" onclick="filterByTag('${p.tag}')">${p.tag}</button>
   `).join('');
 
-  // ガチャシミュレーター（指定の確率設定）
+  // ガチャシミュレーター（UR合計30%、SSR3体各2.45%）
   function runGacha(count) {
     const resultsContainer = document.getElementById('gachaResults');
     let html = '';
 
-    // 排出するアイテムのプール（文字をスッキリさせたリスト）
-    const urItems = ['UR A', 'UR B', 'UR C', 'UR D']; // 4体の合計確率が 30% (各7.5%)
-    const ssrItems = ['SSR X', 'SSR Y', 'SSR Z']; // 3体のみ (各2.45% = 合計7.35%)
-    const otherItems = ['SR 1', 'SR 2', 'R 1', 'R 2', 'R 3']; // 残り (約62.65%)
+    const urItems = ['UR A', 'UR B', 'UR C', 'UR D']; // 4体の合計確率が30%（各7.5%）
+    const ssrItems = ['SSR X', 'SSR Y', 'SSR Z']; // 3体のみ（各2.45% = 合計7.35%）
+    const otherItems = ['SR 1', 'SR 2', 'R 1', 'R 2', 'R 3']; // 残り（約62.65%）
 
     for (let i = 0; i < count; i++) {
       const rand = Math.random() * 100;
@@ -531,17 +530,14 @@
       let itemClass = '';
 
       if (rand < 30) {
-        // UR (合計30%)
         const index = Math.floor(Math.random() * urItems.length);
         itemName = urItems[index];
         itemClass = 'ur';
       } else if (rand < 37.35) {
-        // SSR (3体、各2.45% = 7.35%)
         const index = Math.floor(Math.random() * ssrItems.length);
         itemName = ssrItems[index];
         itemClass = 'ssr';
       } else {
-        // その他
         const index = Math.floor(Math.random() * otherItems.length);
         itemName = otherItems[index];
         itemClass = '';
