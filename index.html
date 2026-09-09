@@ -538,7 +538,7 @@
     <button class="part-btn" data-tag="${p.tag}" data-type="${p.type}" onclick="filterByTag('${p.tag}')">${p.tag}</button>
   `).join('');
 
-  // ガチャシミュレーター抽選ロジック（確率表記なし）
+  // ガチャシミュレーター抽選ロジック（括弧なし表記）
   function runGacha(count) {
     const resultsContainer = document.getElementById('gachaResults');
     let html = '';
@@ -551,36 +551,36 @@
       if (rand < 2.0) {
         const urRand = Math.random() * 2.0;
         if (urRand < 0.75) {
-          itemName = 'UR (ピックアップ1)';
+          itemName = 'UR ピックアップ1';
           itemClass = 'ur';
         } else if (urRand < 1.5) {
-          itemName = 'UR (ピックアップ2)';
+          itemName = 'UR ピックアップ2';
           itemClass = 'ur';
         } else if (urRand < 2.0) {
-          itemName = 'UR (ピックアップ3)';
+          itemName = 'UR ピックアップ3';
           itemClass = 'ur';
         } else {
           const normalIndex = Math.floor(Math.random() * 56) + 1;
-          itemName = `UR (通常 #${normalIndex})`;
+          itemName = `UR #${normalIndex}`;
           itemClass = 'ur';
         }
       } else if (rand < 19.5) {
         const ssrRand = Math.random() * 17.5;
         if (ssrRand < 2.5) {
-          itemName = 'SSR (ピックアップ)';
+          itemName = 'SSR ピックアップ';
           itemClass = 'ssr';
         } else {
           const normalIndex = Math.floor(Math.random() * 125) + 1;
-          itemName = `SSR (通常 #${normalIndex})`;
+          itemName = `SSR #${normalIndex}`;
           itemClass = 'ssr';
         }
       } else if (rand < 41.5) {
         const normalIndex = Math.floor(Math.random() * 94) + 1;
-        itemName = `SR (#${normalIndex})`;
+        itemName = `SR #${normalIndex}`;
         itemClass = 'sr';
       } else {
         const normalIndex = Math.floor(Math.random() * 84) + 1;
-        itemName = `R (#${normalIndex})`;
+        itemName = `R #${normalIndex}`;
         itemClass = 'r';
       }
 
