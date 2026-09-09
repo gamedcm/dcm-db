@@ -566,7 +566,7 @@
     <button class="part-btn" data-tag="${p.tag}" data-type="${p.type}" onclick="filterByTag('${p.tag}')">${p.tag}</button>
   `).join('');
 
-// ガチャシミュレーター抽選ロジック（修正版）
+// ガチャシミュレーター抽選ロジック（URトータル%版）
   function runGacha(count) {
     totalGachaCount += count;
     document.getElementById('totalGachaCount').textContent = totalGachaCount;
@@ -579,17 +579,17 @@
       let itemName = '';
       let itemClass = '';
 
-      if (rand < 2.0) {
-        // UR枠（総確率 2.0%）
-        const urRand = Math.random() * 2.0;
-        if (urRand < 1.2) {
+      if (rand < 3.0) {
+        // UR枠（総確率 3.0%）
+        const urRand = Math.random() * 3.0;
+        if (urRand < 1.8) {
           itemName = 'UR ピックアップ';
           itemClass = 'ur';
         } else {
           itemName = 'UR';
           itemClass = 'ur';
         }
-      } else if (rand < 19.5) {
+      } else if (rand < 20.5) {
         // SSR枠（総確率 17.5%）
         const ssrRand = Math.random() * 17.5;
         if (ssrRand < 3.5) {
@@ -599,12 +599,12 @@
           itemName = 'SSR';
           itemClass = 'ssr';
         }
-      } else if (rand < 41.5) {
+      } else if (rand < 42.5) {
         // SR枠（総確率 22.0%）
         itemName = 'SR';
         itemClass = 'sr';
       } else {
-        // R枠（総確率 58.5%）
+        // R枠（総確率 57.5%）
         itemName = 'R';
         itemClass = 'r';
       }
@@ -614,7 +614,6 @@
 
     resultsContainer.innerHTML = html;
   }
-
   // カウンターリセット用関数
   function resetGachaCount() {
     totalGachaCount = 0;
