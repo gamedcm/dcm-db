@@ -566,54 +566,58 @@
     <button class="part-btn" data-tag="${p.tag}" data-type="${p.type}" onclick="filterByTag('${p.tag}')">${p.tag}</button>
   `).join('');
 
-// ガチャシミュレーター抽選ロジック（URトータル%版）
-  function runGacha(count) {
-    totalGachaCount += count;
-    document.getElementById('totalGachaCount').textContent = totalGachaCount;
+// ガチャシミュレーター抽選ロジック（更新版）
+function runGacha(count) {
+  totalGachaCount += count;
+  document.getElementById('totalGachaCount').textContent = totalGachaCount;
 
-    const resultsContainer = document.getElementById('gachaResults');
-    let html = '';
+  const resultsContainer = document.getElementById('gachaResults');
+  let html = '';
 
-    for (let i = 0; i < count; i++) {
-      const rand = Math.random() * 100;
-      let itemName = '';
-      let itemClass = '';
+  for (let i = 0; i < count; i++) {
+    const rand = Math.random() * 100;
+    let itemName = '';
+    let itemClass = '';
 
-      if (rand < 3.0) {
-        // UR枠（総確率 3.0%）
-        const urRand = Math.random() * 3.0;
-        if (urRand < 1.8) {
-          itemName = 'UR ピックアップ';
-          itemClass = 'ur';
-        } else {
-          itemName = 'UR';
-          itemClass = 'ur';
-        }
-      } else if (rand < 20.5) {
-        // SSR枠（総確率 17.5%）
-        const ssrRand = Math.random() * 17.5;
-        if (ssrRand < 3.5) {
-          itemName = 'SSR ピックアップ';
-          itemClass = 'ssr';
-        } else {
-          itemName = 'SSR';
-          itemClass = 'ssr';
-        }
-      } else if (rand < 42.5) {
-        // SR枠（総確率 22.0%）
-        itemName = 'SR';
-        itemClass = 'sr';
-      } else {
-        // R枠（総確率 57.5%）
-        itemName = 'R';
-        itemClass = 'r';
-      }
-
-      html += `<div class="gacha-item ${itemClass}">✨ ${itemName}</div>`;
+    if (rand < 2.25) {
+      // URユニット ピックアップ（3体・計2.25%）
+      itemName = 'UR ユニット（ピックアップ）';
+      itemClass = 'ur';
+    } else if (rand < 3.45) {
+      // URユニット 恒常（55体・計1.20%）
+      itemName = 'UR ユニット';
+      itemClass = 'ur';
+    } else if (rand < 3.65) {
+      // URサポーター ピックアップ（1体・0.20%）
+      itemName = 'UR サポーター（ピックアップ）';
+      itemClass = 'ur';
+    } else if (rand < 9.15) {
+      // SSRユニット ピックアップ（2体・計5.50%）
+      itemName = 'SSR ユニット（ピックアップ）';
+      itemClass = 'ssr';
+    } else if (rand < 15.65) {
+      // SSRユニット 恒常（126体・計6.50%）
+      itemName = 'SSR ユニット';
+      itemClass = 'ssr';
+    } else if (rand < 16.65) {
+      // SSRサポーター ピックアップ（1体・1.00%）
+      itemName = 'SSR サポーター（ピックアップ）';
+      itemClass = 'ssr';
+    } else if (rand < 38.65) {
+      // SRユニット（94体・計22.00%）
+      itemName = 'SR ユニット';
+      itemClass = 'sr';
+    } else {
+      // Rユニット（84体・計61.35%）
+      itemName = 'R ユニット';
+      itemClass = 'r';
     }
 
-    resultsContainer.innerHTML = html;
+    html += `<div class="gacha-item ${itemClass}">✨ ${itemName}</div>`;
   }
+
+  resultsContainer.innerHTML = html;
+}
   // カウンターリセット用関数
   function resetGachaCount() {
     totalGachaCount = 0;
