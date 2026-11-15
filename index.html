@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="robots" content="noindex,nofollow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SDガンダム ジージェネレーション エターナルのHARDステージ攻略データベース。ドロップ・捕獲・キャラクターリクエストを作品別・武装強化パーツ別・キーワードで検索できます。">
+  <meta name="theme-color" content="#0f172a">
   <title>GGENDB</title>
   <style>
     :root {
@@ -273,7 +275,11 @@
       width: 100%;
     }
 
-    .filter-control-container { display: flex; flex-direction: column; gap: 8px; }
+    .filter-control-container {
+      display: flex; flex-direction: column; gap: 8px;
+      position: sticky; top: 8px; z-index: 60;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+    }
     
     .filter-control-header {
       display: flex;
@@ -316,6 +322,20 @@
       cursor: pointer;
     }
     .series-select:focus { border-color: var(--accent-color); }
+
+    .search-input {
+      background: #0f172a;
+      border: 1px solid var(--border-color);
+      color: #f8fafc;
+      padding: 6px 10px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      width: 100%;
+      box-sizing: border-box;
+      outline: none;
+    }
+    .search-input:focus { border-color: var(--accent-color); }
+    .search-input::placeholder { color: #64748b; }
 
     .quick-parts-title { margin-bottom: 6px; }
     .quick-parts-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
@@ -423,6 +443,18 @@
     }
 
     .drop-tag-capture { background: rgba(15, 23, 42, 0.6); border-color: rgba(56, 189, 248, 0.2); color: #bae6fd; }
+    .drop-tag-request {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(192, 132, 252, 0.35);
+      color: #e9d5ff;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .request-section { border-color: rgba(192, 132, 252, 0.25); }
     .drop-tag-part { cursor: pointer; font-weight: bold; }
     .drop-tag-part[data-type="格闘"] { border-color: rgba(239, 68, 68, 0.6); color: #fca5a5; background: rgba(239, 68, 68, 0.15); }
     .drop-tag-part[data-type="射撃"] { border-color: rgba(234, 179, 8, 0.6); color: #fde047; background: rgba(234, 179, 8, 0.15); }
@@ -446,11 +478,7 @@
     
     <div class="header-info">
       <span class="header-info-title">次回:</span>
-      <span>マスターリーグ S17</span>
-      <span class="orange-badge">試作機</span>
-      <span class="orange-badge">重撃</span>
-      <span title="地上">🏔️</span>
-      <span title="空中">☁️</span>
+      <span id="nextLeagueInfo" style="display: contents;"></span>
     </div>
     <button class="news-trigger-btn" onclick="toggleNewsModal(true)" title="お知らせ">!</button>
   </div>
@@ -463,6 +491,7 @@
       </button>
     </div>
     <select id="seriesSelect" class="series-select" onchange="currentSeriesFile = this.value; renderStageView()"></select>
+    <input id="searchInput" class="search-input" type="search" placeholder="🔍 ユニット名・ステージ名で検索（逆引き）" oninput="onSearchInput(this.value)">
   </div>
 
   <div class="quick-parts-container">
@@ -527,10 +556,12 @@
     当サイトは個人が運営する非公式サイトであり、株式会社バンダイナムコエンターテインメントとは一切関係ありません。
     掲載しているゲームコンテンツの著作権・商標権その他の知的財産権は、株式会社バンダイナムコエンターテインメントおよび各権利者に帰属します。
   </p>
+  <p id="dataUpdated" class="footer-disclaimer"></p>
 </footer>
 
 <script>
   let stages = [], currentPartFilter = '', starFilterActive = false, currentSeriesFile = '';
+  let currentKeyword = '';
   let isAscending = false;
   let showHistoryStages = true;
   let totalGachaCount = 0; // ガチャの総回転数カウンター
@@ -560,6 +591,21 @@
   
   const toggleNewsModal = (show) => document.getElementById('newsModal').style.display = show ? 'flex' : 'none';
   const toggleGachaModal = (show) => document.getElementById('gachaModal').style.display = show ? 'flex' : 'none';
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') { toggleNewsModal(false); toggleGachaModal(false); }
+  });
+
+  // 次回マスターリーグ情報（シーズンが切り替わったら、ここだけ書き換える）
+  const NEXT_LEAGUE = {
+    label: 'マスターリーグ S17',
+    badges: ['試作機', '重撃'],
+    terrains: [['🏔️', '地上'], ['☁️', '空中']]
+  };
+  document.getElementById('nextLeagueInfo').innerHTML =
+    `<span>${NEXT_LEAGUE.label}</span>` +
+    NEXT_LEAGUE.badges.map(b => `<span class="orange-badge">${b}</span>`).join('') +
+    NEXT_LEAGUE.terrains.map(([icon, label]) => `<span title="${label}">${icon}</span>`).join('');
 
   const escapeHtml = (str) => str.replace(/[&<>"']/g, m => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'}[m]));
 
@@ -629,8 +675,16 @@ function runGacha(count) {
     const listEl = document.getElementById('stageList');
     listEl.innerHTML = '<li style="text-align:center; color:#94a3b8; padding:15px; font-size:0.85rem;">データを読み込み中...</li>';
     try {
-      const res = await fetch('data.json?t=' + Date.now());
+      const res = await fetch('data.json');
       if (!res.ok) throw new Error();
+      const lastModified = res.headers.get('Last-Modified');
+      if (lastModified) {
+        const lmDate = new Date(lastModified);
+        if (!isNaN(lmDate)) {
+          document.getElementById('dataUpdated').textContent =
+            'データ最終更新: ' + lmDate.toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' });
+        }
+      }
       stages = await res.json();
       
       const seriesSet = [...new Set(stages.map(s => s.series).filter(Boolean))];
@@ -640,6 +694,11 @@ function runGacha(count) {
     } catch {
       listEl.innerHTML = '<li style="text-align:center; color:#ef4444; padding:15px; font-size:0.85rem;">データの読み込みに失敗しました。</li>';
     }
+  }
+
+  function onSearchInput(value) {
+    currentKeyword = value.trim();
+    renderStageView();
   }
 
   function filterByTag(tagName) {
@@ -695,6 +754,15 @@ function runGacha(count) {
       if (currentSeriesFile && s.series !== currentSeriesFile) return false;
       if (currentPartFilter && !normalizeList(s.drops).some(d => cleanName(typeof d === 'string' ? d : d.name) === currentPartFilter)) return false;
       if (starFilterActive && !normalizeList(s.captures).some(c => (typeof c === 'string' ? c : c.name || '').includes('★'))) return false;
+      if (currentKeyword) {
+        const kw = currentKeyword.toLowerCase();
+        const haystack = [s.name || '', s.series || '',
+          ...normalizeList(s.drops).map(d => cleanName(typeof d === 'string' ? d : d.name || '')),
+          ...normalizeList(s.captures).map(c => cleanName(typeof c === 'string' ? c : c.name || '')),
+          ...normalizeList(s.charaRequest).map(c => cleanName(typeof c === 'string' ? c : c.name || ''))
+        ].join(' ').toLowerCase();
+        if (!haystack.includes(kw)) return false;
+      }
       return true;
     });
 
@@ -709,6 +777,7 @@ function runGacha(count) {
     if (currentSeriesFile) status.push(`作品: ${currentSeriesFile}`);
     if (currentPartFilter) status.push(`パーツ: ${currentPartFilter}`);
     if (starFilterActive) status.push(`★付き`);
+    if (currentKeyword) status.push(`検索: ${currentKeyword}`);
     document.getElementById('filterStatus').textContent = status.length ? `絞り込み [ ${status.join(' / ')} ]` : '表示中: すべて';
 
     if (!filtered.length) {
@@ -728,12 +797,17 @@ function runGacha(count) {
         <span class="drop-tag-capture">🤖 ${escapeHtml(cleanName(typeof c === 'string' ? c : c.name))}</span>
       `).join('');
 
+      const requests = normalizeList(stage.charaRequest).map(c => `
+        <span class="drop-tag-request">👤 ${escapeHtml(cleanName(typeof c === 'string' ? c : c.name))}</span>
+      `).join('');
+
       return `
         <li class="stage-item">
           <div class="stage-title">${escapeHtml(stage.name || '')}</div>
           <div class="info-sections">
             <div class="drop-section"><div class="drop-tags">${drops || '<span style="font-size:0.75rem; color:#64748b;">登録なし</span>'}</div></div>
             ${captures ? `<div class="capture-section"><div class="drop-tags">${captures}</div></div>` : ''}
+            ${requests ? `<div class="capture-section request-section"><div class="drop-tags">${requests}</div></div>` : ''}
           </div>
         </li>
       `;
