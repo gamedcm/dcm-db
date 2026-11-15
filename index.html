@@ -468,6 +468,51 @@
       text-align: center;
     }
     .footer-disclaimer { font-size: 0.7rem; color: #64748b; line-height: 1.4; margin: 0; overflow-wrap: anywhere; }
+
+    .stage-series { font-size: 0.7rem; color: #7dd3fc; letter-spacing: 0.02em; }
+
+    .section-label {
+      font-size: 0.65rem;
+      font-weight: bold;
+      color: #94a3b8;
+      align-self: center;
+      white-space: nowrap;
+      margin-right: 2px;
+    }
+
+    .stage-list.no-anim .stage-item { animation: none; }
+
+    .drop-tag-unit, .drop-tag-capture, .drop-tag-request { cursor: pointer; }
+    .drop-tag-unit:hover, .drop-tag-capture:hover, .drop-tag-request:hover { filter: brightness(1.35); }
+
+    .to-top-btn {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--accent-color);
+      color: #0f172a;
+      border: none;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+      z-index: 900;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    }
+    .to-top-btn.show { opacity: 0.92; pointer-events: auto; }
+
+    .gacha-summary {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      text-align: center;
+      padding-bottom: 4px;
+      border-bottom: 1px dashed var(--border-color);
+    }
   </style>
 </head>
 <body>
@@ -480,7 +525,7 @@
       <span class="header-info-title">次回:</span>
       <span id="nextLeagueInfo" style="display: contents;"></span>
     </div>
-    <button class="news-trigger-btn" onclick="toggleNewsModal(true)" title="お知らせ">!</button>
+    <button class="news-trigger-btn" onclick="toggleNewsModal(true)" title="お知らせ" aria-label="お知らせを開く">!</button>
   </div>
 
   <div class="filter-control-container">
@@ -503,6 +548,7 @@
     <span id="filterStatus">表示中: すべて</span>
     <div class="result-right-group">
       <span>該当: <span id="resultCount" class="result-count">0</span> 件</span>
+      <button class="sort-order-btn" onclick="resetAllFilters()" title="すべての絞り込みを解除">↺ リセット</button>
       <button id="sortOrderBtn" class="sort-order-btn" onclick="toggleSortOrder()">
         <span id="sortOrderIcon">🔄</span> <span id="sortOrderText">逆順</span>
       </button>
@@ -517,7 +563,7 @@
   <div class="news-modal-content">
     <div class="news-modal-header">
       <span>📢 最新情報・お知らせ</span>
-      <button class="news-close-btn" onclick="toggleNewsModal(false)">×</button>
+      <button class="news-close-btn" onclick="toggleNewsModal(false)" aria-label="閉じる">×</button>
     </div>
     <div class="news-modal-body">
       <p>最新のアップデートや詳細なお知らせは、公式ウェブサイトをご確認ください。</p>
@@ -533,7 +579,7 @@
   <div class="news-modal-content gacha-modal-content">
     <div class="news-modal-header">
       <span>🎰 ガチャシミュレーター</span>
-      <button class="news-close-btn" onclick="toggleGachaModal(false)">×</button>
+      <button class="news-close-btn" onclick="toggleGachaModal(false)" aria-label="閉じる">×</button>
     </div>
     <div class="news-modal-body gacha-inner-body">
       <div class="gacha-top-bar">
@@ -559,12 +605,15 @@
   <p id="dataUpdated" class="footer-disclaimer"></p>
 </footer>
 
+<button id="toTopBtn" class="to-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="トップへ戻る">↑</button>
+
 <script>
   let stages = [], currentPartFilter = '', starFilterActive = false, currentSeriesFile = '';
   let currentKeyword = '';
   let isAscending = false;
   let showHistoryStages = true;
   let totalGachaCount = 0; // ガチャの総回転数カウンター
+  let animPlayed = false;
 
   const historySeriesList = [
     "機動戦士ガンダム0080 ポケットの中の戦争",
@@ -613,12 +662,30 @@
     <button class="part-btn" data-tag="${p.tag}" data-type="${p.type}" onclick="filterByTag('${p.tag}')">${p.tag}</button>
   `).join('');
 
+  // カード内の名前タグをタップすると、その名前で横断検索する
+  function searchByName(name) {
+    document.getElementById('searchInput').value = name;
+    onSearchInput(name);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  document.getElementById('stageList').addEventListener('click', (e) => {
+    const el = e.target.closest('[data-search-name]');
+    if (el) searchByName(el.dataset.searchName);
+  });
+
+  // 一定量スクロールしたら「トップへ戻る」ボタンを出す
+  const toTopBtn = document.getElementById('toTopBtn');
+  window.addEventListener('scroll', () => {
+    toTopBtn.classList.toggle('show', window.scrollY > 600);
+  }, { passive: true });
+
 // ガチャシミュレーター抽選ロジック（更新版）
 function runGacha(count) {
   totalGachaCount += count;
   document.getElementById('totalGachaCount').textContent = totalGachaCount;
 
   const resultsContainer = document.getElementById('gachaResults');
+  const counts = { ur: 0, ssr: 0, sr: 0, r: 0 };
   let html = '';
 
   for (let i = 0; i < count; i++) {
@@ -660,10 +727,12 @@ function runGacha(count) {
       itemClass = 'r';
     }
 
+    counts[itemClass]++;
     html += `<div class="gacha-item ${itemClass}">✨ ${itemName}</div>`;
   }
 
-  resultsContainer.innerHTML = html;
+  resultsContainer.innerHTML =
+    `<div class="gacha-summary">今回の内訳: UR ${counts.ur} / SSR ${counts.ssr} / SR ${counts.sr} / R ${counts.r}</div>` + html;
 }
   // カウンターリセット用関数
   function resetGachaCount() {
@@ -688,8 +757,11 @@ function runGacha(count) {
       stages = await res.json();
       
       const seriesSet = [...new Set(stages.map(s => s.series).filter(Boolean))];
-      document.getElementById('seriesSelect').innerHTML = '<option value="">すべての作品を表示</option>' + 
-        seriesSet.map(s => `<option value="${s}">${s}</option>`).join('');
+      const seriesCounts = {};
+      stages.forEach(s => { if (s.series) seriesCounts[s.series] = (seriesCounts[s.series] || 0) + 1; });
+      document.getElementById('seriesSelect').innerHTML = '<option value="">すべての作品を表示</option>' +
+        seriesSet.map(s => `<option value="${s}">${s}（${seriesCounts[s]}）</option>`).join('');
+      restoreFromHash();
       renderStageView();
     } catch {
       listEl.innerHTML = '<li style="text-align:center; color:#ef4444; padding:15px; font-size:0.85rem;">データの読み込みに失敗しました。</li>';
@@ -701,19 +773,21 @@ function runGacha(count) {
     renderStageView();
   }
 
-  function filterByTag(tagName) {
-    if (tagName === '★') starFilterActive = !starFilterActive;
-    else currentPartFilter = currentPartFilter === tagName ? '' : tagName;
-    
+  function updatePartButtons() {
     document.querySelectorAll('.part-btn').forEach(btn => {
       const tag = btn.dataset.tag;
       btn.classList.toggle('active', tag === '★' ? starFilterActive : tag === currentPartFilter);
     });
+  }
+
+  function filterByTag(tagName) {
+    if (tagName === '★') starFilterActive = !starFilterActive;
+    else currentPartFilter = currentPartFilter === tagName ? '' : tagName;
+    updatePartButtons();
     renderStageView();
   }
 
-  function toggleHistoryFilter() {
-    showHistoryStages = !showHistoryStages;
+  function updateHistoryButton() {
     const btn = document.getElementById('historyToggleBtn');
     const icon = document.getElementById('historyToggleIcon');
     const text = document.getElementById('historyToggleText');
@@ -727,14 +801,18 @@ function runGacha(count) {
       icon.textContent = '-';
       text.textContent = 'OFF';
     }
+  }
+
+  function toggleHistoryFilter() {
+    showHistoryStages = !showHistoryStages;
+    updateHistoryButton();
     renderStageView();
   }
 
-  function toggleSortOrder() {
-    isAscending = !isAscending;
+  function updateSortButton() {
     const btnText = document.getElementById('sortOrderText');
     const btnIcon = document.getElementById('sortOrderIcon');
-    
+
     if (isAscending) {
       btnText.textContent = '正順';
       btnIcon.textContent = '🔼';
@@ -742,11 +820,71 @@ function runGacha(count) {
       btnText.textContent = '逆順';
       btnIcon.textContent = '🔽';
     }
+  }
+
+  function toggleSortOrder() {
+    isAscending = !isAscending;
+    updateSortButton();
+    renderStageView();
+  }
+
+  // 絞り込み状態をURLハッシュに保存する（共有・復元用）
+  function syncHash() {
+    const params = new URLSearchParams();
+    if (currentSeriesFile) params.set('series', currentSeriesFile);
+    if (currentPartFilter) params.set('part', currentPartFilter);
+    if (starFilterActive) params.set('star', '1');
+    if (!showHistoryStages) params.set('hist', '0');
+    if (currentKeyword) params.set('q', currentKeyword);
+    if (isAscending) params.set('sort', 'rev');
+    const qs = params.toString();
+    history.replaceState(null, '', qs ? '#' + qs : location.pathname + location.search);
+  }
+
+  function restoreFromHash() {
+    if (!location.hash || location.hash.length < 2) return;
+    const params = new URLSearchParams(location.hash.slice(1));
+    const series = params.get('series');
+    if (series && [...document.getElementById('seriesSelect').options].some(o => o.value === series)) {
+      currentSeriesFile = series;
+      document.getElementById('seriesSelect').value = series;
+    }
+    const q = params.get('q');
+    if (q) {
+      currentKeyword = q;
+      document.getElementById('searchInput').value = q;
+    }
+    const part = params.get('part');
+    if (part && partsData.some(p => p.tag === part)) currentPartFilter = part;
+    if (params.get('star') === '1') starFilterActive = true;
+    if (currentPartFilter || starFilterActive) updatePartButtons();
+    if (params.get('hist') === '0') {
+      showHistoryStages = false;
+      updateHistoryButton();
+    }
+    if (params.get('sort') === 'rev') {
+      isAscending = true;
+      updateSortButton();
+    }
+  }
+
+  function resetAllFilters() {
+    currentSeriesFile = '';
+    currentPartFilter = '';
+    starFilterActive = false;
+    currentKeyword = '';
+    showHistoryStages = true;
+    document.getElementById('seriesSelect').value = '';
+    document.getElementById('searchInput').value = '';
+    updatePartButtons();
+    updateHistoryButton();
     renderStageView();
   }
 
   function renderStageView() {
     const listEl = document.getElementById('stageList');
+    syncHash();
+    if (animPlayed) listEl.classList.add('no-anim');
     let filtered = stages.filter(s => {
       if (!showHistoryStages && historySeriesList.includes(s.series)) {
         return false;
@@ -781,7 +919,7 @@ function runGacha(count) {
     document.getElementById('filterStatus').textContent = status.length ? `絞り込み [ ${status.join(' / ')} ]` : '表示中: すべて';
 
     if (!filtered.length) {
-      listEl.innerHTML = '<li style="text-align:center; color:#64748b; padding:15px; font-size:0.85rem;">該当するステージ情報はありません</li>';
+      listEl.innerHTML = '<li style="text-align:center; color:#64748b; padding:15px; font-size:0.85rem;">該当するステージ情報はありません<br><button class="sort-order-btn" style="margin:8px auto 0;" onclick="resetAllFilters()">↺ 絞り込みをリセット</button></li>';
       return;
     }
 
@@ -790,28 +928,32 @@ function runGacha(count) {
         const isStr = typeof d === 'string', raw = isStr ? d : (d.name || ''), name = cleanName(raw);
         return (!isStr && d.type === 'part') || knownPartKeywords.includes(name)
           ? `<span class="drop-tag-part" data-type="${getPartType(name)}" onclick="filterByTag('${escapeHtml(name)}')">🎯 ${escapeHtml(name)}</span>`
-          : `<span class="drop-tag-unit">📒 ${escapeHtml(name)}</span>`;
+          : `<span class="drop-tag-unit" data-search-name="${escapeHtml(name)}" title="この名前で検索">📒 ${escapeHtml(name)}</span>`;
       }).join('');
 
-      const captures = normalizeList(stage.captures).map(c => `
-        <span class="drop-tag-capture">🤖 ${escapeHtml(cleanName(typeof c === 'string' ? c : c.name))}</span>
-      `).join('');
+      const captures = normalizeList(stage.captures).map(c => {
+        const name = cleanName(typeof c === 'string' ? c : c.name);
+        return `<span class="drop-tag-capture" data-search-name="${escapeHtml(name)}" title="この名前で検索">🤖 ${escapeHtml(name)}</span>`;
+      }).join('');
 
-      const requests = normalizeList(stage.charaRequest).map(c => `
-        <span class="drop-tag-request">👤 ${escapeHtml(cleanName(typeof c === 'string' ? c : c.name))}</span>
-      `).join('');
+      const requests = normalizeList(stage.charaRequest).map(c => {
+        const name = cleanName(typeof c === 'string' ? c : c.name);
+        return `<span class="drop-tag-request" data-search-name="${escapeHtml(name)}" title="この名前で検索">👤 ${escapeHtml(name)}</span>`;
+      }).join('');
 
       return `
         <li class="stage-item">
+          ${(!currentSeriesFile && stage.series) ? `<div class="stage-series">${escapeHtml(stage.series)}</div>` : ''}
           <div class="stage-title">${escapeHtml(stage.name || '')}</div>
           <div class="info-sections">
-            <div class="drop-section"><div class="drop-tags">${drops || '<span style="font-size:0.75rem; color:#64748b;">登録なし</span>'}</div></div>
-            ${captures ? `<div class="capture-section"><div class="drop-tags">${captures}</div></div>` : ''}
-            ${requests ? `<div class="capture-section request-section"><div class="drop-tags">${requests}</div></div>` : ''}
+            <div class="drop-section"><div class="drop-tags">${drops ? `<span class="section-label">ドロップ</span>${drops}` : '<span style="font-size:0.75rem; color:#64748b;">登録なし</span>'}</div></div>
+            ${captures ? `<div class="capture-section"><div class="drop-tags"><span class="section-label">捕獲</span>${captures}</div></div>` : ''}
+            ${requests ? `<div class="capture-section request-section"><div class="drop-tags"><span class="section-label">リクエスト</span>${requests}</div></div>` : ''}
           </div>
         </li>
       `;
     }).join('');
+    animPlayed = true;
   }
 
   loadDataFromGitHub();
