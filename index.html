@@ -512,9 +512,6 @@
     .news-date { font-size: 0.7rem; font-weight: bold; color: var(--accent-color); }
     .news-title { font-size: 0.85rem; font-weight: bold; color: #f8fafc; line-height: 1.4; }
     .news-note { font-size: 0.78rem; color: #cbd5e1; line-height: 1.45; }
-    a.news-item { display: block; text-decoration: none; cursor: pointer; }
-    a.news-item:hover { background: rgba(56, 189, 248, 0.08); }
-    .news-arrow { color: var(--accent-color); font-weight: bold; }
 
     .gacha-summary {
       font-size: 0.75rem;
@@ -576,7 +573,7 @@
       <button class="news-close-btn" onclick="toggleNewsModal(false)" aria-label="閉じる">×</button>
     </div>
     <div class="news-modal-body">
-      <p style="margin: 0;">公式お知らせの要点です。項目をタップすると公式お知らせ一覧が開きます（記事は一覧から開いてください）。</p>
+      <p style="margin: 0;">公式お知らせの要点です。全文は下のリンク先で確認できます（公式サイトはスマホで表示が崩れる場合があります）。</p>
       <div id="newsDigest" class="news-digest"></div>
       <a href="https://web.jp.eternal.channel.or.jp/ja/information/update.html" target="_blank" rel="noopener noreferrer" class="official-link-btn">
         公式お知らせページを開く（外部サイト）
@@ -668,24 +665,20 @@
     NEXT_LEAGUE.terrains.map(([icon, label]) => `<span title="${label}">${icon}</span>`).join('');
 
   // お知らせダイジェスト（公式お知らせの要点。新しいお知らせが出たら、ここを書き換える）
-  // 個別記事URLは直接開けない（AccessDeniedになる）ため、リンク先は公式お知らせ一覧にする
-  const NEWS_LIST_URL = 'https://web.jp.eternal.channel.or.jp/ja/information/update.html';
   const NEWS_ITEMS = [
-    { date: '2026/11/12', title: 'Ver.2.8.0 アップデート', note: 'フィルタ機能の改修、ユニット/サポーターの「ロック」機能追加（11/17〜）、マスターリーグ改修など', url: NEWS_LIST_URL },
-    { date: '2026/11/12', title: 'ストーリーイベント「G-UNIT」開催', note: '「新機動戦記ガンダムW デュアルストーリー G-UNIT」', url: NEWS_LIST_URL },
-    { date: '2026/11/06', title: 'ジェネレーションタワー「SOUTH TOWER」開催', note: 'URキャラクター「オードリー・バーン」が報酬。～11/30 12:00', url: NEWS_LIST_URL },
-    { date: '2026/11/11', title: '参戦ユニット1111体突破記念キャンペーン', note: 'SP化チップ×100プレゼントなど。～11/30 10:59', url: NEWS_LIST_URL },
+    { date: '2026/11/12', title: 'Ver.2.8.0 アップデート', note: 'フィルタ機能の改修、ユニット/サポーターの「ロック」機能追加（11/17〜）、マスターリーグ改修など' },
+    { date: '2026/11/12', title: 'ストーリーイベント「G-UNIT」開催', note: '「新機動戦記ガンダムW デュアルストーリー G-UNIT」' },
+    { date: '2026/11/06', title: 'ジェネレーションタワー「SOUTH TOWER」開催', note: 'URキャラクター「オードリー・バーン」が報酬。～11/30 12:00' },
+    { date: '2026/11/11', title: '参戦ユニット1111体突破記念キャンペーン', note: 'SP化チップ×100プレゼントなど。～11/30 10:59' },
     { date: '2026/11/23', title: 'マスターリーグ シーズン18 開始予定', note: '12:00開始。ブーストタグ：突破力/赤色、地形：宇宙' }
   ];
-  document.getElementById('newsDigest').innerHTML = NEWS_ITEMS.map(n => {
-    const inner = `
+  document.getElementById('newsDigest').innerHTML = NEWS_ITEMS.map(n => `
+    <div class="news-item">
       <div class="news-date">${n.date}</div>
-      <div class="news-title">${n.title}${n.url ? ' <span class="news-arrow">›</span>' : ''}</div>
-      <div class="news-note">${n.note}</div>`;
-    return n.url
-      ? `<a class="news-item" href="${n.url}" target="_blank" rel="noopener noreferrer">${inner}</a>`
-      : `<div class="news-item">${inner}</div>`;
-  }).join('');
+      <div class="news-title">${n.title}</div>
+      <div class="news-note">${n.note}</div>
+    </div>
+  `).join('');
 
   const escapeHtml = (str) => str.replace(/[&<>"']/g, m => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'}[m]));
 
