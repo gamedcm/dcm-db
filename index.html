@@ -503,6 +503,16 @@
     }
     .to-top-btn.show { opacity: 0.92; pointer-events: auto; }
 
+    .news-modal-content { max-height: 85vh; }
+    .news-modal-body { overflow-y: auto; }
+
+    .news-digest { width: 100%; text-align: left; }
+    .news-item { padding: 7px 2px; border-bottom: 1px dashed var(--border-color); }
+    .news-item:last-child { border-bottom: none; }
+    .news-date { font-size: 0.7rem; font-weight: bold; color: var(--accent-color); }
+    .news-title { font-size: 0.85rem; font-weight: bold; color: #f8fafc; line-height: 1.4; }
+    .news-note { font-size: 0.78rem; color: #cbd5e1; line-height: 1.45; }
+
     .gacha-summary {
       font-size: 0.75rem;
       color: #94a3b8;
@@ -563,7 +573,8 @@
       <button class="news-close-btn" onclick="toggleNewsModal(false)" aria-label="閉じる">×</button>
     </div>
     <div class="news-modal-body">
-      <p>最新のアップデートや詳細なお知らせは、公式ウェブサイトをご確認ください。</p>
+      <p style="margin: 0;">公式お知らせの要点です。全文は下のリンク先で確認できます（公式サイトはスマホで表示が崩れる場合があります）。</p>
+      <div id="newsDigest" class="news-digest"></div>
       <a href="https://web.jp.eternal.channel.or.jp/ja/information/update.html" target="_blank" rel="noopener noreferrer" class="official-link-btn">
         公式お知らせページを開く（外部サイト）
       </a>
@@ -652,6 +663,22 @@
     `<span>${NEXT_LEAGUE.label}</span>` +
     NEXT_LEAGUE.badges.map(b => `<span class="orange-badge">${b}</span>`).join('') +
     NEXT_LEAGUE.terrains.map(([icon, label]) => `<span title="${label}">${icon}</span>`).join('');
+
+  // お知らせダイジェスト（公式お知らせの要点。新しいお知らせが出たら、ここを書き換える）
+  const NEWS_ITEMS = [
+    { date: '2026/11/12', title: 'Ver.2.8.0 アップデート', note: 'フィルタ機能の改修、ユニット/サポーターの「ロック」機能追加（11/17〜）、マスターリーグ改修など' },
+    { date: '2026/11/12', title: 'ストーリーイベント「G-UNIT」開催', note: '「新機動戦記ガンダムW デュアルストーリー G-UNIT」' },
+    { date: '2026/11/06', title: 'ジェネレーションタワー「SOUTH TOWER」開催', note: 'URキャラクター「オードリー・バーン」が報酬。～11/30 12:00' },
+    { date: '2026/11/11', title: '参戦ユニット1111体突破記念キャンペーン', note: 'SP化チップ×100プレゼントなど。～11/30 10:59' },
+    { date: '2026/11/23', title: 'マスターリーグ シーズン18 開始予定', note: '12:00開始。ブーストタグ：突破力/赤色、地形：宇宙' }
+  ];
+  document.getElementById('newsDigest').innerHTML = NEWS_ITEMS.map(n => `
+    <div class="news-item">
+      <div class="news-date">${n.date}</div>
+      <div class="news-title">${n.title}</div>
+      <div class="news-note">${n.note}</div>
+    </div>
+  `).join('');
 
   const escapeHtml = (str) => str.replace(/[&<>"']/g, m => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'}[m]));
 
