@@ -482,9 +482,6 @@
 
     .stage-list.no-anim .stage-item { animation: none; }
 
-    .drop-tag-unit, .drop-tag-capture, .drop-tag-request { cursor: pointer; }
-    .drop-tag-unit:hover, .drop-tag-capture:hover, .drop-tag-request:hover { filter: brightness(1.35); }
-
     .to-top-btn {
       position: fixed;
       right: 16px;
@@ -661,17 +658,6 @@
   document.getElementById('partButtons').innerHTML = partsData.map(p => `
     <button class="part-btn" data-tag="${p.tag}" data-type="${p.type}" onclick="filterByTag('${p.tag}')">${p.tag}</button>
   `).join('');
-
-  // カード内の名前タグをタップすると、その名前で横断検索する
-  function searchByName(name) {
-    document.getElementById('searchInput').value = name;
-    onSearchInput(name);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-  document.getElementById('stageList').addEventListener('click', (e) => {
-    const el = e.target.closest('[data-search-name]');
-    if (el) searchByName(el.dataset.searchName);
-  });
 
   // 一定量スクロールしたら「トップへ戻る」ボタンを出す
   const toTopBtn = document.getElementById('toTopBtn');
@@ -928,17 +914,17 @@ function runGacha(count) {
         const isStr = typeof d === 'string', raw = isStr ? d : (d.name || ''), name = cleanName(raw);
         return (!isStr && d.type === 'part') || knownPartKeywords.includes(name)
           ? `<span class="drop-tag-part" data-type="${getPartType(name)}" onclick="filterByTag('${escapeHtml(name)}')">🎯 ${escapeHtml(name)}</span>`
-          : `<span class="drop-tag-unit" data-search-name="${escapeHtml(name)}" title="この名前で検索">📒 ${escapeHtml(name)}</span>`;
+          : `<span class="drop-tag-unit">📒 ${escapeHtml(name)}</span>`;
       }).join('');
 
       const captures = normalizeList(stage.captures).map(c => {
         const name = cleanName(typeof c === 'string' ? c : c.name);
-        return `<span class="drop-tag-capture" data-search-name="${escapeHtml(name)}" title="この名前で検索">🤖 ${escapeHtml(name)}</span>`;
+        return `<span class="drop-tag-capture">🤖 ${escapeHtml(name)}</span>`;
       }).join('');
 
       const requests = normalizeList(stage.charaRequest).map(c => {
         const name = cleanName(typeof c === 'string' ? c : c.name);
-        return `<span class="drop-tag-request" data-search-name="${escapeHtml(name)}" title="この名前で検索">👤 ${escapeHtml(name)}</span>`;
+        return `<span class="drop-tag-request">👤 ${escapeHtml(name)}</span>`;
       }).join('');
 
       return `
